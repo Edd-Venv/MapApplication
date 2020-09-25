@@ -1,12 +1,12 @@
+/* eslint-disable sort-imports */
 import "./App.css";
 import React from "react";
+import Map from "./Components/Map/Map";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h2>MAP </h2>
-      </header>
+      <Map />
     </div>
   );
 }
