@@ -5,11 +5,10 @@ import {
   withGoogleMap,
   withScriptjs,
 } from "react-google-maps";
-import { handleAddressComponent } from "./Utils";
-import Geocode from "react-geocode";
+import { handleAddressComponent, handleMarkerDragEnd } from "./Utils";
+import AutoComplete from "react-google-autocomplete";
 import React from "react";
 
-Geocode.setApiKey("AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8");
 class Map extends React.Component {
   state = {
     address: "",
@@ -27,40 +26,86 @@ class Map extends React.Component {
       lng: 0,
     },
   };
-
-  handleMarkerDragEnd = (event) => {
-    let newLat = event.latLng.lat(),
-      newLng = event.latLng.lng();
-    Geocode.fromLatLng(newLat, newLng).then((response) => {
-      const address = response.results[0].formatted_address,
-        addressArray = response.results[0].address_components,
-        city = handleAddressComponent(
-          addressArray,
-          "administrative_area_level_2"
-        ),
-        area = handleAddressComponent(addressArray, "sublocality_level_1"),
-        state = handleAddressComponent(
-          addressArray,
-          "administrative_area_level_1"
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState(
+          {
+            mapPosition: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+            markerPosition: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            },
+          },
+          () => {}
         );
+      });
+    }
+  }
+
+  onMarkerDragEnd = (event) => {
+    const promise = handleMarkerDragEnd(event);
+    promise.then((response) => {
+      const newState = Object.assign({}, this.state, response);
+
+      this.setState(newState);
     });
   };
+  onPlaceSelected = (place) => {
+    const addressArray = place.address_components;
+    const address = place.formatted_address;
+    const city = handleAddressComponent(addressArray);
+    const area = handleAddressComponent(addressArray);
+    const state = handleAddressComponent(addressArray);
+    const newLat = place.geometry.location.lat();
+    const newLng = place.geometry.location.lng();
+    const data = {
+      address,
+      city,
+      area,
+      state,
+      markerPosition: {
+        lat: newLat,
+        lng: newLng,
+      },
+      mapPosition: {
+        lat: newLat,
+        lng: newLng,
+      },
+    };
+    const newState = Object.assign({}, this.state, data);
+    this.setState(newState);
+  };
+
   render() {
     const MapWithAMarker = withScriptjs(
       withGoogleMap((props) => (
         <GoogleMap
           defaultZoom={8}
-          defaultCenter={{ lat: -34.397, lng: 150.644 }}
+          defaultCenter={{
+            lat: this.state.mapPosition.lat,
+            lng: this.state.mapPosition.lng,
+          }}
         >
           <Marker
             draggable={true}
-            onDragEnd={this.handleMarkerDragEnd}
-            position={{ lat: -34.397, lng: 150.644 }}
+            onDragEnd={this.onMarkerDragEnd}
+            position={{
+              lat: this.state.markerPosition.lat,
+              lng: this.state.markerPosition.lng,
+            }}
           >
             <InfoWindow>
               <div>HEY</div>
             </InfoWindow>
           </Marker>
+          <AutoComplete
+            types={["(regions)"]}
+            onPlaceSelected={this.onPlaceSelected}
+          />
         </GoogleMap>
       ))
     );
