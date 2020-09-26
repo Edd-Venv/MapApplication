@@ -5,7 +5,11 @@ import {
   withGoogleMap,
   withScriptjs,
 } from "react-google-maps";
-import { handleAddressComponent, handleMarkerDragEnd } from "./Utils";
+import {
+  handleComponentMount,
+  handleMarkerDragEnd,
+  handlePlaceSelected,
+} from "./Utils";
 import AutoComplete from "react-google-autocomplete";
 import React from "react";
 
@@ -26,25 +30,25 @@ class Map extends React.Component {
       lng: 0,
     },
   };
+
   componentDidMount() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.setState(
-          {
-            mapPosition: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-            markerPosition: {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            },
-          },
-          () => {}
-        );
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        this.onComponentMount(lat, lng);
       });
     }
   }
+
+  onComponentMount = (lat, lng) => {
+    const promise = handleComponentMount(lat, lng);
+    promise.then((response) => {
+      const newState = Object.assign({}, this.state, response);
+
+      this.setState(newState);
+    });
+  };
 
   onMarkerDragEnd = (event) => {
     const promise = handleMarkerDragEnd(event);
@@ -54,29 +58,11 @@ class Map extends React.Component {
       this.setState(newState);
     });
   };
+
   onPlaceSelected = (place) => {
-    const addressArray = place.address_components;
-    const address = place.formatted_address;
-    const city = handleAddressComponent(addressArray);
-    const area = handleAddressComponent(addressArray);
-    const state = handleAddressComponent(addressArray);
-    const newLat = place.geometry.location.lat();
-    const newLng = place.geometry.location.lng();
-    const data = {
-      address,
-      city,
-      area,
-      state,
-      markerPosition: {
-        lat: newLat,
-        lng: newLng,
-      },
-      mapPosition: {
-        lat: newLat,
-        lng: newLng,
-      },
-    };
+    const data = handlePlaceSelected(place);
     const newState = Object.assign({}, this.state, data);
+
     this.setState(newState);
   };
 
@@ -99,7 +85,7 @@ class Map extends React.Component {
             }}
           >
             <InfoWindow>
-              <div>HEY</div>
+              <div>{this.state.address}</div>
             </InfoWindow>
           </Marker>
           <AutoComplete
