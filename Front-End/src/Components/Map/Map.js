@@ -12,6 +12,7 @@ import {
 } from "./Utils";
 import AutoComplete from "react-google-autocomplete";
 import React from "react";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 class Map extends React.Component {
   state = {
@@ -112,13 +113,15 @@ class Map extends React.Component {
       ))
     );
     return (
-      <Map
-        data-test="component-map"
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
+      <ErrorBoundary>
+        <Map
+          data-test="component-map"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </ErrorBoundary>
     );
   }
 }
