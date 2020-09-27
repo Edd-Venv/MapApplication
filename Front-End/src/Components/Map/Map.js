@@ -12,6 +12,7 @@ import {
 } from "./Utils";
 import AutoComplete from "react-google-autocomplete";
 import React from "react";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 class Map extends React.Component {
   state = {
@@ -32,38 +33,54 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        this.onComponentMount(lat, lng);
-      });
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          this.onComponentMount(lat, lng);
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   onComponentMount = (lat, lng) => {
-    const promise = handleComponentMount(lat, lng);
-    promise.then((response) => {
-      const newState = Object.assign({}, this.state, response);
+    try {
+      const promise = handleComponentMount(lat, lng);
+      promise.then((response) => {
+        const newState = Object.assign({}, this.state, response);
 
-      this.setState(newState);
-    });
+        this.setState(newState);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onMarkerDragEnd = (event) => {
-    const promise = handleMarkerDragEnd(event);
-    promise.then((response) => {
-      const newState = Object.assign({}, this.state, response);
+    try {
+      const promise = handleMarkerDragEnd(event);
+      promise.then((response) => {
+        const newState = Object.assign({}, this.state, response);
 
-      this.setState(newState);
-    });
+        this.setState(newState);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onPlaceSelected = (place) => {
-    const data = handlePlaceSelected(place);
-    const newState = Object.assign({}, this.state, data);
+    try {
+      const data = handlePlaceSelected(place);
+      const newState = Object.assign({}, this.state, data);
 
-    this.setState(newState);
+      this.setState(newState);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -77,7 +94,6 @@ class Map extends React.Component {
           }}
         >
           <Marker
-            data-test="component-marker"
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
             position={{
@@ -97,13 +113,15 @@ class Map extends React.Component {
       ))
     );
     return (
-      <Map
-        data-test="component-map"
-        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-      />
+      <ErrorBoundary>
+        <Map
+          data-test="component-map"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </ErrorBoundary>
     );
   }
 }
