@@ -4,6 +4,14 @@ import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8");
 
+/**
+ * Function That Takes In An Array Of Data Then Looks Through The Array
+ *  To Find City, Area, State Or Address.
+ * @function handleAddressComponent
+ * @param {*} addressArray An Array Containing Location Data.
+ * @param {*} correctAddressType A String That Is An Address Type In The Location Data.
+ * @returns A String That Is Either City, State Or Address.
+ */
 export function handleAddressComponent(addressArray, correctAddressType) {
   let addressComponent = "";
 
@@ -49,6 +57,15 @@ export function handleAddressComponent(addressArray, correctAddressType) {
   return addressComponent;
 }
 
+/**
+ * Function That Takes In A Latitude Coordinate And A Longitude Coordinate,
+ *  Then Calls @handleAddressComponent To
+ *  Create An Object Containing The Address, Area, City And State.
+ * @function createGeocodeObject
+ * @param {*} newLat Latitude
+ * @param {*} newLng Longitude
+ * @returns An Object
+ */
 async function createGeocodeObject(newLat, newLng) {
   let data;
   await Geocode.fromLatLng(newLat, newLng).then((response) => {
@@ -94,6 +111,13 @@ export async function handleComponentMount(newLat, newLng) {
   return data;
 }
 
+/**
+ * Function Thats Takes In A GeoLocation Object Then Calls @handleAddressComponent
+ * To Find City, Area, State And Address.
+ * @function handlePlaceSelected
+ * @param {*} place Object
+ * @returns An Object
+ */
 export function handlePlaceSelected(place) {
   const addressArray = place.address_components;
   const address = place.formatted_address;
