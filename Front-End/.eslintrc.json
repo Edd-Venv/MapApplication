@@ -22,6 +22,7 @@
     "quotes": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
-    "react/prefer-stateless-function": "off"
+    "no-plusplus": "off",
+    "import/no-named-as-default-member": "off"
   }
 }
