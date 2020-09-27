@@ -32,38 +32,54 @@ class Map extends React.Component {
   };
 
   componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        this.onComponentMount(lat, lng);
-      });
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          this.onComponentMount(lat, lng);
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
   onComponentMount = (lat, lng) => {
-    const promise = handleComponentMount(lat, lng);
-    promise.then((response) => {
-      const newState = Object.assign({}, this.state, response);
+    try {
+      const promise = handleComponentMount(lat, lng);
+      promise.then((response) => {
+        const newState = Object.assign({}, this.state, response);
 
-      this.setState(newState);
-    });
+        this.setState(newState);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onMarkerDragEnd = (event) => {
-    const promise = handleMarkerDragEnd(event);
-    promise.then((response) => {
-      const newState = Object.assign({}, this.state, response);
+    try {
+      const promise = handleMarkerDragEnd(event);
+      promise.then((response) => {
+        const newState = Object.assign({}, this.state, response);
 
-      this.setState(newState);
-    });
+        this.setState(newState);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onPlaceSelected = (place) => {
-    const data = handlePlaceSelected(place);
-    const newState = Object.assign({}, this.state, data);
+    try {
+      const data = handlePlaceSelected(place);
+      const newState = Object.assign({}, this.state, data);
 
-    this.setState(newState);
+      this.setState(newState);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -77,7 +93,6 @@ class Map extends React.Component {
           }}
         >
           <Marker
-            data-test="component-marker"
             draggable={true}
             onDragEnd={this.onMarkerDragEnd}
             position={{
