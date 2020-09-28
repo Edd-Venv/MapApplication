@@ -113,7 +113,7 @@ class Map extends React.Component {
       ))
     );
     return (
-      <ErrorBoundary>
+      <ErrorBoundary data-test="component-error-boundary">
         <Map
           data-test="component-map"
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"

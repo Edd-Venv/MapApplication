@@ -20,4 +20,13 @@ describe("MAP COMPONENT", () => {
     const mapComponent = findByTestAttr(wrapper, "component-map");
     expect(mapComponent.length).toBe(1);
   });
+
+  it("SHOULD HAVE AN ERROR BOUNDARY WRAPPING MAP COMPONENT", () => {
+    const wrapper = setup();
+    const mapComponent = findByTestAttr(wrapper, "component-map");
+    const errorBoundary = mapComponent.parent();
+    expect(
+      findByTestAttr(errorBoundary, "component-error-boundary").length
+    ).toBe(1);
+  });
 });
