@@ -25,6 +25,7 @@
     "no-plusplus": "off",
     "import/no-named-as-default-member": "off",
     "import/no-extraneous-dependencies": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "import/no-unresolved": "off"
   }
 }

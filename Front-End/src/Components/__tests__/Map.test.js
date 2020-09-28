@@ -25,6 +25,7 @@ describe("MAP COMPONENT", () => {
     const wrapper = setup();
     const mapComponent = findByTestAttr(wrapper, "component-map");
     const errorBoundary = mapComponent.parent();
+    console.log(errorBoundary.debug());
     /* work on Test
     expect(
       findByTestAttr(errorBoundary, "component-error-boundary").length

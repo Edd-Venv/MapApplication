@@ -1,6 +1,6 @@
 import {
-  InfoWindow,
   GoogleMap,
+  InfoWindow,
   Marker,
   withGoogleMap,
   withScriptjs,
@@ -9,7 +9,6 @@ import {
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
-
 import SaveButton from "../SaveButton/SaveButton";
 
 const Map = (props) => {
