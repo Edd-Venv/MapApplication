@@ -12,6 +12,7 @@ import {
 } from "./Utils";
 import AutoComplete from "react-google-autocomplete";
 import React from "react";
+import SaveButton from "../SaveButton/SaveButton";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 class Map extends React.Component {
@@ -102,7 +103,7 @@ class Map extends React.Component {
             }}
           >
             <InfoWindow>
-              <div>{this.state.address}</div>
+              <SaveButton state={this.state} />
             </InfoWindow>
           </Marker>
           <AutoComplete

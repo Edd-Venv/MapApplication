@@ -23,6 +23,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-one-expression-per-line": "off",
     "no-plusplus": "off",
-    "import/no-named-as-default-member": "off"
+    "import/no-named-as-default-member": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/forbid-prop-types": "off"
   }
 }
