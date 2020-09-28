@@ -1,6 +1,6 @@
 /* eslint-disable sort-imports */
 import React from "react";
-import Classes from "./App.modules.css";
+import Classes from "./App.module.css";
 import Cockpit from "../components/Map/Cockpit";
 
 function App() {
