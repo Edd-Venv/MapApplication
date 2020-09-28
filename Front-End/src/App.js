@@ -1,11 +1,11 @@
 /* eslint-disable sort-imports */
-import "./App.css";
 import React from "react";
+import Classes from "./App.modules.css";
 import Map from "./Components/Map/Map";
 
 function App() {
   return (
-    <div className="App">
+    <div className={Classes.App}>
       <Map />
     </div>
   );
