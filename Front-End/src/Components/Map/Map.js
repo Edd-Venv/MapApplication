@@ -1,6 +1,6 @@
 import {
-  InfoWindow,
   GoogleMap,
+  InfoWindow,
   Marker,
   withGoogleMap,
   withScriptjs,
@@ -9,7 +9,7 @@ import {
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
-
+import Classes from "./Map.module.css";
 import SaveButton from "../SaveButton/SaveButton";
 
 const Map = (props) => {
@@ -46,7 +46,7 @@ const Map = (props) => {
       data-test="component-map"
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `400px` }} />}
+      containerElement={<div className={Classes.map_container} />}
       mapElement={<div style={{ height: `100%` }} />}
     />
   );
