@@ -4,7 +4,7 @@ import {
   handlePlaceSelected,
 } from "./Utils";
 import React from "react";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
 
 class Cockpit extends React.Component {
