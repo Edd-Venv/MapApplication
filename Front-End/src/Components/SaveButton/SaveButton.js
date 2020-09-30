@@ -1,13 +1,18 @@
 import PropTypes from "prop-types";
 import React from "react";
 import saveLocation from "./SaveLocation";
+import Button from "../UI/Button/Button";
 
 const saveButton = (props) => (
   <div>
     <p>{props.state.address}</p>
-    <button type="submit" onClick={saveLocation(props.state)}>
+    <Button
+      buttonType=""
+      type="button"
+      buttonClick={() => saveLocation(props.state)}
+    >
       Save Location
-    </button>
+    </Button>
   </div>
 );
 
