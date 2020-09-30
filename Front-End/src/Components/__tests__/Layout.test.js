@@ -15,7 +15,7 @@ const setup = () => shallow(<Layout />);
 const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
 
 describe("LAYOUT COMPONENT", () => {
-  it("SHOULD RENDER LAYOUT COMPOENT", () => {
+  it("SHOULD RENDER LAYOUT COMPONENT", () => {
     const wrapper = setup();
     const layoutComponent = findByTestAttr(wrapper, "component-layout");
     expect(layoutComponent.length).toBe(1);
