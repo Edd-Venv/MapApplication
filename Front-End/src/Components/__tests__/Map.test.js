@@ -21,14 +21,14 @@ describe("MAP COMPONENT", () => {
     expect(mapComponent.length).toBe(1);
   });
 
-  it("SHOULD HAVE AN ERROR BOUNDARY WRAPPING MAP COMPONENT", () => {
+  /*it("SHOULD HAVE AN ERROR BOUNDARY WRAPPING MAP COMPONENT", () => {
     const wrapper = setup();
-    const mapComponent = findByTestAttr(wrapper, "component-map");
+    const errorComponent = findByTestAttr(wrapper, "component-error-boundary");
     const errorBoundary = mapComponent.parent();
-    console.log(errorBoundary.debug());
-    /* work on Test
+    console.log(errorComponent.html());
+    work on Test
     expect(
       findByTestAttr(errorBoundary, "component-error-boundary").length
-    ).toBe(1);*/
-  });
+    ).toBe(1);
+  });*/
 });
