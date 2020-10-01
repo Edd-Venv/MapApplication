@@ -1,12 +1,11 @@
 /* eslint-disable sort-imports */
 import React from "react";
-import Classes from "./App.module.css";
 import Cockpit from "./containers/Map/Cockpit";
 import Layout from "./components/Layout/Layout";
 
 function App() {
   return (
-    <div className={Classes.App}>
+    <div>
       <Layout>
         <Cockpit />
       </Layout>
