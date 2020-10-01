@@ -8,7 +8,11 @@ class ErrorBoundary extends React.Component {
   };
   render() {
     if (this.state.hasError)
-      return <h1>Unable To Load Map Please Refresh Brower :) .</h1>;
+      return (
+        <h1 data-test="component-error-boundary">
+          Unable To Load Map Please Refresh Brower :) .
+        </h1>
+      );
     else return this.props.children;
   }
 }
