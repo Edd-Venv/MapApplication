@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
-import BackDrop from "../UI/Backdrop/Backdrop";
+import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
@@ -10,17 +10,14 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
  * @function setup
  * @returns {ShallowWrapper}
  */
-const setup = () => shallow(<BackDrop />);
+const setup = () => shallow(<SideDrawer />);
 
 const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
 
-describe("BACKDROP COMPONENT", () => {
-  it("SHOULD RENDER BACKDROP COMPONENT WHEN NAVIGATION SIDE DRAWER IS OPENED", () => {
+describe("SIDE DRAWER COMPONENT", () => {
+  it("SHOULD RENDER SIDE DRAWER COMPONENT", () => {
     const wrapper = setup();
-    wrapper.setProps({ show: true });
-
-    const backdropComponent = findByTestAttr(wrapper, "component-backdrop");
-
-    expect(backdropComponent.length).toBe(1);
+    const layoutComponent = findByTestAttr(wrapper, "component-side-drawer");
+    expect(layoutComponent.length).toBe(1);
   });
 });
