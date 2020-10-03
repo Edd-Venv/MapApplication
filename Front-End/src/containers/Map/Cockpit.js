@@ -6,6 +6,7 @@ import {
 import React from "react";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Cockpit extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Cockpit extends React.Component {
         lng: 0,
       },
       showBackDrop: false,
+      isDataLoaded: false,
     };
   }
 
@@ -35,6 +37,7 @@ class Cockpit extends React.Component {
         navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
+
           this.onComponentMount(lat, lng);
         });
       }
@@ -45,10 +48,13 @@ class Cockpit extends React.Component {
 
   onComponentMount = (lat, lng) => {
     try {
+      // I Can Set State here(componentDidMount) Because it is a Promise
+
       const promise = handleComponentMount(lat, lng);
       promise.then((response) => {
         this.setState((prevState, props) => {
           const newState = Object.assign({}, prevState, response);
+          newState.isDataLoaded = true;
           return newState;
         });
       });
@@ -84,15 +90,17 @@ class Cockpit extends React.Component {
   };
 
   render() {
-    return (
-      <ErrorBoundary data-test="component-error-boundary">
-        <Map
-          state={this.state}
-          onPlaceSelected={this.onPlaceSelected}
-          onMarkerDragEnd={this.onMarkerDragEnd}
-        />
-      </ErrorBoundary>
-    );
+    if (this.state.isDataLoaded)
+      return (
+        <ErrorBoundary data-test="component-error-boundary">
+          <Map
+            state={this.state}
+            onPlaceSelected={this.onPlaceSelected}
+            onMarkerDragEnd={this.onMarkerDragEnd}
+          />
+        </ErrorBoundary>
+      );
+    else return <Spinner />;
   }
 }
 
