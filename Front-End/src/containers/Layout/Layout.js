@@ -1,6 +1,6 @@
 import React from "react";
-import ToolBar from "../Navigation/ToolBar/Toolbar";
-import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
+import ToolBar from "../../components/Navigation/ToolBar/Toolbar";
+import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
 class Layout extends React.Component {
   constructor(props) {

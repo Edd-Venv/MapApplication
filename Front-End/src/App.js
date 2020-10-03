@@ -1,7 +1,7 @@
 /* eslint-disable sort-imports */
 import React from "react";
 import Cockpit from "./containers/Map/Cockpit";
-import Layout from "./components/Layout/Layout";
+import Layout from "./containers/Layout/Layout";
 
 function App() {
   return (
