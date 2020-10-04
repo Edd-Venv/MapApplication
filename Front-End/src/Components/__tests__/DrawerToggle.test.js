@@ -1,7 +1,7 @@
 import React from "react";
 import Enzyme, { mount, shallow } from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
-import Layout from "../Layout/Layout";
+import Layout from "../../containers/Layout/Layout";
 import DrawerToggle from "../Navigation/SideDrawer/DrawerToggle/DrawerToggle";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
