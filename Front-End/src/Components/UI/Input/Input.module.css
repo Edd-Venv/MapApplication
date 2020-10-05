@@ -1,0 +1,25 @@
+.Input {
+  display: block;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-color: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline: none;
+  box-shadow: none;
+  letter-spacing: 0.1rem;
+}
+.Input:focus {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-color: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  outline: none;
+  box-shadow: none;
+  color: #313638;
+  border-color: #bada55;
+  border-bottom-width: medium;
+}
