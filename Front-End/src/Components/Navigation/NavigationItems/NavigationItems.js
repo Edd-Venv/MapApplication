@@ -7,7 +7,7 @@ const navigationItems = () => (
     className={classes.NavigationItems}
     data-test="component-navigation-items"
   >
-    <NavigationItem link="/" active data-test="home-link">
+    <NavigationItem link="/" data-test="home-link">
       Home{" "}
     </NavigationItem>
     <NavigationItem link="/signin" data-test="sign-in-link">

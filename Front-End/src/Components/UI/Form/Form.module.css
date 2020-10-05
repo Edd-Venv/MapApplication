@@ -1,0 +1,50 @@
+@media (min-width: 320px) {
+  #forgot-password-link {
+    color: #ff4545;
+    font-weight: lighter;
+    text-decoration: none;
+    width: 90%;
+  }
+  .Form {
+    text-align: center;
+    margin: 0 auto;
+    font: 2rem;
+    margin-top: 45%;
+    width: 70vw;
+    color: #313638;
+    letter-spacing: 0.15rem;
+    background-color: #e8e9eb;
+    font-family: "Oswald", sans-serif;
+  }
+}
+@media (min-width: 500px) {
+  .Form {
+    margin-top: 30%;
+  }
+}
+@media (min-width: 768px) {
+  .Form {
+    width: 50vw;
+    margin: 0 auto;
+    font: 2rem;
+    margin-top: 30%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .Form {
+    width: 30vw;
+    margin: 0 auto;
+    font: 2rem;
+    margin-top: 30%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .Form {
+    width: 35vw;
+    margin: 0 auto;
+    font: 2rem;
+    margin-top: 30%;
+  }
+}
