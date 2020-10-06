@@ -1,50 +1,105 @@
 @media (min-width: 320px) {
-  #forgot-password-link {
-    color: #ff4545;
+  .ForgotPassword {
+    color: #350000;
     font-weight: lighter;
     text-decoration: none;
-    width: 90%;
+    width: 73%;
+    font-size: 13px;
+    letter-spacing: 0.01rem;
   }
   .Form {
     text-align: center;
     margin: 0 auto;
     font: 2rem;
-    margin-top: 45%;
     width: 70vw;
     color: #313638;
     letter-spacing: 0.15rem;
-    background-color: #e8e9eb;
+    background-color: rgba(132, 125, 133, 0.6);
     font-family: "Oswald", sans-serif;
+  }
+  .Inputs {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    box-shadow: none;
+    letter-spacing: 0.1rem;
+    margin: 16px;
+  }
+  .Inputs:focus {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    box-shadow: none;
+    color: #313638;
+    border-color: #14ad13;
+    border-bottom-width: medium;
+  }
+}
+@media (min-width: 400px) {
+  .Form {
+    width: 58vw;
+    margin-top: 13vh;
+  }
+  .Inputs {
+    margin: 10px;
+  }
+  .ForgotPassword {
+    margin: 2px;
   }
 }
 @media (min-width: 500px) {
   .Form {
-    margin-top: 30%;
+    width: 40vw;
+    margin-top: 15vh;
+  }
+  .Inputs {
+    margin: 10px;
+  }
+  .ForgotPassword {
+    margin: 2px;
   }
 }
 @media (min-width: 768px) {
   .Form {
-    width: 50vw;
-    margin: 0 auto;
+    background-color: rgba(197, 191, 197, 0.8);
+    width: 31vw;
     font: 2rem;
-    margin-top: 30%;
+    margin-top: 13vh;
+  }
+  .Inputs {
+    margin: 14px;
+  }
+  .ForgotPassword {
+    margin: 0px;
   }
 }
 
 @media (min-width: 1024px) {
   .Form {
-    width: 30vw;
-    margin: 0 auto;
+    width: 25vw;
     font: 2rem;
-    margin-top: 30%;
+    margin-top: 0vh;
+  }
+  .Inputs {
+    margin: 20px;
+  }
+  .ForgotPassword {
+    margin: 5px;
+    width: 80%;
   }
 }
 
 @media (min-width: 1440px) {
   .Form {
     width: 35vw;
-    margin: 0 auto;
     font: 2rem;
-    margin-top: 30%;
   }
 }
