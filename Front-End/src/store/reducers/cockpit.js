@@ -41,6 +41,7 @@ const cockpitReducer = (state = initialState, action) => {
         const newState = Object.assign(
           {},
           state,
+          action.response,
           newMapPosition,
           newMarkerPosition
         );

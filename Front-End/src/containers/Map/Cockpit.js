@@ -13,6 +13,7 @@ class Cockpit extends React.Component {
 
   componentDidMount() {
     const { onComponentMount } = this.props;
+
     try {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -28,6 +29,7 @@ class Cockpit extends React.Component {
 
   render() {
     const { state, onPlaceSelected, onMarkerDragEnd } = this.props;
+
     if (state.isDataLoaded) {
       return (
         <ErrorBoundary data-test="component-error-boundary">
