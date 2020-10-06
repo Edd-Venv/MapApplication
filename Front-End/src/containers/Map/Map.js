@@ -10,7 +10,7 @@ import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
 import Classes from "./Map.module.css";
-import SaveButton from "../SaveButton/SaveButton";
+import SaveButton from "../../components/SaveButton/SaveButton";
 
 const Map = (props) => {
   const GMap = withScriptjs(

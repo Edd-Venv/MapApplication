@@ -3,7 +3,7 @@ function saveLocation(locationData) {
   // And Also Update State To Show Saved location on Map
   /* saveLocation function Can Also Be A Method Of Map Instead
   but I Wanted To use Redux */
-  return console.log(locationData);
+  return console.log("SaveLocation Func", locationData);
 }
 
 export default saveLocation;
