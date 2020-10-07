@@ -25,6 +25,9 @@ const Map = (props) => {
           disableDefaultUI: true,
           zoomControl: true,
         }}
+        onClick={(event) => {
+          console.log(event);
+        }}
       >
         <Marker
           draggable

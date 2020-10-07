@@ -4,13 +4,38 @@ import Button from "../Button/Button";
 import classes from "./Form.module.css";
 
 const form = (props) => {
+  const {
+    onBlobInputChange,
+    onNameInputChange,
+    onPasswordInputChange,
+    handleChange,
+    formTitle,
+  } = props;
   let forgotPassword = null;
+  let pictureUpload = null;
 
-  if (props.formTitle === "Sign In") {
+  if (formTitle === "Sign In") {
     forgotPassword = (
       <Link to="/forgotPassword" style={{ textDecorationLine: "none" }}>
         <p className={classes.ForgotPassword}>Forgot your password?</p>
       </Link>
+    );
+  }
+  if (formTitle === "Sign Up") {
+    pictureUpload = (
+      <div>
+        <label htmlFor="photo" className={classes.CustomFileUpload}>
+          Click To Add Photo ( Optional )
+          <input
+            className={classes.CustomFileInput}
+            onChange={onBlobInputChange}
+            type="file"
+            name="photo"
+            id="photo"
+            accept="image/*"
+          />
+        </label>
+      </div>
     );
   }
 
@@ -20,7 +45,7 @@ const form = (props) => {
       autoComplete="off"
       onSubmit={props.handleSubmit}
     >
-      <h3>{props.formTitle}</h3>
+      <h3>{formTitle}</h3>
       <div>
         <label htmlFor={props.firstInputLabel} />
         <input
@@ -28,7 +53,7 @@ const form = (props) => {
           name={props.firstInputLabel}
           type={props.firstInputType}
           value={props.firstInputValue}
-          onChange={props.handleChange}
+          onChange={onNameInputChange || handleChange}
           ref={props.firstInputRef}
           placeholder={props.firstInputPlaceHolder}
         />
@@ -41,15 +66,16 @@ const form = (props) => {
           name={props.secondInputLabel}
           type={props.secondInputType}
           value={props.secondInputValue}
-          onChange={props.handleChange}
+          onChange={onPasswordInputChange || handleChange}
           ref={props.secondInputRef}
           placeholder={props.secondInputPlaceHolder}
         />
       </div>
       {forgotPassword}
+      {pictureUpload}
       <div>
         {" "}
-        <Button type={props.buttonType}>SignIn </Button>
+        <Button type={props.buttonType}>{formTitle}</Button>
       </div>
     </form>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import * as actionCreators from "../../store/actions/actions";
+import * as actionCreators from "../../store/actions/cockpit";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
 import Spinner from "../../components/UI/Spinner/Spinner";
