@@ -9,7 +9,7 @@ import {
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
-import Classes from "./Map.module.css";
+import classes from "./Map.module.css";
 import SaveButton from "../../components/SaveButton/SaveButton";
 
 const Map = (props) => {
@@ -21,6 +21,13 @@ const Map = (props) => {
           lat: props.state.mapPosition.lat,
           lng: props.state.mapPosition.lng,
         }}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+        }}
+        onClick={(event) => {
+          console.log(event);
+        }}
       >
         <Marker
           draggable
@@ -28,6 +35,9 @@ const Map = (props) => {
           position={{
             lat: props.state.markerPosition.lat,
             lng: props.state.markerPosition.lng,
+          }}
+          onClick={() => {
+            return console.log("clicked");
           }}
         >
           <InfoWindow>
@@ -37,6 +47,13 @@ const Map = (props) => {
         <AutoComplete
           types={["(regions)"]}
           onPlaceSelected={props.onPlaceSelected}
+          style={{
+            position: "fixed",
+            zIndex: 100,
+            top: 70,
+            left: 70,
+            margin: "0 auto",
+          }}
         />
       </GoogleMap>
     ))
@@ -46,7 +63,7 @@ const Map = (props) => {
       data-test="component-map"
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div className={Classes.map_container} />}
+      containerElement={<div className={classes.map_container} />}
       mapElement={<div style={{ height: `100%` }} />}
     />
   );

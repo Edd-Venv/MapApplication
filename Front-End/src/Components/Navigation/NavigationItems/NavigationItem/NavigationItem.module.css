@@ -29,7 +29,8 @@
   }
 
   .NavigationItem a {
-    color: White;
+    color: black;
+    font-weight: 700;
     height: 100%;
     padding: 16px 10px;
     border-bottom: 4px solid transparent;
@@ -38,8 +39,8 @@
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
-    background-color: #8234a1;
-    border-bottom: 4px solid #40a4c8;
-    color: rgb(233, 88, 88);
+    background-color: rgba(230, 228, 228, 0.7);
+    border-bottom: 4px solid #65c776;
+    color: green;
   }
 }
