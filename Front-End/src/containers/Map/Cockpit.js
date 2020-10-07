@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import * as actionCreators from "../../store/actions/actions";
+import * as actionCreators from "../../store/actions/cockpit";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
 import Spinner from "../../components/UI/Spinner/Spinner";
@@ -13,6 +13,7 @@ class Cockpit extends React.Component {
 
   componentDidMount() {
     const { onComponentMount } = this.props;
+
     try {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -28,6 +29,7 @@ class Cockpit extends React.Component {
 
   render() {
     const { state, onPlaceSelected, onMarkerDragEnd } = this.props;
+
     if (state.isDataLoaded) {
       return (
         <ErrorBoundary data-test="component-error-boundary">

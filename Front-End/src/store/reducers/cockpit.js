@@ -1,4 +1,4 @@
-import * as actionTypes from "../actions/actions";
+import * as actionTypes from "../actions/cockpit";
 
 const initialState = {
   address: "",
@@ -41,6 +41,7 @@ const cockpitReducer = (state = initialState, action) => {
         const newState = Object.assign(
           {},
           state,
+          action.response,
           newMapPosition,
           newMarkerPosition
         );

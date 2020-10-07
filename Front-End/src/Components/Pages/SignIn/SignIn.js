@@ -30,25 +30,28 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div data-test="component-sign-in">
-        <Form
-          firstInputOnKeyDown={this.onfirstInputKeyDown}
-          firstInputValue={this.state.name}
-          firstInputType="text"
-          firstInputLabel="name"
-          firstInputPlaceHolder="User Name"
-          firstInputRef={this.firstInputRef}
-          secondInputPlaceHolder="Password"
-          secondInputType="password"
-          secondInputLabel="password"
-          secondInputRef={this.secondInputRef}
-          secondInputValue={this.state.password}
-          buttonType="submit"
-          formTitle="Sign In"
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
-      </div>
+      <React.Fragment>
+        <div className={classes.BackGroundImg} />
+        <div data-test="component-sign-in" className={classes.Container}>
+          <Form
+            firstInputOnKeyDown={this.onfirstInputKeyDown}
+            firstInputValue={this.state.name}
+            firstInputType="text"
+            firstInputLabel="name"
+            firstInputPlaceHolder="User Name"
+            firstInputRef={this.firstInputRef}
+            secondInputPlaceHolder="Password"
+            secondInputType="password"
+            secondInputLabel="password"
+            secondInputRef={this.secondInputRef}
+            secondInputValue={this.state.password}
+            buttonType="submit"
+            formTitle="Sign In"
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }

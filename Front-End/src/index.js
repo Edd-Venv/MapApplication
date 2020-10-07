@@ -8,9 +8,11 @@ import App from "./App";
 import thunk from "redux-thunk";
 import * as serviceWorker from "./serviceWorker";
 import cockpitReducer from "./store/reducers/cockpit";
+import signupReducer from "./store/reducers/signup";
 
 const rootReducer = combineReducers({
   cockpit: cockpitReducer,
+  signup: signupReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
