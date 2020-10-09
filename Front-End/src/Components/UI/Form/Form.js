@@ -8,6 +8,10 @@ const form = (props) => {
     onBlobInputChange,
     onNameInputChange,
     onPasswordInputChange,
+    onOldNameInputChange,
+    onNewNameInputChange,
+    onNewPasswordInputChange,
+    onOldPasswordInputChange,
     handleChange,
     formTitle,
   } = props;
@@ -45,7 +49,7 @@ const form = (props) => {
       autoComplete="off"
       onSubmit={props.handleSubmit}
     >
-      <h3>{formTitle}</h3>
+      <h3 style={{ fontFamily: "Oswald, sans-serif" }}>{formTitle}</h3>
       <div>
         <label htmlFor={props.firstInputLabel} />
         <input
@@ -53,7 +57,12 @@ const form = (props) => {
           name={props.firstInputLabel}
           type={props.firstInputType}
           value={props.firstInputValue}
-          onChange={onNameInputChange || handleChange}
+          onChange={
+            onNameInputChange ||
+            onOldPasswordInputChange ||
+            onOldNameInputChange ||
+            handleChange
+          }
           ref={props.firstInputRef}
           placeholder={props.firstInputPlaceHolder}
         />
@@ -66,7 +75,12 @@ const form = (props) => {
           name={props.secondInputLabel}
           type={props.secondInputType}
           value={props.secondInputValue}
-          onChange={onPasswordInputChange || handleChange}
+          onChange={
+            onPasswordInputChange ||
+            onNewPasswordInputChange ||
+            onNewNameInputChange ||
+            handleChange
+          }
           ref={props.secondInputRef}
           placeholder={props.secondInputPlaceHolder}
         />

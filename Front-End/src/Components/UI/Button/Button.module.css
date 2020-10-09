@@ -12,6 +12,8 @@
   outline: none;
   cursor: pointer;
   font: inherit;
-
   margin: 8px;
+}
+.Button.Danger {
+  color: red;
 }

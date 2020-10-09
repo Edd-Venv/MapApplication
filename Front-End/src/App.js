@@ -4,6 +4,7 @@ import Cockpit from "./containers/Map/Cockpit";
 import Layout from "./containers/Layout/Layout";
 import SignIn from "./components/Pages/SignIn/SignIn";
 import SignUp from "./components/Pages/SignUp/SignUp";
+import Settings from "./components/Pages/Settings/Settings";
 import MyLocations from "./components/Pages/MyLocations/MyLocations";
 import { Route } from "react-router-dom";
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <div data-test="component-app">
       <Layout>
+        <Route path="/settings" exact component={Settings} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/signin" exact component={SignIn} />
         <Route path="/mylocations" exact component={MyLocations} />
