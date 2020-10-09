@@ -1,20 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Button from "../Button/Button";
 import classes from "./Form.module.css";
 
 const form = (props) => {
-  const {
-    onBlobInputChange,
-    onNameInputChange,
-    onPasswordInputChange,
-    onOldNameInputChange,
-    onNewNameInputChange,
-    onNewPasswordInputChange,
-    onOldPasswordInputChange,
-    handleChange,
-    formTitle,
-  } = props;
+  const { onBlobInputChange, formTitle } = props;
   let forgotPassword = null;
   let pictureUpload = null;
 
@@ -58,10 +49,10 @@ const form = (props) => {
           type={props.firstInputType}
           value={props.firstInputValue}
           onChange={
-            onNameInputChange ||
-            onOldPasswordInputChange ||
-            onOldNameInputChange ||
-            handleChange
+            props.onNameInputChange ||
+            props.onOldPasswordInputChange ||
+            props.onOldNameInputChange ||
+            props.handleChange
           }
           ref={props.firstInputRef}
           placeholder={props.firstInputPlaceHolder}
@@ -76,10 +67,10 @@ const form = (props) => {
           type={props.secondInputType}
           value={props.secondInputValue}
           onChange={
-            onPasswordInputChange ||
-            onNewPasswordInputChange ||
-            onNewNameInputChange ||
-            handleChange
+            props.onPasswordInputChange ||
+            props.onNewPasswordInputChange ||
+            props.onNewNameInputChange ||
+            props.handleChange
           }
           ref={props.secondInputRef}
           placeholder={props.secondInputPlaceHolder}

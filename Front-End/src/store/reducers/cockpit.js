@@ -15,6 +15,7 @@ const initialState = {
     lat: 0,
     lng: 0,
   },
+  myLocations: [],
   showBackDrop: false,
   isDataLoaded: false,
 };
@@ -55,6 +56,27 @@ const cockpitReducer = (state = initialState, action) => {
     case actionTypes.MARKER_END_DRAG: {
       try {
         const newState = Object.assign({}, state, action.response);
+        return newState;
+      } catch (error) {
+        console.log(error);
+      }
+      break;
+    }
+    case actionTypes.SAVE_LOCATION: {
+      try {
+        console.log("cokpit reducer", action);
+
+        const newState = Object.assign({}, action.state);
+        const mapPosition = Object.assign({}, action.state.mapPosition);
+        const markerPosition = Object.assign({}, action.state.markerPosition);
+
+        newState.myLocations.push({
+          address: newState.address,
+          area: newState.area,
+          city: newState.city,
+          mapPosition,
+          markerPosition,
+        });
         return newState;
       } catch (error) {
         console.log(error);

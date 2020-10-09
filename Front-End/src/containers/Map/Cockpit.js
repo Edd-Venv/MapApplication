@@ -28,7 +28,12 @@ class Cockpit extends React.Component {
   }
 
   render() {
-    const { state, onPlaceSelected, onMarkerDragEnd } = this.props;
+    const {
+      state,
+      onPlaceSelected,
+      onMarkerDragEnd,
+      onSaveLocation,
+    } = this.props;
 
     if (state.isDataLoaded) {
       return (
@@ -37,6 +42,7 @@ class Cockpit extends React.Component {
             state={state}
             onPlaceSelected={onPlaceSelected}
             onMarkerDragEnd={onMarkerDragEnd}
+            onSaveLocation={onSaveLocation}
           />
         </ErrorBoundary>
       );
@@ -59,12 +65,16 @@ const mapDispatchToProps = (dispatch) => ({
   onMarkerDragEnd: (event) => {
     dispatch(actionCreators.getMarkerEndDrag(event));
   },
+  onSaveLocation: (state) => {
+    dispatch(actionCreators.saveMylocations(state));
+  },
 });
 Cockpit.propTypes = {
   state: PropTypes.object.isRequired,
   onComponentMount: PropTypes.func.isRequired,
   onPlaceSelected: PropTypes.func.isRequired,
   onMarkerDragEnd: PropTypes.func.isRequired,
+  onSaveLocation: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cockpit);

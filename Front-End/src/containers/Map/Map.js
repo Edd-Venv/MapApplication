@@ -5,7 +5,6 @@ import {
   withGoogleMap,
   withScriptjs,
 } from "react-google-maps";
-
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
@@ -41,7 +40,10 @@ const Map = (props) => {
           }}
         >
           <InfoWindow>
-            <SaveButton state={props.state} />
+            <SaveButton
+              state={props.state}
+              onSaveLocation={props.onSaveLocation}
+            />
           </InfoWindow>
         </Marker>
         <AutoComplete
@@ -72,6 +74,7 @@ Map.propTypes = {
   state: PropTypes.object.isRequired,
   onMarkerDragEnd: PropTypes.func.isRequired,
   onPlaceSelected: PropTypes.func.isRequired,
+  onSaveLocation: PropTypes.func.isRequired,
 };
 
 export default Map;

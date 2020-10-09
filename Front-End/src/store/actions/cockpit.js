@@ -8,6 +8,7 @@ import {
 export const GET_USER_INFO = "GET_USER_INFO";
 export const PLACE_SELECTED = "PLACE_SELECTED";
 export const MARKER_END_DRAG = "MARKER_END_DRAG";
+export const SAVE_LOCATION = "SAVE_LOCATION";
 
 export const setUserInfo = (response) => {
   return {
@@ -50,5 +51,12 @@ export const getMarkerEndDrag = (event) => {
     data.then((response) => {
       dispatch(setMarkerEndDrag(response));
     });
+  };
+};
+
+export const saveMylocations = (state) => {
+  return {
+    type: SAVE_LOCATION,
+    state,
   };
 };
