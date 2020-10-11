@@ -12,15 +12,21 @@ class Cockpit extends React.Component {
   }
 
   componentDidMount() {
-    const { onComponentMount } = this.props;
+    const { onComponentMount, state } = this.props;
 
     try {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          onComponentMount(lat, lng);
-        });
+      if (navigator.geolocation && state.getUserLocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            onComponentMount(lat, lng);
+          },
+          (error) => {
+            throw new Error(error);
+          },
+          { enableHighAccuracy: true }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -33,8 +39,11 @@ class Cockpit extends React.Component {
       onPlaceSelected,
       onMarkerDragEnd,
       onSaveLocation,
+      onShowUserInfoWindow,
+      onSelectedMarkerInfoWindow,
+      onCloseUserInfoWindow,
+      onCloseSelectedMarkerInfoWindow,
     } = this.props;
-
     if (state.isDataLoaded) {
       return (
         <ErrorBoundary data-test="component-error-boundary">
@@ -43,6 +52,10 @@ class Cockpit extends React.Component {
             onPlaceSelected={onPlaceSelected}
             onMarkerDragEnd={onMarkerDragEnd}
             onSaveLocation={onSaveLocation}
+            onShowUserInfoWindow={onShowUserInfoWindow}
+            onSelectedMarkerInfoWindow={onSelectedMarkerInfoWindow}
+            onCloseUserInfoWindow={onCloseUserInfoWindow}
+            onCloseSelectedMarkerInfoWindow={onCloseSelectedMarkerInfoWindow}
           />
         </ErrorBoundary>
       );
@@ -68,6 +81,18 @@ const mapDispatchToProps = (dispatch) => ({
   onSaveLocation: (state) => {
     dispatch(actionCreators.saveMylocations(state));
   },
+  onShowUserInfoWindow: () => {
+    dispatch(actionCreators.usersLocationInfoWindow());
+  },
+  onCloseUserInfoWindow: () => {
+    dispatch(actionCreators.closeUsersLocationInfoWindow());
+  },
+  onSelectedMarkerInfoWindow: (location) => {
+    dispatch(actionCreators.selectedMarkerInfoWindow(location));
+  },
+  onCloseSelectedMarkerInfoWindow: () => {
+    dispatch(actionCreators.closeSelectedMarkerInfoWindow());
+  },
 });
 Cockpit.propTypes = {
   state: PropTypes.object.isRequired,
@@ -75,6 +100,10 @@ Cockpit.propTypes = {
   onPlaceSelected: PropTypes.func.isRequired,
   onMarkerDragEnd: PropTypes.func.isRequired,
   onSaveLocation: PropTypes.func.isRequired,
+  onShowUserInfoWindow: PropTypes.func.isRequired,
+  onCloseUserInfoWindow: PropTypes.func.isRequired,
+  onSelectedMarkerInfoWindow: PropTypes.func.isRequired,
+  onCloseSelectedMarkerInfoWindow: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cockpit);
