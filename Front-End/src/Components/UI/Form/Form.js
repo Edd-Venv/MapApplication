@@ -1,16 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Button from "../Button/Button";
 import classes from "./Form.module.css";
 
 const form = (props) => {
-  const {
-    onBlobInputChange,
-    onNameInputChange,
-    onPasswordInputChange,
-    handleChange,
-    formTitle,
-  } = props;
+  const { onBlobInputChange, formTitle } = props;
   let forgotPassword = null;
   let pictureUpload = null;
 
@@ -45,7 +40,7 @@ const form = (props) => {
       autoComplete="off"
       onSubmit={props.handleSubmit}
     >
-      <h3>{formTitle}</h3>
+      <h3 style={{ fontFamily: "Oswald, sans-serif" }}>{formTitle}</h3>
       <div>
         <label htmlFor={props.firstInputLabel} />
         <input
@@ -53,7 +48,12 @@ const form = (props) => {
           name={props.firstInputLabel}
           type={props.firstInputType}
           value={props.firstInputValue}
-          onChange={onNameInputChange || handleChange}
+          onChange={
+            props.onNameInputChange ||
+            props.onOldPasswordInputChange ||
+            props.onOldNameInputChange ||
+            props.handleChange
+          }
           ref={props.firstInputRef}
           placeholder={props.firstInputPlaceHolder}
         />
@@ -66,7 +66,12 @@ const form = (props) => {
           name={props.secondInputLabel}
           type={props.secondInputType}
           value={props.secondInputValue}
-          onChange={onPasswordInputChange || handleChange}
+          onChange={
+            props.onPasswordInputChange ||
+            props.onNewPasswordInputChange ||
+            props.onNewNameInputChange ||
+            props.handleChange
+          }
           ref={props.secondInputRef}
           placeholder={props.secondInputPlaceHolder}
         />

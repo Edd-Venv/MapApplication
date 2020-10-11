@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import saveLocation from "./SaveLocation";
 import Button from "../UI/Button/Button";
 
 const saveButton = (props) => (
@@ -9,7 +8,9 @@ const saveButton = (props) => (
     <Button
       buttonType=""
       type="button"
-      buttonClick={() => saveLocation(props.state)}
+      buttonClick={() => {
+        props.onSaveLocation(props.state);
+      }}
     >
       Save Location
     </Button>
