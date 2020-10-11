@@ -16,7 +16,7 @@ const initialState = {
     lng: 0,
   },
   myLocations: [],
-  selectedMarkerData: null,
+  selectedMarkerData: { id: "dummy" },
   showBackDrop: false,
   isDataLoaded: false,
   getUserLocation: true,
@@ -146,7 +146,7 @@ const cockpitReducer = (state = initialState, action) => {
     case actionTypes.CLOSE_SELECTED_MARKER_INFO_WINDOW: {
       try {
         const newState = Object.assign({}, state);
-        newState.selectedMarkerData = null;
+        newState.selectedMarkerData = { id: "dummy" };
         return newState;
       } catch (error) {
         console.log(error);

@@ -9,6 +9,7 @@ import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
 import classes from "./Map.module.css";
+import mapStyle from "./MapStyle";
 import SaveButton from "../../components/SaveButton/SaveButton";
 
 const InputContainer = { display: "flex", justifyContent: "center" };
@@ -31,6 +32,7 @@ const options = {
   clickableIcons: false,
   disableDefaultUI: true,
   zoomControl: true,
+  styles: mapStyle,
 };
 
 const Map = (props) => {
@@ -38,26 +40,14 @@ const Map = (props) => {
   let usersInforWindow = null;
   let savedLocations = null;
   let savedLocationInfoWindow = null;
-
+  let mapZoom = null;
+  console.log(mapZoom);
   if (props.state.showInfoWindow) {
     usersInforWindow = (
       <InfoWindow onCloseClick={() => props.onCloseUserInfoWindow()}>
         <SaveButton state={props.state} onSaveLocation={props.onSaveLocation} />
       </InfoWindow>
     );
-  }
-
-  if (locations.length > 0) {
-    savedLocations = locations.map((location) => (
-      <Marker
-        key={location.id}
-        position={{
-          lat: location.markerPosition.lat,
-          lng: location.markerPosition.lng,
-        }}
-        onClick={() => props.onSelectedMarkerInfoWindow(location)}
-      />
-    ));
   }
 
   if (props.state.selectedMarkerData) {
@@ -71,18 +61,46 @@ const Map = (props) => {
     );
   }
 
+  if (locations.length > 0) {
+    savedLocations = locations.map((location) => {
+      let show = false;
+
+      if (location.id && props.state.selectedMarkerData.id)
+        if (location.id === props.state.selectedMarkerData.id) show = true;
+
+      return (
+        <Marker
+          key={location.id}
+          position={{
+            lat: location.markerPosition.lat,
+            lng: location.markerPosition.lng,
+          }}
+          icon={{
+            url: "../../assets/Images/icons/infomation.svg",
+            scaledSize: new window.google.maps.Size(25, 25),
+          }}
+          onClick={() => props.onSelectedMarkerInfoWindow(location)}
+        >
+          {show ? savedLocationInfoWindow : null}
+        </Marker>
+      );
+    });
+  }
+
   const GMap = withScriptjs(
     withGoogleMap(() => (
       <GoogleMap
-        defaultZoom={8}
+        defaultZoom={mapZoom || 13}
         defaultCenter={{
           lat: props.state.mapPosition.lat,
           lng: props.state.mapPosition.lng,
         }}
+        ref={async (map) => {
+          mapZoom = await map.getZoom();
+        }}
         options={options}
       >
         {savedLocations}
-        {savedLocationInfoWindow}
         <Marker
           draggable
           onDragEnd={props.onMarkerDragEnd}

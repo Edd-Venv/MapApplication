@@ -50,8 +50,8 @@ class MyLocations extends React.Component {
           {filter}
           <div className={classes.Grid}>
             {locations.map((location, id) => (
-              <div className={classes.Container}>
-                <Box key={id + 5}>
+              <div className={classes.Container} key={id + 5}>
+                <Box>
                   <p>
                     <strong>Address:</strong> {location.address}
                   </p>
