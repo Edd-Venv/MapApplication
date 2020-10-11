@@ -5,14 +5,72 @@ import {
   withGoogleMap,
   withScriptjs,
 } from "react-google-maps";
-
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
 import React from "react";
 import classes from "./Map.module.css";
 import SaveButton from "../../components/SaveButton/SaveButton";
 
+const InputContainer = { display: "flex", justifyContent: "center" };
+const style = {
+  position: "fixed",
+  zIndex: 100,
+  top: 70,
+  margin: "0 auto",
+  borderColor: "black",
+  borderTopLeftRadius: "50px",
+  borderBottomLeftRadius: "50px",
+  borderTopRightRadius: "50px",
+  borderBottomRightRadius: "50px",
+  backgroundColor: "rgba(201, 201, 201, 0.66)",
+  outline: 0,
+  fontSize: "1.2rem",
+  fontFamily: "Roboto Condensed, sans-serif",
+};
+const options = {
+  clickableIcons: false,
+  disableDefaultUI: true,
+  zoomControl: true,
+};
+
 const Map = (props) => {
+  const locations = props.state.myLocations;
+  let usersInforWindow = null;
+  let savedLocations = null;
+  let savedLocationInfoWindow = null;
+
+  if (props.state.showInfoWindow) {
+    usersInforWindow = (
+      <InfoWindow onCloseClick={() => props.onCloseUserInfoWindow()}>
+        <SaveButton state={props.state} onSaveLocation={props.onSaveLocation} />
+      </InfoWindow>
+    );
+  }
+
+  if (locations.length > 0) {
+    savedLocations = locations.map((location) => (
+      <Marker
+        key={location.id}
+        position={{
+          lat: location.markerPosition.lat,
+          lng: location.markerPosition.lng,
+        }}
+        onClick={() => props.onSelectedMarkerInfoWindow(location)}
+      />
+    ));
+  }
+
+  if (props.state.selectedMarkerData) {
+    savedLocationInfoWindow = (
+      <InfoWindow
+        position={props.state.selectedMarkerData.markerPosition}
+        onCloseClick={() => props.onCloseSelectedMarkerInfoWindow()}
+      >
+        <p>{props.state.selectedMarkerData.address}</p>
+      </InfoWindow>
+    );
+  }
+
   const GMap = withScriptjs(
     withGoogleMap(() => (
       <GoogleMap
@@ -21,14 +79,10 @@ const Map = (props) => {
           lat: props.state.mapPosition.lat,
           lng: props.state.mapPosition.lng,
         }}
-        options={{
-          disableDefaultUI: true,
-          zoomControl: true,
-        }}
-        onClick={(event) => {
-          console.log(event);
-        }}
+        options={options}
       >
+        {savedLocations}
+        {savedLocationInfoWindow}
         <Marker
           draggable
           onDragEnd={props.onMarkerDragEnd}
@@ -37,24 +91,18 @@ const Map = (props) => {
             lng: props.state.markerPosition.lng,
           }}
           onClick={() => {
-            return console.log("clicked");
+            props.onShowUserInfoWindow();
           }}
         >
-          <InfoWindow>
-            <SaveButton state={props.state} />
-          </InfoWindow>
+          {usersInforWindow}
         </Marker>
-        <AutoComplete
-          types={["(regions)"]}
-          onPlaceSelected={props.onPlaceSelected}
-          style={{
-            position: "fixed",
-            zIndex: 100,
-            top: 70,
-            left: 70,
-            margin: "0 auto",
-          }}
-        />
+        <div style={InputContainer}>
+          <AutoComplete
+            types={["(regions)"]}
+            onPlaceSelected={props.onPlaceSelected}
+            style={style}
+          />
+        </div>
       </GoogleMap>
     ))
   );
@@ -72,6 +120,11 @@ Map.propTypes = {
   state: PropTypes.object.isRequired,
   onMarkerDragEnd: PropTypes.func.isRequired,
   onPlaceSelected: PropTypes.func.isRequired,
+  onSaveLocation: PropTypes.func.isRequired,
+  onShowUserInfoWindow: PropTypes.func.isRequired,
+  onCloseUserInfoWindow: PropTypes.func.isRequired,
+  onSelectedMarkerInfoWindow: PropTypes.func.isRequired,
+  onCloseSelectedMarkerInfoWindow: PropTypes.func.isRequired,
 };
 
 export default Map;

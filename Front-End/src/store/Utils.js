@@ -92,7 +92,7 @@ async function createGeocodeObject(newLat, newLng) {
       },
       mapPosition: {
         lat: newLat,
-        lng: newLat,
+        lng: newLng,
       },
     };
   });

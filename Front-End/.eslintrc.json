@@ -27,6 +27,7 @@
     "import/no-extraneous-dependencies": "off",
     "react/forbid-prop-types": "off",
     "import/no-unresolved": "off",
-    "prefer-object-spread": "off"
+    "prefer-object-spread": "off",
+    "linebreak-style": "off"
   }
 }
