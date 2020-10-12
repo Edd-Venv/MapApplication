@@ -16,6 +16,7 @@ const initialState = {
     lng: 0,
   },
   myLocations: [],
+  panTo: { lat: 0, lng: 0 },
   selectedMarkerData: { id: "dummy" },
   showBackDrop: false,
   isDataLoaded: false,
