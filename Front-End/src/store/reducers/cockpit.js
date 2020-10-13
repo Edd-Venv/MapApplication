@@ -26,6 +26,27 @@ const initialState = {
 
 const cockpitReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.LOCATE_ME:
+      try {
+        const newMapPosition = { mapPosition: action.response.mapPosition };
+        const newMarkerPosition = {
+          markerPosition: action.response.markerPosition,
+        };
+        const newState = Object.assign(
+          {},
+          state,
+          action.response,
+          newMapPosition,
+          newMarkerPosition
+        );
+        newState.isDataLoaded = true;
+
+        return newState;
+      } catch (error) {
+        console.log(error);
+      }
+      break;
+
     case actionTypes.GET_USER_INFO: {
       try {
         const newMapPosition = { mapPosition: action.response.mapPosition };

@@ -5,6 +5,7 @@ import {
   handlePlaceSelected,
 } from "../Utils";
 
+export const LOCATE_ME = "LOCATE_ME";
 export const GET_USER_INFO = "GET_USER_INFO";
 export const PLACE_SELECTED = "PLACE_SELECTED";
 export const MARKER_END_DRAG = "MARKER_END_DRAG";
@@ -18,6 +19,22 @@ export const SELECTED_MARKER_INFO_WINDOW_COORDS =
   "SELECTED_MARKER_INFO_WINDOW_COORDS";
 export const CLOSE_SELECTED_MARKER_INFO_WINDOW =
   "CLOSE_SELECTED_MARKER_INFO_WINDOW";
+
+export const setLocateMe = (response) => {
+  return {
+    type: LOCATE_ME,
+    response,
+  };
+};
+
+export const getLocateMe = (coords) => {
+  return (dispatch) => {
+    const data = handleComponentMount(coords.lat, coords.lng);
+    data.then((response) => {
+      dispatch(setLocateMe(response));
+    });
+  };
+};
 
 export const setUserInfo = (response) => {
   return {
