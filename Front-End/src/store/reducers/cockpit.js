@@ -16,7 +16,8 @@ const initialState = {
     lng: 0,
   },
   myLocations: [],
-  selectedMarkerData: null,
+  panTo: { lat: 0, lng: 0 },
+  selectedMarkerData: { id: "dummy" },
   showBackDrop: false,
   isDataLoaded: false,
   getUserLocation: true,
@@ -25,6 +26,27 @@ const initialState = {
 
 const cockpitReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.LOCATE_ME:
+      try {
+        const newMapPosition = { mapPosition: action.response.mapPosition };
+        const newMarkerPosition = {
+          markerPosition: action.response.markerPosition,
+        };
+        const newState = Object.assign(
+          {},
+          state,
+          action.response,
+          newMapPosition,
+          newMarkerPosition
+        );
+        newState.isDataLoaded = true;
+
+        return newState;
+      } catch (error) {
+        console.log(error);
+      }
+      break;
+
     case actionTypes.GET_USER_INFO: {
       try {
         const newMapPosition = { mapPosition: action.response.mapPosition };
@@ -146,7 +168,7 @@ const cockpitReducer = (state = initialState, action) => {
     case actionTypes.CLOSE_SELECTED_MARKER_INFO_WINDOW: {
       try {
         const newState = Object.assign({}, state);
-        newState.selectedMarkerData = null;
+        newState.selectedMarkerData = { id: "dummy" };
         return newState;
       } catch (error) {
         console.log(error);

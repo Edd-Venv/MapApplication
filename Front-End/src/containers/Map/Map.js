@@ -2,14 +2,14 @@ import {
   GoogleMap,
   InfoWindow,
   Marker,
-  withGoogleMap,
-  withScriptjs,
-} from "react-google-maps";
+  useLoadScript,
+} from "@react-google-maps/api";
 import AutoComplete from "react-google-autocomplete";
 import PropTypes from "prop-types";
-import React from "react";
-import classes from "./Map.module.css";
-import SaveButton from "../../components/SaveButton/SaveButton";
+import React, { useRef } from "react";
+import mapStyle from "./MapStyle";
+import Button from "../../components/UI/Button/Button";
+import LocateMe from "../../components/UI/Locate/Locate";
 
 const InputContainer = { display: "flex", justifyContent: "center" };
 const style = {
@@ -31,33 +31,44 @@ const options = {
   clickableIcons: false,
   disableDefaultUI: true,
   zoomControl: true,
+  styles: mapStyle,
+};
+const libraries = ["places"];
+const mapContainerStyle = {
+  width: "100vw",
+  height: "100vh",
 };
 
 const Map = (props) => {
   const locations = props.state.myLocations;
+
+  const currentLocationMarkerRef = useRef(null);
+
   let usersInforWindow = null;
   let savedLocations = null;
   let savedLocationInfoWindow = null;
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: "AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8",
+    libraries,
+  });
+
+  if (loadError) return "Error Loading Map";
+  if (!isLoaded) return null;
 
   if (props.state.showInfoWindow) {
     usersInforWindow = (
       <InfoWindow onCloseClick={() => props.onCloseUserInfoWindow()}>
-        <SaveButton state={props.state} onSaveLocation={props.onSaveLocation} />
+        <div>
+          <p>{props.state.address}</p>
+          <Button
+            buttonClick={() => props.onSaveLocation(props.state)}
+            type="button"
+          >
+            Save Location
+          </Button>
+        </div>
       </InfoWindow>
     );
-  }
-
-  if (locations.length > 0) {
-    savedLocations = locations.map((location) => (
-      <Marker
-        key={location.id}
-        position={{
-          lat: location.markerPosition.lat,
-          lng: location.markerPosition.lng,
-        }}
-        onClick={() => props.onSelectedMarkerInfoWindow(location)}
-      />
-    ));
   }
 
   if (props.state.selectedMarkerData) {
@@ -66,25 +77,53 @@ const Map = (props) => {
         position={props.state.selectedMarkerData.markerPosition}
         onCloseClick={() => props.onCloseSelectedMarkerInfoWindow()}
       >
-        <p>{props.state.selectedMarkerData.address}</p>
+        <div>
+          <p>{props.state.selectedMarkerData.address}</p>
+          <Button buttonClick={() => {}} buttonType="button" className="Danger">
+            Delete Location
+          </Button>
+        </div>
       </InfoWindow>
     );
   }
 
-  const GMap = withScriptjs(
-    withGoogleMap(() => (
+  if (locations.length > 0) {
+    savedLocations = locations.map((location) => {
+      let show = false;
+
+      if (location.id && props.state.selectedMarkerData.id)
+        if (location.id === props.state.selectedMarkerData.id) show = true;
+
+      return (
+        <Marker
+          draggable={false}
+          key={location.id}
+          position={{
+            lat: location.markerPosition.lat,
+            lng: location.markerPosition.lng,
+          }}
+          onClick={() => props.onSelectedMarkerInfoWindow(location)}
+        >
+          {show ? savedLocationInfoWindow : null}
+        </Marker>
+      );
+    });
+  }
+
+  return (
+    <div>
       <GoogleMap
-        defaultZoom={8}
-        defaultCenter={{
+        mapContainerStyle={mapContainerStyle}
+        zoom={13}
+        center={{
           lat: props.state.mapPosition.lat,
           lng: props.state.mapPosition.lng,
         }}
         options={options}
       >
         {savedLocations}
-        {savedLocationInfoWindow}
         <Marker
-          draggable
+          draggable={true}
           onDragEnd={props.onMarkerDragEnd}
           position={{
             lat: props.state.markerPosition.lat,
@@ -93,6 +132,7 @@ const Map = (props) => {
           onClick={() => {
             props.onShowUserInfoWindow();
           }}
+          ref={currentLocationMarkerRef}
         >
           {usersInforWindow}
         </Marker>
@@ -103,17 +143,9 @@ const Map = (props) => {
             style={style}
           />
         </div>
+        <LocateMe />
       </GoogleMap>
-    ))
-  );
-  return (
-    <GMap
-      data-test="component-map"
-      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCt6g43R5qohybxO911L1KQ_WwIsD6hX-8&v=3.exp&libraries=geometry,drawing,places"
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div className={classes.map_container} />}
-      mapElement={<div style={{ height: `100%` }} />}
-    />
+    </div>
   );
 };
 Map.propTypes = {
@@ -128,3 +160,10 @@ Map.propTypes = {
 };
 
 export default Map;
+
+/*
+icon={{
+              url: "../../assets/Images/icons/infomation.svg",
+              scaledSize: new window.google.maps.Size(25, 25),
+            }}
+ */
