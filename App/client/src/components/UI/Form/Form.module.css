@@ -1,0 +1,114 @@
+.CustomFileUpload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.CustomFileInput[type="file"] {
+  display: none;
+}
+
+@media (min-width: 320px) {
+  .ForgotPassword {
+    color: #350000;
+    font-weight: lighter;
+    text-decoration: none;
+    width: 73%;
+    font-size: 13px;
+    letter-spacing: 0.01rem;
+  }
+  .Form {
+    text-align: center;
+    margin: 0 auto;
+    font: 2rem;
+    width: 70vw;
+    color: #313638;
+    letter-spacing: 0.15rem;
+    background-color: rgba(132, 125, 133, 0.6);
+    font-family: "Oswald", sans-serif;
+  }
+  .Inputs {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    box-shadow: none;
+    letter-spacing: 0.1rem;
+    margin: 16px;
+  }
+  .Inputs:focus {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    outline: none;
+    box-shadow: none;
+    color: #313638;
+    border-color: #14ad13;
+    border-bottom-width: medium;
+  }
+}
+@media (min-width: 400px) {
+  .Form {
+    width: 58vw;
+    margin-top: 13vh;
+  }
+  .Inputs {
+    margin: 10px;
+  }
+  .ForgotPassword {
+    margin: 2px;
+  }
+}
+@media (min-width: 500px) {
+  .Form {
+    width: 40vw;
+    margin-top: 15vh;
+  }
+  .Inputs {
+    margin: 10px;
+  }
+  .ForgotPassword {
+    margin: 2px;
+  }
+}
+@media (min-width: 768px) {
+  .Form {
+    background-color: rgba(197, 191, 197, 0.8);
+    width: 31vw;
+    font: 2rem;
+    margin-top: 4vh;
+  }
+  .Inputs {
+    margin: 14px;
+  }
+  .ForgotPassword {
+    margin: 0px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .Form {
+    width: 25vw;
+    font: 2rem;
+    margin-top: 0vh;
+  }
+  .Inputs {
+    margin: 20px;
+  }
+  .ForgotPassword {
+    margin: 5px;
+    width: 80%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .Form {
+    width: 35vw;
+    font: 2rem;
+  }
+}

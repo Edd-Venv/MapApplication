@@ -1,0 +1,142 @@
+.InputContainer {
+  border: 2px solid #000000;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-color: rgba(201, 201, 201, 0.65);
+
+  outline: 0;
+  width: 20vw;
+  z-index: 5;
+  font-size: 1.2em;
+  margin: 0 auto;
+  position: fixed;
+  margin-top: 10vh;
+  left: 0;
+  right: 0;
+}
+
+.InputStyle {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: 0;
+  width: 50vw;
+  font-size: 1.2em;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.InputContainer#input {
+  animation-name: bounce;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+  animation-delay: 4.3s;
+  animation-timing-function: ease-in;
+  backface-visibility: hidden;
+}
+@media (min-width: 300px) {
+  .InputContainer {
+    width: 60vw;
+  }
+}
+@media (min-width: 500px) {
+  .InputContainer {
+    width: 60vw;
+    margin-top: 20vh;
+  }
+}
+@media (min-width: 700px) {
+  .InputContainer {
+    width: 45vw;
+    margin-top: 10vh;
+  }
+  .InputStyle {
+    width: 40vw;
+  }
+}
+@media (min-width: 1000px) {
+  .InputContainer {
+    width: 38vw;
+    margin-top: 10vh;
+  }
+  .InputStyle {
+    width: 35vw;
+  }
+}
+@media (min-width: 1250px) {
+  .InputContainer {
+    width: 28vw;
+    margin-top: 10vh;
+  }
+  .InputStyle {
+    width: 25vw;
+  }
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(-6px);
+  }
+  25% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(0px);
+  }
+  70% {
+    transform: translateY(-2px);
+  }
+  80% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(-6px);
+  }
+}
+.InputContainer#input:hover {
+  animation-name: input-border-effect;
+  animation-duration: 1.5s;
+  animation-delay: -0.5s;
+  animation-iteration-count: 2;
+  animation-timing-function: linear;
+  background-color: rgb(185, 184, 184);
+  transition: 5s;
+  -webkit-animation-name: input-border-effect;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-delay: -0.1s;
+  -webkit-animation-iteration-count: 2;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-background-color: rgb(185, 184, 184);
+  -webkit-transition: 0.5s;
+}
+@keyframes input-border-effect {
+  0% {
+    border-top-style: solid;
+    border-top-color: whitesmoke;
+  }
+  25% {
+    border-top-style: solid;
+    border-top-color: whitesmoke;
+    border-right-style: solid;
+    border-right-color: whitesmoke;
+  }
+  50% {
+    border-right-style: solid;
+    border-right-color: whitesmoke;
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+  }
+  75% {
+    border-bottom-style: solid;
+    border-bottom-color: whitesmoke;
+    border-left-style: solid;
+    border-left-color: whitesmoke;
+  }
+  100% {
+    border-left-style: solid;
+    border-left-color: whitesmoke;
+  }
+}
