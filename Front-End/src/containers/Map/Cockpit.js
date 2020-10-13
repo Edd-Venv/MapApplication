@@ -44,6 +44,7 @@ class Cockpit extends React.Component {
       onCloseUserInfoWindow,
       onCloseSelectedMarkerInfoWindow,
     } = this.props;
+
     if (state.isDataLoaded) {
       return (
         <ErrorBoundary data-test="component-error-boundary">
