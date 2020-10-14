@@ -28,6 +28,7 @@
     "react/forbid-prop-types": "off",
     "import/no-unresolved": "off",
     "prefer-object-spread": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/react-in-jsx-scope" : "off"
   }
 }
