@@ -2,12 +2,12 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/savedLocations", (req, res, next) => {
-  try {
-    res.status(200).json({ status: "ok" });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-});
+const accountDataController = require("../controllers/account/accountData/accountData");
+
+router.post("/locations", accountDataController.postAccountData);
+
+router.get("/locations", accountDataController.getAccountData);
+
+router.patch("/locations/delete", accountDataController.patchAccountData);
 
 module.exports = router;

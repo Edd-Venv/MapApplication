@@ -1,16 +1,8 @@
 const express = require("express");
 
 const router = express.Router();
+const signInController = require("../controllers/signIn/signIn");
 
-router.post("/signIn", (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-
-    const userInfo = { username, password };
-    res.status(200).json({ userInfo, status: "ok" });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-});
+router.post("/sign-in", signInController.signIn);
 
 module.exports = router;
