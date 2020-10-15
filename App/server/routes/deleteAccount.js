@@ -2,12 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-router.delete("/deleteAccount", (req, res, next) => {
-  try {
-    res.status(200).json({ status: "ok" });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-});
+const deleteAccountController = require("../controllers/account/deleteAccount");
+
+router.delete("/delete/account", deleteAccountController.deleteAccount);
 
 module.exports = router;
