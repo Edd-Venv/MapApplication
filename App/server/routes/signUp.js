@@ -2,12 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/signUp", (req, res, next) => {
-  try {
-    res.status(200).json({ status: "ok" });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-});
+const signUpController = require("../controllers/signUp/signUp");
+
+router.post("/sign-up", signUpController.signUp);
 
 module.exports = router;
