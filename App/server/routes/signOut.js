@@ -2,12 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/signOut", (req, res, next) => {
-  try {
-    res.status(200).json({ status: "ok" });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-});
+const signOutController = require("../controllers/signOut/signOut");
+
+router.post("/sign-out", signOutController.signOut);
 
 module.exports = router;
