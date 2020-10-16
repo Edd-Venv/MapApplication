@@ -2,8 +2,8 @@ const http = require("http");
 const bodyParser = require("body-parser");
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
 const rootDir = require("./utils/path");
-const dataBase = require("./utils/database");
 
 const app = express();
 const signInRoute = require("./routes/signIn");
@@ -29,7 +29,13 @@ app.use((req, res, next) => {
   res.status(404).sendFile(path.join(rootDir, "views", "404.html"));
 });
 
-dataBase.mongoConnect(() => {
-  const server = http.createServer(app);
-  server.listen(4030);
-});
+mongoose
+  .connect(
+    "mongodb+srv://edwin:v9xnL1SdG9IYBjxO@mongodb.iyv8w.mongodb.net/map?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    const server = http.createServer(app);
+    server.listen(4030);
+    console.log("DB Connected.");
+  })
+  .catch((error) => console.log(error));

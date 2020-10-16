@@ -1,4 +1,23 @@
-const mongodb = require("mongodb");
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
+
+const locationSchema = new Schema({
+  address: { type: String, required: true },
+  area: String,
+  city: String,
+  mapPosition: { type: Object, required: true },
+  markerPosition: { type: Object, required: true },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "Account",
+    required: true,
+  },
+});
+// userID: { type: String, required: true },
+module.exports = mongoose.model("Location", locationSchema);
+
+/* const mongodb = require("mongodb");
 const { getDb } = require("../../utils/database");
 
 module.exports = class Location {
@@ -44,4 +63,4 @@ module.exports = class Location {
       .then(() => console.log("deleted"))
       .catch((error) => console.log(error));
   }
-};
+}; */

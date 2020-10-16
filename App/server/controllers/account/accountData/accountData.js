@@ -2,7 +2,7 @@ const Location = require("../../../models/locations/location");
 
 exports.getAccountData = (req, res, next) => {
   try {
-    Location.fetchAll().then((locations) => {
+    Location.find().then((locations) => {
       res.status(200).json({ locations, status: "ok" });
     });
   } catch (error) {
@@ -21,15 +21,17 @@ exports.postAccountData = (req, res, next) => {
       markerPosition,
       userID,
     } = req.body;
-    const locations = new Location(
+
+    const locations = new Location({
       address,
       area,
       city,
       id,
       mapPosition,
       markerPosition,
-      userID
-    );
+      userID,
+    });
+
     locations.save();
     res.status(200).json({ locations, status: "ok" });
   } catch (error) {
@@ -39,8 +41,10 @@ exports.postAccountData = (req, res, next) => {
 
 exports.patchAccountData = (req, res, next) => {
   try {
-    Location.deleteById(req.body.id).then((locations) => {
-      res.status(200).json({ locations, status: "ok" });
+    const { id } = req.body;
+
+    Location.findByIdAndRemove(id).then((deletedLocation) => {
+      res.status(200).json({ deletedLocation, status: "ok" });
     });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
