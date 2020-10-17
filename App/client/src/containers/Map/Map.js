@@ -40,8 +40,9 @@ const mapContainerStyle = {
 };
 
 const Map = (props) => {
-  const locations = props.state.myLocations;
+  const locations = props.state.myLocations.locationsArray;
 
+  console.log("map", locations);
   const currentLocationMarkerRef = useRef(null);
 
   let usersInforWindow = null;
@@ -79,7 +80,13 @@ const Map = (props) => {
       >
         <div>
           <p>{props.state.selectedMarkerData.address}</p>
-          <Button buttonClick={() => {}} buttonType="button" className="Danger">
+          <Button
+            buttonClick={() =>
+              props.onDeleteSavedLocation(props.state.selectedMarkerData._id)
+            }
+            buttonType="button"
+            className="Danger"
+          >
             Delete Location
           </Button>
         </div>
@@ -91,13 +98,12 @@ const Map = (props) => {
     savedLocations = locations.map((location) => {
       let show = false;
 
-      if (location.id && props.state.selectedMarkerData.id)
-        if (location.id === props.state.selectedMarkerData.id) show = true;
+      if (location._id === props.state.selectedMarkerData._id) show = true;
 
       return (
         <Marker
           draggable={false}
-          key={location.id}
+          key={location._id}
           position={{
             lat: location.markerPosition.lat,
             lng: location.markerPosition.lng,

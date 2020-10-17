@@ -15,9 +15,9 @@ const initialState = {
     lat: 0,
     lng: 0,
   },
-  myLocations: [],
+  myLocations: { locationsArray: [] },
   panTo: { lat: 0, lng: 0 },
-  selectedMarkerData: { id: "dummy" },
+  selectedMarkerData: { _id: "dummy" },
   showBackDrop: false,
   isDataLoaded: false,
   getUserLocation: true,
@@ -46,7 +46,18 @@ const cockpitReducer = (state = initialState, action) => {
         console.log(error);
       }
       break;
+    case actionTypes.FETCH_LOCATIONS:
+      try {
+        const newState = Object.assign({}, state);
+        newState.myLocations = action.locations;
+        newState.clientSideLocations = action.locations;
 
+        return newState;
+      } catch (error) {
+        console.log(error);
+      }
+
+      break;
     case actionTypes.GET_USER_INFO: {
       try {
         const newMapPosition = { mapPosition: action.response.mapPosition };
@@ -100,18 +111,8 @@ const cockpitReducer = (state = initialState, action) => {
     }
     case actionTypes.SAVE_LOCATION: {
       try {
-        const newState = Object.assign({}, action.state);
-        const mapPosition = Object.assign({}, action.state.mapPosition);
-        const markerPosition = Object.assign({}, action.state.markerPosition);
-
-        newState.myLocations.push({
-          address: newState.address,
-          area: newState.area,
-          city: newState.city,
-          id: new Date(),
-          mapPosition,
-          markerPosition,
-        });
+        const newState = Object.assign({}, state);
+        newState.myLocations.locationsArray.push(action.savedLocation.location);
         return newState;
       } catch (error) {
         console.log(error);
@@ -121,6 +122,7 @@ const cockpitReducer = (state = initialState, action) => {
     case actionTypes.SAVED_LOCATION: {
       try {
         const newState = Object.assign({}, state, action.location);
+
         newState.getUserLocation = false;
         return newState;
       } catch (error) {
@@ -128,6 +130,19 @@ const cockpitReducer = (state = initialState, action) => {
       }
       break;
     }
+    case actionTypes.DELETE_LOCATION:
+      try {
+        const newState = Object.assign({}, state);
+        const locationArray = newState.myLocations.locationsArray.filter(
+          (location) => location._id !== action.locationId.deletedLocationId
+        );
+
+        newState.myLocations.locationsArray = locationArray;
+        return newState;
+      } catch (error) {
+        console.log(error);
+      }
+      break;
     case actionTypes.CURRENT_LOCATION_INFO_WINDOW: {
       try {
         const newState = Object.assign({}, state);
@@ -168,7 +183,7 @@ const cockpitReducer = (state = initialState, action) => {
     case actionTypes.CLOSE_SELECTED_MARKER_INFO_WINDOW: {
       try {
         const newState = Object.assign({}, state);
-        newState.selectedMarkerData = { id: "dummy" };
+        newState.selectedMarkerData = { _id: "dummy" };
         return newState;
       } catch (error) {
         console.log(error);

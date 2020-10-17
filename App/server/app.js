@@ -1,7 +1,6 @@
 const http = require("http");
 const bodyParser = require("body-parser");
 const express = require("express");
-const session = require("express-session");
 const path = require("path");
 const mongoose = require("mongoose");
 const rootDir = require("./utils/path");
@@ -14,17 +13,21 @@ const deleteAccount = require("./routes/deleteAccount");
 const accountData = require("./routes/accountData");
 const accountSettings = require("./routes/accountSettings");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // to serve public as entry point for static files
 // you can serve other folders too
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  session({
-    secret: "EDWINS A GREAT DEVV",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 app.use(signInRoute);
 app.use(signOutRoute);

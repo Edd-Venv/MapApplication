@@ -12,7 +12,11 @@ class Cockpit extends React.Component {
   }
 
   componentDidMount() {
-    const { onComponentMount, state } = this.props;
+    const {
+      onComponentMountGetUserInfo,
+      onComponentMountFetchLocations,
+      state,
+    } = this.props;
 
     try {
       if (navigator.geolocation && state.getUserLocation) {
@@ -20,7 +24,7 @@ class Cockpit extends React.Component {
           (position) => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
-            onComponentMount(lat, lng);
+            onComponentMountGetUserInfo(lat, lng);
           },
           (error) => {
             throw new Error(error);
@@ -28,6 +32,8 @@ class Cockpit extends React.Component {
           { enableHighAccuracy: true }
         );
       }
+      const userID = "5f887d2d40126b396c0a5492";
+      onComponentMountFetchLocations(userID);
     } catch (error) {
       console.log(error);
     }
@@ -43,6 +49,7 @@ class Cockpit extends React.Component {
       onSelectedMarkerInfoWindow,
       onCloseUserInfoWindow,
       onCloseSelectedMarkerInfoWindow,
+      onDeleteSavedLocation,
     } = this.props;
 
     if (state.isDataLoaded) {
@@ -50,6 +57,7 @@ class Cockpit extends React.Component {
         <ErrorBoundary data-test="component-error-boundary">
           <Map
             state={state}
+            onDeleteSavedLocation={onDeleteSavedLocation}
             onPlaceSelected={onPlaceSelected}
             onMarkerDragEnd={onMarkerDragEnd}
             onSaveLocation={onSaveLocation}
@@ -70,8 +78,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onComponentMount: (lat, lng) => {
+  onComponentMountGetUserInfo: (lat, lng) => {
     dispatch(actionCreators.getUserInfo({ lat, lng }));
+  },
+  onComponentMountFetchLocations: (userData) => {
+    dispatch(actionCreators.getMyLocations(userData));
+  },
+  onDeleteSavedLocation: (id) => {
+    dispatch(actionCreators.deleteSelectedLocation(id));
   },
   onPlaceSelected: (place) => {
     dispatch(actionCreators.getPlaceSelected(place));
@@ -80,7 +94,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actionCreators.getMarkerEndDrag(event));
   },
   onSaveLocation: (state) => {
-    dispatch(actionCreators.saveMylocations(state));
+    dispatch(actionCreators.saveMyLocation(state));
   },
   onShowUserInfoWindow: () => {
     dispatch(actionCreators.usersLocationInfoWindow());
@@ -97,7 +111,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 Cockpit.propTypes = {
   state: PropTypes.object.isRequired,
-  onComponentMount: PropTypes.func.isRequired,
+  onDeleteSavedLocation: PropTypes.func.isRequired,
+  onComponentMountGetUserInfo: PropTypes.func.isRequired,
+  onComponentMountFetchLocations: PropTypes.func.isRequired,
   onPlaceSelected: PropTypes.func.isRequired,
   onMarkerDragEnd: PropTypes.func.isRequired,
   onSaveLocation: PropTypes.func.isRequired,

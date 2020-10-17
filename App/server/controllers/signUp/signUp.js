@@ -6,7 +6,7 @@ exports.signUp = (req, res, next) => {
 
     const account = new Account({ username, password, imageurl });
     account.save();
-    res.status(200).json({ status: "ok" });
+    res.status(201).json({ status: "ok" });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
   }
