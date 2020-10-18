@@ -88,13 +88,13 @@ export const setMylocations = (locations) => {
     locations,
   };
 };
-export const getMyLocations = (userId) => {
+export const getMyLocations = () => {
   return (dispatch) => {
     fetch("http://localhost:4030/saved/locations", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: userId,
+        Authorization: `Bearer" ${localStorage.getItem("token")}`,
       },
     })
       .then((response) => response.json())

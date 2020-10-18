@@ -42,7 +42,6 @@ const mapContainerStyle = {
 const Map = (props) => {
   const locations = props.state.myLocations.locationsArray;
 
-  console.log("map", locations);
   const currentLocationMarkerRef = useRef(null);
 
   let usersInforWindow = null;

@@ -22,6 +22,7 @@ class Cockpit extends React.Component {
       if (navigator.geolocation && state.getUserLocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
+            console.log(position.coords.accuracy);
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
             onComponentMountGetUserInfo(lat, lng);
