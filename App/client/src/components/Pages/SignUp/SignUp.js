@@ -32,7 +32,8 @@ class SignUp extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           console.log("res", res);
-          if (res.status === "ok") return <Redirect to="/" />;
+          if (res.status === "ok")
+            return <Redirect to="http://localhost:3000" />;
         })
         .catch((error) => {
           throw new Error("Sign-UpCli", error);

@@ -93,28 +93,29 @@ const Map = (props) => {
     );
   }
 
-  if (locations.length > 0) {
-    savedLocations = locations.map((location) => {
-      let show = false;
+  if (!props.authError) {
+    if (locations.length > 0) {
+      savedLocations = locations.map((location) => {
+        let show = false;
+        console.log(locations, location);
+        if (location._id === props.state.selectedMarkerData._id) show = true;
 
-      if (location._id === props.state.selectedMarkerData._id) show = true;
-
-      return (
-        <Marker
-          draggable={false}
-          key={location._id}
-          position={{
-            lat: location.markerPosition.lat,
-            lng: location.markerPosition.lng,
-          }}
-          onClick={() => props.onSelectedMarkerInfoWindow(location)}
-        >
-          {show ? savedLocationInfoWindow : null}
-        </Marker>
-      );
-    });
+        return (
+          <Marker
+            draggable={false}
+            key={location._id}
+            position={{
+              lat: location.markerPosition.lat,
+              lng: location.markerPosition.lng,
+            }}
+            onClick={() => props.onSelectedMarkerInfoWindow(location)}
+          >
+            {show ? savedLocationInfoWindow : null}
+          </Marker>
+        );
+      });
+    }
   }
-
   return (
     <div>
       <GoogleMap

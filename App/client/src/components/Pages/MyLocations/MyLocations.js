@@ -8,19 +8,37 @@ import Box from "../../UI/Box/Box";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MyLocations.module.css";
 import SearchInput from "../../UI/SearchInput/SearchInput";
+import isAuthorized from "../utils/isAuthorized";
 
 class MyLocations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filter: "",
+      error: false,
     };
   }
 
   componentDidMount() {
     const { onComponentMountFetchLocations } = this.props;
-    const userID = "5f887d2d40126b396c0a5492";
-    onComponentMountFetchLocations(userID);
+    const isAuth = isAuthorized("http://localhost:4030/saved/locations", "GET");
+    isAuth.then((res) => {
+      const { authorized, error } = res;
+
+      if (!authorized) {
+        this.setState((prevState) => {
+          return {
+            filter: prevState.filter,
+            error: true,
+            errorStatus: error.statusCode,
+            errorMessage: error.message,
+          };
+        });
+      } else {
+        const userId = localStorage.getItem("_id");
+        onComponentMountFetchLocations(userId);
+      }
+    });
   }
 
   handleChange = (event) => {
@@ -29,8 +47,10 @@ class MyLocations extends React.Component {
   };
 
   render() {
-    console.log("render");
     const { state, onSavedLocation } = this.props;
+
+    if (this.state.error) return <p>You are not Authorized</p>;
+
     const locations = !this.state.filter
       ? state
       : state.filter((location) =>

@@ -1,6 +1,6 @@
-const Account = require("../../models/accounts/account");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Account = require("../../models/accounts/account");
 
 exports.postSignIn = (req, res, next) => {
   try {
@@ -29,7 +29,6 @@ exports.postSignIn = (req, res, next) => {
         res.status(200).json({ token, _id: user._id, status: "ok" });
       })
       .catch((err) => {
-        //throw new Error(err);
         next(err);
       });
   } catch (error) {

@@ -4,11 +4,15 @@ import PropTypes from "prop-types";
 import * as actionCreators from "../../store/actions/cockpit";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
+import isAuthorized from "../../components/Pages/utils/isAuthorized";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Cockpit extends React.Component {
   constructor(props) {
     super();
+    this.state = {
+      error: false,
+    };
   }
 
   componentDidMount() {
@@ -22,7 +26,6 @@ class Cockpit extends React.Component {
       if (navigator.geolocation && state.getUserLocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log(position.coords.accuracy);
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
             onComponentMountGetUserInfo(lat, lng);
@@ -33,8 +36,26 @@ class Cockpit extends React.Component {
           { enableHighAccuracy: true }
         );
       }
-      const userID = "5f887d2d40126b396c0a5492";
-      onComponentMountFetchLocations(userID);
+      const isAuth = isAuthorized(
+        "http://localhost:4030/saved/locations",
+        "GET"
+      );
+      isAuth.then((res) => {
+        const { authorized, error } = res;
+
+        if (!authorized) {
+          this.setState((prevState) => {
+            return {
+              error: true,
+              errorStatus: error.statusCode,
+              errorMessage: error.message,
+            };
+          });
+        } else {
+          const userId = localStorage.getItem("_id");
+          onComponentMountFetchLocations(userId);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -57,6 +78,7 @@ class Cockpit extends React.Component {
       return (
         <ErrorBoundary data-test="component-error-boundary">
           <Map
+            authError={this.state.error}
             state={state}
             onDeleteSavedLocation={onDeleteSavedLocation}
             onPlaceSelected={onPlaceSelected}

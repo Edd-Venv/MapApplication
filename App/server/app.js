@@ -64,10 +64,11 @@ app.use("/saved", accountData);
 app.use("/account/settings", accountSettings);
 
 app.use((error, req, res, next) => {
-  console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
   const data = error.data;
+
+  console.log("Gobal", error);
   res.status(status).json({ message, data });
 });
 

@@ -1,5 +1,5 @@
-const Account = require("../../models/accounts/account");
 const bcrypt = require("bcryptjs");
+const Account = require("../../models/accounts/account");
 
 exports.signUp = (req, res, next) => {
   try {
