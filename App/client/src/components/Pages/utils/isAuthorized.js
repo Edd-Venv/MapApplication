@@ -9,14 +9,17 @@ async function isAuthorized(Url, Method) {
   })
     .then((response) => response.json())
     .then((result) => {
-      if (result.message === "jwt expired") {
+      console.log(result)
+      if (result.message) {
         const error = new Error(result.message);
         error.statusCode = 401;
 
         throw error;
-      } else {
-        auth = { authorized: true };
+      } 
+      if (result.status === 'ok') {
+       return  auth = { authorized: true };
       }
+      
     })
     .catch((error) => {
       auth = { authorized: false, error };

@@ -42,7 +42,7 @@ class Cockpit extends React.Component {
       );
       isAuth.then((res) => {
         const { authorized, error } = res;
-
+console.log('cockpit', authorized)
         if (!authorized) {
           this.setState((prevState) => {
             return {

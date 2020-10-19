@@ -6,7 +6,6 @@ exports.getAccountData = (req, res, next) => {
     const userId = req._id;
 
     Location.find({ userId }).then((locations) => {
-      console.log(locations)
       const locationsArray = [...locations];
 
       res.status(200).json({ locationsArray, status: "ok" });

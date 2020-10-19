@@ -89,12 +89,13 @@ export const setMylocations = (locations) => {
   };
 };
 export const getMyLocations = () => {
+  const token = localStorage.getItem("token");
   return (dispatch) => {
     fetch("http://localhost:4030/saved/locations", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer" ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -118,12 +119,12 @@ export const setDeleteSelectedLocation = (locationId) => {
 
 export const deleteSelectedLocation = (_id) => {
   return (dispatch) => {
-    const userId = "5f887d2d40126b396c0a5492";
+    const token = localStorage.getItem("token");
     fetch("http://localhost:4030/saved/locations/delete", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: userId,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         _id,
@@ -138,12 +139,13 @@ export const saveMyLocation = (state) => {
     const newState = Object.assign({}, state);
     const mapPosition = Object.assign({}, state.mapPosition);
     const markerPosition = Object.assign({}, state.markerPosition);
-    const userId = "5f887d2d40126b396c0a5492";
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("_id");
     fetch("http://localhost:4030/saved/locations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: userId,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         address: newState.address,
