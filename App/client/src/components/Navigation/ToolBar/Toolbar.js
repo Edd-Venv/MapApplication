@@ -11,7 +11,7 @@ const toolbar = (props) => (
       <UserInfo />
     </div>
     <nav className={classes.DesktopOnly}>
-      <NavigationItems />
+      <NavigationItems logOut={props.logOut} />
     </nav>
   </header>
 );

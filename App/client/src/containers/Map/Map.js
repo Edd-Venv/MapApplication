@@ -97,7 +97,6 @@ const Map = (props) => {
     if (locations.length > 0) {
       savedLocations = locations.map((location) => {
         let show = false;
-        console.log(locations, location);
         if (location._id === props.state.selectedMarkerData._id) show = true;
 
         return (

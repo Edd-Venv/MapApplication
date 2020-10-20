@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import classes from "./UserInfo.module.css";
 
 // import { BaseUrl } from "../../App.js";
@@ -10,7 +11,6 @@ class UserInfo extends React.Component {
   }
 
   componentDidMount() {
-    console.log("run");
     if (localStorage.getItem("username") && !localStorage.getItem("token")) {
       this.setState({ name: "Guest" });
     } else if (localStorage.getItem("username"))
@@ -27,7 +27,8 @@ class UserInfo extends React.Component {
 
   render() {
     const { name } = this.state;
-
+    const { userImage, username } = this.props.state;
+    //console.log("userInfo", this.props.state);
     return (
       <span>
         <i
@@ -41,16 +42,20 @@ class UserInfo extends React.Component {
           <img
             alt="Logo"
             className={classes.LogoImg}
-            src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
+            src={`http://localhost:4030/${userImage}`}
           />
-          {name}
+          {username}
         </i>
       </span>
     );
   }
 }
 
-export default UserInfo;
+const mapStateToProps = (state) => ({
+  state: state.signin,
+});
+
+export default connect(mapStateToProps)(UserInfo);
 
 /* useEffect(() => {
     if (localStorage.getItem("userName") && !user.accesstoken) setName("GUEST");

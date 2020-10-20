@@ -1,12 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../../../store/actions/signin";
+import * as authActionCreators from "../../../store/actions/auth";
 import Form from "../../UI/Form/Form";
 import classes from "./SignIn.module.css";
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", password: "", submitted: false };
+    this.state = { name: "", password: "", submitted: false, redirect: false };
     this.firstInputRef = React.createRef();
     this.secondInputRef = React.createRef();
   }
@@ -14,29 +17,22 @@ class SignIn extends React.Component {
     this.firstInputRef.current.focus();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { state, onAuthentication } = this.props;
+
+    if (prevState.submitted && !state.signInError) {
+      this.setState({ redirect: true });
+      onAuthentication();
+    }
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:4030/sign-in", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.state.name,
-        password: this.state.password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userImage");
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("userImage", result.userImage);
-        localStorage.setItem("_id", result._id);
-        localStorage.setItem("username", result.username);
-        this.setState({ submitted: true });
-      })
-      .catch((err) => console.log(err));
+    const { onSignIn } = this.props;
+
+    onSignIn(this.state, () =>
+      this.setState({ name: "", password: "", submitted: true })
+    );
   };
 
   handleChange = (event) => {
@@ -50,7 +46,9 @@ class SignIn extends React.Component {
   };
 
   render() {
-    if (this.state.submitted) return <Redirect to="/" />;
+    const { state } = this.props;
+    if (this.state.redirect) return <Redirect to="/" />;
+
     return (
       <React.Fragment>
         <div className={classes.BackGroundImg} />
@@ -60,7 +58,9 @@ class SignIn extends React.Component {
             firstInputValue={this.state.name}
             firstInputType="text"
             firstInputLabel="name"
-            firstInputPlaceHolder="User Name"
+            firstInputPlaceHolder={
+              state.signInError ? "Account Not Found" : "User Name"
+            }
             firstInputRef={this.firstInputRef}
             secondInputPlaceHolder="Password"
             secondInputType="password"
@@ -78,4 +78,15 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  state: state.signin,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSignIn: (state, cb) => {
+    dispatch(actionCreators.getSignIn(state));
+    cb();
+  },
+  onAuthentication: (state) => dispatch(authActionCreators.getAuth(state)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
