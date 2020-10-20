@@ -6,11 +6,28 @@ import classes from "./UserInfo.module.css";
 class UserInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "Guest" };
+    this.state = { name: "Guest", imageurl: "" };
   }
+
+  componentDidMount() {
+    console.log("run");
+    if (localStorage.getItem("username") && !localStorage.getItem("token")) {
+      this.setState({ name: "Guest" });
+    } else if (localStorage.getItem("username"))
+      this.setState({ name: localStorage.getItem("username") });
+    //else this.setState({ name: "Guest" });
+  }
+
+  /* shouldComponentUpdate(nextProps, nextState) {
+    console.log("should update", this.state);
+    console.log(nextState.name, localStorage.getItem("username"));
+    if (nextState.name !== this.state.name) return true;
+    return false;
+  }*/
 
   render() {
     const { name } = this.state;
+
     return (
       <span>
         <i
@@ -24,9 +41,7 @@ class UserInfo extends React.Component {
           <img
             alt="Logo"
             className={classes.LogoImg}
-            src={require(`../../../assets/Images/users/${localStorage.getItem(
-              "userImage"
-            )}`)}
+            src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
           />
           {name}
         </i>

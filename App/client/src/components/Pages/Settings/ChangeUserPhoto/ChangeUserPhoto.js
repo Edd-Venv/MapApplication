@@ -23,9 +23,7 @@ class ChangeUserPhoto extends React.Component {
           <img
             alt="Logo"
             className={classes.Img}
-            src={require(`../../../../assets/Images/users/${localStorage.getItem(
-              "userImage"
-            )}`)}
+            src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
           />
           <label htmlFor="photo"></label>
           <input
@@ -56,3 +54,11 @@ ChangeUserPhoto.propTypes = {
   state: PropTypes.object.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeUserPhoto);
+
+//  src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
+
+/*
+{require(`../../../../assets/Images/users/${localStorage.getItem(
+              "userImage"
+            )}`)}
+*/

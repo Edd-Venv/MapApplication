@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 // you can serve other folders too
 app.use(express.static(path.join(__dirname, "public", "css")));
 
-app.use("/images", express.static(path.join(__dirname, "public", "images")));
+app.use("/public/images", express.static(path.join(__dirname, "public", "images")));
 
 app.use(signInRoute);
 app.use(signOutRoute);

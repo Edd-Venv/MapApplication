@@ -42,8 +42,12 @@ class Cockpit extends React.Component {
       );
       isAuth.then((res) => {
         const { authorized, error } = res;
-console.log('cockpit', authorized)
+        console.log("cockpit", authorized);
         if (!authorized) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("_id");
+          localStorage.removeItem("username");
+
           this.setState((prevState) => {
             return {
               error: true,

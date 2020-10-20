@@ -26,7 +26,7 @@ exports.postSignIn = (req, res, next) => {
           "EDWINRULES",
           { expiresIn: "1hr" }
         );
-        res.status(200).json({ token, _id: user._id, status: "ok" });
+        res.status(200).json({ token, _id: user._id, username: user.username, userImage: user.imageurl, status: "ok" });
       })
       .catch((err) => {
         next(err);

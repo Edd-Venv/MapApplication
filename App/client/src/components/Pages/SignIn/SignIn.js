@@ -1,11 +1,12 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Form from "../../UI/Form/Form";
 import classes from "./SignIn.module.css";
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", password: "" };
+    this.state = { name: "", password: "", submitted: false };
     this.firstInputRef = React.createRef();
     this.secondInputRef = React.createRef();
   }
@@ -27,10 +28,13 @@ class SignIn extends React.Component {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log("signedin", result);
         localStorage.removeItem("token");
+        localStorage.removeItem("userImage");
         localStorage.setItem("token", result.token);
+        localStorage.setItem("userImage", result.userImage);
         localStorage.setItem("_id", result._id);
+        localStorage.setItem("username", result.username);
+        this.setState({ submitted: true });
       })
       .catch((err) => console.log(err));
   };
@@ -46,6 +50,7 @@ class SignIn extends React.Component {
   };
 
   render() {
+    if (this.state.submitted) return <Redirect to="/" />;
     return (
       <React.Fragment>
         <div className={classes.BackGroundImg} />
