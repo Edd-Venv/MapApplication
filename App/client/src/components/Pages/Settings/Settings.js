@@ -1,40 +1,36 @@
 import React from "react";
+import { connect } from "react-redux";
 import classes from "./Settings.module.css";
-import isAuthorized from "../utils/isAuthorized";
 import Spinner from "../../UI/Spinner/Spinner";
 import SettingsForm from "../../UI/Form/SettingsForm/SettingsForm";
 
 class Settings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { error: false, isLoading: true };
+    this.state = { authenticated: false, isLoading: true };
   }
 
   componentDidMount() {
-    const isAuth = isAuthorized(
-      "http://localhost:4030/account/settings/update/username",
-      "PATCH"
-    );
-    isAuth.then((res) => {
-      const { authorized, error } = res;
-
-      if (!authorized) {
-        this.setState((prevState) => ({
-          error: !prevState.error,
-          errorStatus: error.statusCode,
-          errorMessage: error.message,
-          isLoading: !prevState.isLoading,
-        }));
-      } else {
-        this.setState((prevState) => ({
-          isLoading: !prevState.isLoading,
-        }));
-      }
+    this.setState({
+      authenticated: this.props.state.authenticated,
+      isLoading: false,
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.state.authenticated === this.state.authenticated)
+      return false;
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.setState.authenticated !== prevProps.state.authenticated) {
+      this.setState({ authenticated: prevProps.state.authenticated });
+    }
+  }
+
   render() {
-    if (this.state.error) return <p>You are not Authorized</p>;
+    if (!this.state.authenticated) return <p>You are not Authorized</p>;
 
     if (this.state.isLoading) return <Spinner />;
 
@@ -47,4 +43,8 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+const mapStateToProps = (state) => ({
+  state: state.auth,
+});
+
+export default connect(mapStateToProps)(Settings);

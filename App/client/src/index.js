@@ -32,7 +32,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
-const logOut = () => {
+export const logOut = () => {
   localStorage.clear({
     username: "username",
     token: "token",
@@ -40,8 +40,9 @@ const logOut = () => {
     userImage: "userImage",
   });
   localStorage.setItem("userImage", "public/images/default.jpeg");
+  localStorage.setItem("username", "Guest");
   store.dispatch({ type: "LOGOUT" });
-  return <Redirect to="/" />;
+  <Redirect to="/" />;
 };
 
 const app = (

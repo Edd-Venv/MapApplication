@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   if (!authHeader) {
     const error = new Error("Not Authenticated.");
     error.statusCode = 401;
-    next(error);
+    return next(error);
   }
   const token = authHeader.split(" ")[1];
   let decodedToken;
@@ -13,15 +13,15 @@ module.exports = (req, res, next) => {
     decodedToken = jwt.verify(token, "EDWINRULES");
   } catch (error) {
     error.statusCode = 500;
-    next(error);
+    return next(error);
   }
   if (!decodedToken) {
     const error = new Error("Not Authenticated");
     error.statusCode = 401;
 
-    next(error);
+    return next(error);
   }
   req._id = decodedToken._id;
 
-  next();
+  return next();
 };

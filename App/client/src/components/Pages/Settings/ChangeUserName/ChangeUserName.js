@@ -3,11 +3,19 @@ import * as actionCreators from "../../../../store/actions/changeusername";
 import Form from "../../../UI/Form/Form";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { changeUserName } from "../Utils/accountSettings";
 import handleToolTip from "../Utils/tooltip.js";
 
 class ChangeUserName extends React.Component {
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
+    console.log("handleSUbmit Called");
+    const username = this.props.state.new_user_name;
+
+    changeUserName(
+      "http://localhost:4030/account/settings/update/username",
+      username
+    );
   };
 
   render() {

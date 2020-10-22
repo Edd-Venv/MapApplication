@@ -7,33 +7,56 @@ const UPDATE_USER_PICTURE = "/update/user-picture";
 exports.patchAccountSettings = (req, res, next) => {
   try {
     const PATH = req.route.path;
+    const id = req._id;
 
     switch (PATH) {
       case UPDATE_USERNAME_ROUTE:
         {
-          const { username, id } = req.body;
+          const { username } = req.body;
 
-          Account.findByIdAndUpdate(id, { username }, () => {
-            res.status(200).json({ status: "ok" });
+          Account.findByIdAndUpdate(
+            id,
+            { username },
+            { useFindAndModify: false, new: true },
+            (error, account) => {
+              if (error) res.status(200).json({ error });
+
+              return account.save();
+            }
+          ).then(() => {
+            res.status(200).json({ username, status: "ok" });
           });
         }
         break;
+
       case UPDATE_PASSWORD_ROUTE:
         {
-          const { password, id } = req.body;
+          const { password } = req.body;
 
-          Account.findByIdAndUpdate(id, { password }, () => {
-            res.status(200).json({ status: "ok" });
-          });
+          Account.findByIdAndUpdate(
+            id,
+            { password },
+            { useFindAndModify: false, new: true },
+            (error, account) => {
+              if (error) res.status(200).json({ error });
+              return account.save();
+            }
+          ).then(() => res.status(200).json({ status: "ok" }));
         }
         break;
       case UPDATE_USER_PICTURE:
         {
-          const { imageurl, id } = req.body;
+          const { imageurl } = req.body;
 
-          Account.findByIdAndUpdate(id, { imageurl }, () => {
-            res.status(200).json({ status: "ok" });
-          });
+          Account.findByIdAndUpdate(
+            id,
+            { imageurl },
+            { useFindAndModify: false, new: true },
+            (error, account) => {
+              if (error) res.status(200).json({ error });
+              return account.save();
+            }
+          ).then(() => res.status(200).json({ imageurl, status: "ok" }));
         }
         break;
       default:

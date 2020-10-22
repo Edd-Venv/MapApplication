@@ -27,10 +27,7 @@ const settingsForm = () => (
         <Button
           className={classes.Danger}
           buttonClick={() =>
-            deleteAccount(
-              "http://localhost:4030/delete/account",
-              "5f8c1b9092c02c0cfc97badc"
-            )
+            deleteAccount("http://localhost:4030/delete/account")
           }
           buttonType="submit"
         >

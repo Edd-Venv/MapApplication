@@ -15,15 +15,7 @@ class App extends React.Component {
     const { onAuthentication } = this.props;
     onAuthentication();
   }
-  componentDidUpdate() {
-    console.log("DIDUPDATE");
-  }
-  /*shouldComponentUpdate(nextProps, nextState) {
-    //console.log("app", nextProps, this.props);
-    if (nextProps.state.authenticated !== this.props.state.authenticated)
-      return true;
-    return false;
-  }*/
+
   render() {
     return (
       <div data-test="component-app">

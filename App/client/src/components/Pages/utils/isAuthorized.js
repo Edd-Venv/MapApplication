@@ -12,7 +12,8 @@ async function isAuthorized(Url, Method) {
       if (result.message) {
         const error = new Error(result.message);
         error.statusCode = 401;
-
+        localStorage.setItem("userImage", "public/images/default.jpeg");
+        localStorage.setItem("username", "Guest");
         throw error;
       }
       if (result.status === "ok") {
