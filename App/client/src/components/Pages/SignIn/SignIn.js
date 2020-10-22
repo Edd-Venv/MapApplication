@@ -21,8 +21,8 @@ class SignIn extends React.Component {
     const { state, onAuthentication } = this.props;
 
     if (prevState.submitted && !state.signInError) {
-      this.setState({ redirect: true });
       onAuthentication();
+      this.setState({ redirect: true });
     }
   }
 
@@ -87,6 +87,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actionCreators.getSignIn(state));
     cb();
   },
-  onAuthentication: (state) => dispatch(authActionCreators.getAuth(state)),
+  onAuthentication: (state) =>
+    dispatch(
+      authActionCreators.setAuth({
+        authenticated: true,
+      })
+    ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

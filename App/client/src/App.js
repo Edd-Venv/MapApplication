@@ -8,6 +8,7 @@ import SignIn from "./components/Pages/SignIn/SignIn";
 import SignUp from "./components/Pages/SignUp/SignUp";
 import Settings from "./components/Pages/Settings/Settings";
 import MyLocations from "./components/Pages/MyLocations/MyLocations";
+import SignOut from "./components/Pages/utils/signOut";
 import * as actionCreators from "./store/actions/auth";
 
 class App extends React.Component {
@@ -19,7 +20,8 @@ class App extends React.Component {
   render() {
     return (
       <div data-test="component-app">
-        <Layout logOut={this.props.logOut}>
+        <Layout>
+          <Route path="/signout" exact component={SignOut} />
           <Route path="/settings" exact component={Settings} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/signin" exact component={SignIn} />

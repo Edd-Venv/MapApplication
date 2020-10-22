@@ -2,24 +2,40 @@ import React from "react";
 import * as actionCreators from "../../../../store/actions/changeusername";
 import Form from "../../../UI/Form/Form";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { changeUserName } from "../Utils/accountSettings";
 import handleToolTip from "../Utils/tooltip.js";
 
 class ChangeUserName extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: false,
+    };
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("handleSUbmit Called");
-    const username = this.props.state.new_user_name;
 
+    const username = this.props.state.new_user_name;
     changeUserName(
       "http://localhost:4030/account/settings/update/username",
       username
-    );
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.status === "ok")
+          this.setState(() => {
+            return { redirect: true };
+          });
+      });
   };
 
   render() {
     const { state, onNewNameInputChange, onOldNameInputChange } = this.props;
+
+    if (this.state.redirect) return <Redirect to="/signout" />;
 
     return (
       <Form
@@ -60,7 +76,20 @@ ChangeUserName.propTypes = {
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeUserName);
 
-/*handleToolTip(
+/*
+ shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.redirect === this.state.redirect)
+      return false;
+    return true;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //if (this.state.redirect !== prevState.redirect) return true;
+    console.log(this.state.redirect, prevState.redirect);
+  }
+
+
+handleToolTip(
     "change-user-name-tool-tip",
     "change-user-name-input",
     "change-user-name-form"

@@ -54,11 +54,7 @@ class NavigationItems extends React.Component {
     }
 
     if (this.state.authenticated) {
-      signOut = (
-        <NavigationItem link="//" logOut={this.props.logOut}>
-          Sign Out
-        </NavigationItem>
-      );
+      signOut = <NavigationItem link="/signout">Sign Out</NavigationItem>;
     }
     return (
       <ul

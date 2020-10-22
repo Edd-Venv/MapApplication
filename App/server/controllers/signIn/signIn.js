@@ -11,7 +11,7 @@ exports.postSignIn = (req, res, next) => {
       .then((account) => {
         if (!account) {
           const error = new Error("No Account Found");
-          next(error);
+          return next(error);
         }
         user = account;
         return bcrypt.compare(password, account.password);
@@ -19,17 +19,23 @@ exports.postSignIn = (req, res, next) => {
       .then((isEqual) => {
         if (!isEqual) {
           const error = new Error("Wrong Password");
-          next(error);
+          return next(error);
         }
         const token = jwt.sign(
           { username: user.username, _id: user._id },
           "EDWINRULES",
           { expiresIn: "1hr" }
         );
-        res.status(200).json({ token, _id: user._id, username: user.username, userImage: user.imageurl, status: "ok" });
+        res.status(200).json({
+          token,
+          _id: user._id,
+          username: user.username,
+          userImage: user.imageurl,
+          status: "ok",
+        });
       })
       .catch((err) => {
-        next(err);
+        return next(err);
       });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });

@@ -46,7 +46,15 @@ export const getSignIn = (state) => {
   };
 };
 
-export const setLogOut = () => {
+export const signOut = () => {
+  localStorage.clear({
+    username: "username",
+    token: "token",
+    _id: "_id",
+    userImage: "userImage",
+  });
+  localStorage.setItem("userImage", "public/images/default.jpeg");
+  localStorage.setItem("username", "Guest");
   return {
     type: LOGOUT,
   };

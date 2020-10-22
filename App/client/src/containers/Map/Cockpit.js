@@ -4,12 +4,11 @@ import PropTypes from "prop-types";
 import * as actionCreators from "../../store/actions/cockpit";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import Map from "./Map";
-import isAuthorized from "../../components/Pages/utils/isAuthorized";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Cockpit extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       error: false,
     };
@@ -23,7 +22,7 @@ class Cockpit extends React.Component {
     } = this.props;
 
     try {
-      if (navigator.geolocation && state.getUserLocation) {
+      if (navigator.geolocation && state.cockpit.getUserLocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const lat = position.coords.latitude;
@@ -36,33 +35,33 @@ class Cockpit extends React.Component {
           { enableHighAccuracy: true }
         );
       }
-      const isAuth = isAuthorized(
-        "http://localhost:4030/saved/locations",
-        "GET"
-      );
-      isAuth.then((res) => {
-        const { authorized, error } = res;
-        if (!authorized) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("_id");
-          localStorage.removeItem("username");
+      const authorized = state.auth.authenticated;
 
-          this.setState((prevState) => {
-            return {
-              error: true,
-              errorStatus: error.statusCode,
-              errorMessage: error.message,
-            };
-          });
-        } else {
-          const userId = localStorage.getItem("_id");
-          onComponentMountFetchLocations(userId);
-        }
-      });
+      if (!authorized) {
+        this.setState((prevState) => {
+          return {
+            error: true,
+          };
+        });
+      }
+
+      if (authorized && localStorage.getItem("token")) {
+        const userId = localStorage.getItem("_id");
+        onComponentMountFetchLocations(userId);
+      }
     } catch (error) {
       console.log(error);
     }
   }
+
+  /*shouldComponentUpdate(nextProps, nextState) {
+    console.log("map", this.props.state, nextProps.state);
+    //if (this.state === nextState) return false;
+    return true;
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("map", this.state, prevState, prevProps);
+  }*/
 
   render() {
     const {
@@ -77,12 +76,13 @@ class Cockpit extends React.Component {
       onDeleteSavedLocation,
     } = this.props;
 
-    if (state.isDataLoaded) {
+    if (state.cockpit.isDataLoaded) {
+      console.log("REndered");
       return (
         <ErrorBoundary data-test="component-error-boundary">
           <Map
             authError={this.state.error}
-            state={state}
+            state={state.cockpit}
             onDeleteSavedLocation={onDeleteSavedLocation}
             onPlaceSelected={onPlaceSelected}
             onMarkerDragEnd={onMarkerDragEnd}
@@ -100,7 +100,7 @@ class Cockpit extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  state: state.cockpit,
+  state: state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -150,3 +150,31 @@ Cockpit.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cockpit);
+
+/*
+
+   const isAuth = isAuthorized(
+        "http://localhost:4030/saved/locations",
+        "GET"
+      );
+      isAuth.then((res) => {
+        const { authorized, error } = res;
+        if (!authorized) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("_id");
+          localStorage.removeItem("username");
+
+          this.setState((prevState) => {
+            return {
+              error: true,
+              errorStatus: error.statusCode,
+              errorMessage: error.message,
+            };
+          });
+        } else {
+          const userId = localStorage.getItem("_id");
+          onComponentMountFetchLocations(userId);
+        }
+      });
+
+*/

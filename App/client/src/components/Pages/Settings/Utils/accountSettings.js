@@ -1,16 +1,13 @@
-import { logOut } from "../../../../index";
 const userId = localStorage.getItem("_id");
 const token = localStorage.getItem("token");
-
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${token}`,
-};
 
 export const deleteAccount = (url) => {
   fetch(url, {
     method: "DELETE",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({
       _id: userId,
     }),
@@ -23,21 +20,16 @@ export const deleteAccount = (url) => {
     });
 };
 
-export const changeUserName = (url, username) => {
-  fetch(url, {
+export const changeUserName = async (url, username) => {
+  return await fetch(url, {
     method: "PATCH",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
     body: JSON.stringify({
       _id: userId,
       username,
     }),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      if (result.status === "ok") logOut();
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error(error);
-    });
+  });
 };
