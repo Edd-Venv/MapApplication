@@ -1,4 +1,5 @@
 const Account = require("../../../models/accounts/account");
+const bcrypt = require("bcryptjs");
 
 const UPDATE_USERNAME_ROUTE = "/update/username";
 const UPDATE_PASSWORD_ROUTE = "/update/password";
@@ -33,15 +34,17 @@ exports.patchAccountSettings = (req, res, next) => {
         {
           const { password } = req.body;
 
-          Account.findByIdAndUpdate(
-            id,
-            { password },
-            { useFindAndModify: false, new: true },
-            (error, account) => {
-              if (error) res.status(200).json({ error });
-              return account.save();
-            }
-          ).then(() => res.status(200).json({ status: "ok" }));
+          bcrypt.hash(password, 12).then((hashedPwd) => {
+            Account.findByIdAndUpdate(
+              id,
+              { password: hashedPwd },
+              { useFindAndModify: false, new: true },
+              (error, account) => {
+                if (error) res.status(200).json({ error });
+                return account.save();
+              }
+            ).then(() => res.status(200).json({ status: "ok" }));
+          });
         }
         break;
       case UPDATE_USER_PICTURE:

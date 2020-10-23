@@ -14,6 +14,7 @@ exports.postSignIn = (req, res, next) => {
           return next(error);
         }
         user = account;
+        console.log(password, account.password);
         return bcrypt.compare(password, account.password);
       })
       .then((isEqual) => {
@@ -37,14 +38,6 @@ exports.postSignIn = (req, res, next) => {
       .catch((err) => {
         return next(err);
       });
-  } catch (error) {
-    res.status(400).json({ error, status: "bad request" });
-  }
-};
-exports.getSignIn = (req, res, next) => {
-  try {
-    // const isLoggedIn = req.get("Cookie").split(";")[1].trim().split("=")[1];
-    res.status(200).json({ status: "ok" });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
   }

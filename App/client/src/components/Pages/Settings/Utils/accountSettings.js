@@ -33,3 +33,17 @@ export const changeUserName = async (url, username) => {
     }),
   });
 };
+
+export const changePassword = async (url, password) => {
+  return await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({
+      _id: userId,
+      password,
+    }),
+  });
+};
