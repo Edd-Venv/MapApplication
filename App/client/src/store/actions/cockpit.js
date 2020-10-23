@@ -5,6 +5,7 @@ import {
   handlePlaceSelected,
 } from "../Utils";
 
+export const RESET_COCKPIT_STATE = "RESET_COCKPIT_STATE";
 export const LOCATE_ME = "LOCATE_ME";
 export const DELETE_LOCATION = "DELETE_LOCATION";
 export const GET_USER_INFO = "GET_USER_INFO";
@@ -190,5 +191,11 @@ export const selectedMarkerInfoWindow = (location) => {
 export const closeSelectedMarkerInfoWindow = () => {
   return {
     type: CLOSE_SELECTED_MARKER_INFO_WINDOW,
+  };
+};
+
+export const resetState = () => {
+  return {
+    type: RESET_COCKPIT_STATE,
   };
 };

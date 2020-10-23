@@ -190,6 +190,15 @@ const cockpitReducer = (state = initialState, action) => {
       }
       break;
     }
+    case actionTypes.RESET_COCKPIT_STATE: {
+      try {
+        return initialState;
+      } catch (error) {
+        console.log(error);
+      }
+      break;
+    }
+
     default:
       return state;
   }

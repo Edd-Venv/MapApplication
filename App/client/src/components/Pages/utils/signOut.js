@@ -1,22 +1,26 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import * as authAction from "../../../store/actions/auth";
-import * as actionCreators from "../../../store/actions/signin";
+import * as cockpitActionCreator from "../../../store/actions/cockpit";
+import * as authActionCreator from "../../../store/actions/auth";
+import * as signOutActionCreator from "../../../store/actions/signin";
 
 class signOut extends React.Component {
   constructor(props) {
     super(props);
     this.state = { redirect: false };
   }
-  componentWillUnmount() {
-    const { onAuth } = this.props;
-    onAuth();
-  }
+
   componentDidMount() {
     const { onLogOut } = this.props;
     onLogOut();
     this.setState({ redirect: true });
+  }
+
+  componentWillUnmount() {
+    const { onAuth, onResetCockpitState } = this.props;
+    onAuth();
+    onResetCockpitState();
   }
 
   render() {
@@ -31,14 +35,17 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLogOut: () => {
-    dispatch(actionCreators.signOut());
+    dispatch(signOutActionCreator.signOut());
   },
   onAuth: () => {
     dispatch(
-      authAction.setAuth({
+      authActionCreator.setAuth({
         authenticated: false,
       })
     );
+  },
+  onResetCockpitState: () => {
+    dispatch(cockpitActionCreator.resetState());
   },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(signOut);

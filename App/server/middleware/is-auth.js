@@ -2,13 +2,14 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   const authHeader = req.get("Authorization");
-  console.log(authHeader, req.body, req.path);
-  if (!authHeader) {
+  const token = authHeader.split(" ")[1];
+  console.log(token, req.body, req.path);
+  if (!token) {
     const error = new Error("Not Authenticated.");
     error.statusCode = 401;
     return next(error);
   }
-  const token = authHeader.split(" ")[1];
+
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, "EDWINRULES");
