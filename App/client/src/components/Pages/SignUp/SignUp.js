@@ -31,7 +31,6 @@ class SignUp extends React.Component {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log("res", res);
           if (res.status === "ok") return <Redirect to="/" />;
         })
         .catch((error) => {

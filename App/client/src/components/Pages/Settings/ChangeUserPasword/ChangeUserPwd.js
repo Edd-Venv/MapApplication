@@ -25,7 +25,6 @@ class ChangeUserPwd extends React.Component {
     )
       .then((res) => res.json())
       .then((result) => {
-        console.log("changePWD", result);
         if (result.status === "ok")
           this.setState(() => {
             return { redirect: true };
@@ -39,7 +38,7 @@ class ChangeUserPwd extends React.Component {
       onOldPasswordInputChange,
       onNewPasswordInputChange,
     } = this.props;
-    console.log(state);
+
     if (this.state.redirect) return <Redirect to="/signout" />;
 
     return (

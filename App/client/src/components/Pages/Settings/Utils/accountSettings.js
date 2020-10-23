@@ -20,8 +20,8 @@ export const deleteAccount = (url) => {
     });
 };
 
-export const changeUserName = async (url, username) => {
-  return await fetch(url, {
+export const changeUserName = (url, username) =>
+  fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -32,10 +32,9 @@ export const changeUserName = async (url, username) => {
       username,
     }),
   });
-};
 
-export const changePassword = async (url, password) => {
-  return await fetch(url, {
+export const changePassword = (url, password) =>
+  fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -46,4 +45,12 @@ export const changePassword = async (url, password) => {
       password,
     }),
   });
-};
+
+export const changePhoto = (url, formData) =>
+  fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: formData,
+  });

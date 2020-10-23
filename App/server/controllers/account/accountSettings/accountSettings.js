@@ -1,5 +1,6 @@
 const Account = require("../../../models/accounts/account");
 const bcrypt = require("bcryptjs");
+const deleteAccountPhoto = require("../../../utils/file");
 
 const UPDATE_USERNAME_ROUTE = "/update/username";
 const UPDATE_PASSWORD_ROUTE = "/update/password";
@@ -49,17 +50,28 @@ exports.patchAccountSettings = (req, res, next) => {
         break;
       case UPDATE_USER_PICTURE:
         {
-          const { imageurl } = req.body;
+          const { prevImageurl } = req.body;
+          let imageurl;
+          let path = "";
 
-          Account.findByIdAndUpdate(
-            id,
-            { imageurl },
-            { useFindAndModify: false, new: true },
-            (error, account) => {
-              if (error) res.status(200).json({ error });
-              return account.save();
-            }
-          ).then(() => res.status(200).json({ imageurl, status: "ok" }));
+          if (req.file) {
+            imageurl = `${req.file.destination}/${req.file.filename}`;
+
+            Account.findByIdAndUpdate(
+              id,
+              { imageurl },
+              { useFindAndModify: false, new: true },
+              (error, account) => {
+                if (error) res.status(200).json({ error });
+
+                if (prevImageurl !== "public/images/default.jpeg")
+                  path = prevImageurl;
+
+                deleteAccountPhoto.deleteFile(path);
+                return account.save();
+              }
+            ).then(() => res.status(200).json({ imageurl, status: "ok" }));
+          }
         }
         break;
       default:

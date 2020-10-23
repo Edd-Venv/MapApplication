@@ -14,7 +14,6 @@ exports.postSignIn = (req, res, next) => {
           return next(error);
         }
         user = account;
-        console.log(password, account.password);
         return bcrypt.compare(password, account.password);
       })
       .then((isEqual) => {
