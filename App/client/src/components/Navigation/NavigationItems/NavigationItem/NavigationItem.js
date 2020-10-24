@@ -8,7 +8,7 @@ const navigationItem = (props) => (
       to={props.link}
       exact
       activeClassName={classes.active}
-      onClick={props.closeBackDrop}
+      onClick={props.closeBackDrop || props.logOut}
     >
       {props.children}
     </NavLink>

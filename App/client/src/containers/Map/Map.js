@@ -40,7 +40,7 @@ const mapContainerStyle = {
 };
 
 const Map = (props) => {
-  const locations = props.state.myLocations;
+  const locations = props.state.myLocations.locationsArray;
 
   const currentLocationMarkerRef = useRef(null);
 
@@ -79,7 +79,13 @@ const Map = (props) => {
       >
         <div>
           <p>{props.state.selectedMarkerData.address}</p>
-          <Button buttonClick={() => {}} buttonType="button" className="Danger">
+          <Button
+            buttonClick={() =>
+              props.onDeleteSavedLocation(props.state.selectedMarkerData._id)
+            }
+            buttonType="button"
+            className="Danger"
+          >
             Delete Location
           </Button>
         </div>
@@ -87,29 +93,28 @@ const Map = (props) => {
     );
   }
 
-  if (locations.length > 0) {
-    savedLocations = locations.map((location) => {
-      let show = false;
+  if (!props.authError) {
+    if (locations.length > 0) {
+      savedLocations = locations.map((location) => {
+        let show = false;
+        if (location._id === props.state.selectedMarkerData._id) show = true;
 
-      if (location.id && props.state.selectedMarkerData.id)
-        if (location.id === props.state.selectedMarkerData.id) show = true;
-
-      return (
-        <Marker
-          draggable={false}
-          key={location.id}
-          position={{
-            lat: location.markerPosition.lat,
-            lng: location.markerPosition.lng,
-          }}
-          onClick={() => props.onSelectedMarkerInfoWindow(location)}
-        >
-          {show ? savedLocationInfoWindow : null}
-        </Marker>
-      );
-    });
+        return (
+          <Marker
+            draggable={false}
+            key={location._id}
+            position={{
+              lat: location.markerPosition.lat,
+              lng: location.markerPosition.lng,
+            }}
+            onClick={() => props.onSelectedMarkerInfoWindow(location)}
+          >
+            {show ? savedLocationInfoWindow : null}
+          </Marker>
+        );
+      });
+    }
   }
-
   return (
     <div>
       <GoogleMap

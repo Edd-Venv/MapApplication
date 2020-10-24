@@ -5,16 +5,42 @@ import * as actionCreators from "../../../store/actions/cockpit";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "../../UI/Box/Box";
+import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MyLocations.module.css";
 import SearchInput from "../../UI/SearchInput/SearchInput";
+import isAuthorized from "../utils/isAuthorized";
 
 class MyLocations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filter: "",
+      error: false,
     };
   }
+
+  componentDidMount() {
+    const { onComponentMountFetchLocations } = this.props;
+    const isAuth = isAuthorized("http://localhost:4030/saved/locations", "GET");
+    isAuth.then((res) => {
+      const { authorized, error } = res;
+
+      if (!authorized) {
+        this.setState((prevState) => {
+          return {
+            filter: prevState.filter,
+            error: true,
+            errorStatus: error.statusCode,
+            errorMessage: error.message,
+          };
+        });
+      } else {
+        const userId = localStorage.getItem("_id");
+        onComponentMountFetchLocations(userId);
+      }
+    });
+  }
+
   handleChange = (event) => {
     if (event.target.name === "search")
       this.setState({ filter: event.target.value });
@@ -22,6 +48,8 @@ class MyLocations extends React.Component {
 
   render() {
     const { state, onSavedLocation } = this.props;
+
+    if (this.state.error) return <p>You are not Authorized</p>;
 
     const locations = !this.state.filter
       ? state
@@ -33,7 +61,7 @@ class MyLocations extends React.Component {
 
     let filter = null;
 
-    if (locations.length >= 0) {
+    if (state.length > 0) {
       filter = (
         <SearchInput
           handleChange={this.handleChange}
@@ -41,47 +69,51 @@ class MyLocations extends React.Component {
           placeHolder="Filter By Address"
         />
       );
-    }
 
-    return (
-      <React.Fragment>
-        <div className={classes.BackGroundImg} />
-        <div data-test="component-my-locations">
-          {filter}
-          <div className={classes.Grid}>
-            {locations.map((location, id) => (
-              <div className={classes.Container} key={id + 5}>
-                <Box>
-                  <p>
-                    <strong>Address:</strong> {location.address}
-                  </p>
-                  <p>
-                    <strong>City:</strong> {location.city}
-                  </p>
-                  <Link to="/" onClick={() => onSavedLocation(location)}>
-                    view on map
-                  </Link>
-                </Box>
-              </div>
-            ))}
+      return (
+        <React.Fragment>
+          <div className={classes.BackGroundImg} />
+          <div data-test="component-my-locations">
+            {filter}
+            <div className={classes.Grid}>
+              {locations.map((location) => (
+                <div className={classes.Container} key={location._id}>
+                  <Box>
+                    <p>
+                      <strong>Address:</strong> {location.address}
+                    </p>
+                    <p>
+                      <strong>City:</strong> {location.city}
+                    </p>
+                    <Link to="/" onClick={() => onSavedLocation(location)}>
+                      view on map
+                    </Link>
+                  </Box>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </React.Fragment>
-    );
+        </React.Fragment>
+      );
+    }
+    return <Spinner />;
   }
 }
-
 const mapStateToProps = (state) => ({
-  state: state.cockpit.myLocations,
+  state: state.cockpit.myLocations.locationsArray,
 });
 const mapDispatchToProps = (dispatch) => ({
   onSavedLocation: (location) => {
     dispatch(actionCreators.mySavedLocation(location));
   },
+  onComponentMountFetchLocations: (userData) => {
+    dispatch(actionCreators.getMyLocations(userData));
+  },
 });
 
 MyLocations.propTypes = {
   state: PropTypes.array.isRequired,
+  onComponentMountFetchLocations: PropTypes.func.isRequired,
   onSavedLocation: PropTypes.func.isRequired,
 };
 

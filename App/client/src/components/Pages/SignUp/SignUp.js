@@ -1,6 +1,7 @@
 import React from "react";
 import * as actionCreators from "../../../store/actions/signup";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import Form from "../../UI/Form/Form";
 import classes from "../SignIn/SignIn.module.css";
@@ -17,8 +18,27 @@ class SignUp extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.props.state);
-    console.log("handlesubmitCalled");
+
+    const formData = new FormData();
+    formData.append("username", this.props.state.name);
+    formData.append("password", this.props.state.password);
+
+    if (this.props.state.blob) formData.append("photo", this.props.state.blob);
+    try {
+      fetch("http://localhost:4030/sign-up", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === "ok") return <Redirect to="/" />;
+        })
+        .catch((error) => {
+          throw new Error("Sign-UpCli", error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   onfirstInputKeyDown = (event) => {
@@ -53,6 +73,7 @@ class SignUp extends React.Component {
             onBlobInputChange={onBlobInputChange}
             onNameInputChange={onNameInputChange}
             onPasswordInputChange={onPasswordInputChange}
+            handleSubmit={this.handleSubmit}
           />
         </div>
       </React.Fragment>
