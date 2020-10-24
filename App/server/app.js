@@ -25,6 +25,8 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+const forgotPasswordRoute = require("./routes/forgotPassword");
+const resetPaswordRoute = require("./routes/passwordReset");
 const signInRoute = require("./routes/signIn");
 const signOutRoute = require("./routes/signOut");
 const signUpRoute = require("./routes/signUp");
@@ -55,6 +57,8 @@ app.use(
   express.static(path.join(__dirname, "public", "images"))
 );
 
+app.use(resetPaswordRoute);
+app.use(forgotPasswordRoute);
 app.use(signInRoute);
 app.use(signOutRoute);
 app.use(signUpRoute);

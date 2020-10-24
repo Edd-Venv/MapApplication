@@ -8,6 +8,8 @@ import SignIn from "./components/Pages/SignIn/SignIn";
 import SignUp from "./components/Pages/SignUp/SignUp";
 import Settings from "./components/Pages/Settings/Settings";
 import MyLocations from "./components/Pages/MyLocations/MyLocations";
+import ForgotPassword from "./components/Pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/Pages/PasswordReset/PasswordReset";
 import SignOut from "./components/Pages/utils/signOut";
 import * as actionCreators from "./store/actions/auth";
 
@@ -26,6 +28,8 @@ class App extends React.Component {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/mylocations" exact component={MyLocations} />
+          <Route path="/forgot/password" exact component={ForgotPassword} />
+          <Route path="/reset/password" exact component={ResetPassword} />
           <Route path="/" exact component={Cockpit} />
         </Layout>
       </div>

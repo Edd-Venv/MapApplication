@@ -7,6 +7,8 @@ const accountSchema = new Schema({
   password: String,
   imageurl: String,
   locations: [{ type: Schema.Types.ObjectId, ref: "Location" }],
+  resetToken: String,
+  resetTokenExpiration: Number,
 });
 
 module.exports = mongoose.model("Account", accountSchema);
