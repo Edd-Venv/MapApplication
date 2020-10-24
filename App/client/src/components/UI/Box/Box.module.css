@@ -1,11 +1,13 @@
 .Box {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   background-color: honeydew;
   border-radius: 2px;
   line-break: strict;
-  flex-flow: wrap;
   padding: 0px 5px 5px 5px;
   font-family: "Montserrat", sans-serif;
+  margin-top: 2vh;
 }
 
 .Box:hover {

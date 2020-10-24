@@ -9,6 +9,7 @@ import Background from "../../UI/Background/Background";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MyLocations.module.css";
 import NotAuthorized from "../404";
+import CloseButton from "../../UI/Button/CloseButton/CloseButton";
 import SearchInput from "../../UI/SearchInput/SearchInput";
 import isAuthorized from "../utils/isAuthorized";
 
@@ -49,7 +50,7 @@ class MyLocations extends React.Component {
   };
 
   render() {
-    const { state, onSavedLocation } = this.props;
+    const { state, onSavedLocation, onDeleteSavedLocation } = this.props;
 
     if (this.state.error) return <NotAuthorized />;
 
@@ -72,6 +73,10 @@ class MyLocations extends React.Component {
         />
       );
 
+      const style = {
+        padding: "inherit",
+      };
+
       return (
         <Background data_test="component-my-locations">
           {filter}
@@ -79,14 +84,28 @@ class MyLocations extends React.Component {
             {locations.map((location) => (
               <div className={classes.Container} key={location._id}>
                 <Box>
-                  <p>
+                  <CloseButton
+                    className={classes.Closebutton}
+                    onClick={() => onDeleteSavedLocation(location._id)}
+                  >
+                    x
+                  </CloseButton>
+                  <p style={style}>
                     <strong>Address:</strong> {location.address}
                   </p>
-                  <p>
+                  <p style={style}>
                     <strong>City:</strong> {location.city}
                   </p>
-                  <Link to="/" onClick={() => onSavedLocation(location)}>
-                    view on map
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      padding: "inherit",
+                      width: "fit-content",
+                    }}
+                    to="/"
+                    onClick={() => onSavedLocation(location)}
+                  >
+                    View On Map
                   </Link>
                 </Box>
               </div>
@@ -98,15 +117,20 @@ class MyLocations extends React.Component {
     return <Spinner />;
   }
 }
+
 const mapStateToProps = (state) => ({
   state: state.cockpit.myLocations.locationsArray,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   onSavedLocation: (location) => {
     dispatch(actionCreators.mySavedLocation(location));
   },
   onComponentMountFetchLocations: (userData) => {
     dispatch(actionCreators.getMyLocations(userData));
+  },
+  onDeleteSavedLocation: (id) => {
+    dispatch(actionCreators.deleteSelectedLocation(id));
   },
 });
 
