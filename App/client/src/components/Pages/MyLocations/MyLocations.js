@@ -5,6 +5,7 @@ import * as actionCreators from "../../../store/actions/cockpit";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Box from "../../UI/Box/Box";
+import Background from "../../UI/Background/Background";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MyLocations.module.css";
 import SearchInput from "../../UI/SearchInput/SearchInput";
@@ -71,29 +72,26 @@ class MyLocations extends React.Component {
       );
 
       return (
-        <React.Fragment>
-          <div className={classes.BackGroundImg} />
-          <div data-test="component-my-locations">
-            {filter}
-            <div className={classes.Grid}>
-              {locations.map((location) => (
-                <div className={classes.Container} key={location._id}>
-                  <Box>
-                    <p>
-                      <strong>Address:</strong> {location.address}
-                    </p>
-                    <p>
-                      <strong>City:</strong> {location.city}
-                    </p>
-                    <Link to="/" onClick={() => onSavedLocation(location)}>
-                      view on map
-                    </Link>
-                  </Box>
-                </div>
-              ))}
-            </div>
+        <Background data_test="component-my-locations">
+          {filter}
+          <div className={classes.Grid}>
+            {locations.map((location) => (
+              <div className={classes.Container} key={location._id}>
+                <Box>
+                  <p>
+                    <strong>Address:</strong> {location.address}
+                  </p>
+                  <p>
+                    <strong>City:</strong> {location.city}
+                  </p>
+                  <Link to="/" onClick={() => onSavedLocation(location)}>
+                    view on map
+                  </Link>
+                </Box>
+              </div>
+            ))}
           </div>
-        </React.Fragment>
+        </Background>
       );
     }
     return <Spinner />;

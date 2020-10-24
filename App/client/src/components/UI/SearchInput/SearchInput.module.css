@@ -37,12 +37,13 @@
 @media (min-width: 300px) {
   .InputContainer {
     width: 60vw;
+    top: 0;
   }
 }
 @media (min-width: 500px) {
   .InputContainer {
     width: 60vw;
-    margin-top: 20vh;
+    margin-top: 25vh;
   }
 }
 @media (min-width: 700px) {
