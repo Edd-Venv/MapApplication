@@ -2,16 +2,9 @@
   display: flex;
   flex-direction: column;
 }
-@media (max-width: 425px) {
-  #logoImg {
-    width: 10vw;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
+@media (min-width: 300px) {
   .Img {
-    width: 35vw;
+    width: 27vw;
     border-top-left-radius: 0px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -19,17 +12,11 @@
   }
 }
 @media (min-width: 426px) {
-  #logoImg {
-    width: 5vw;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-  }
 }
-@media (min-width: 768px) {
+
+@media (min-width: 700px) {
   .Img {
-    width: 15vw;
+    width: 21vw;
     border-top-left-radius: 0px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -37,15 +24,8 @@
   }
 }
 @media (min-width: 1020px) {
-  #logoImg {
-    width: 5vw;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-  }
   .Img {
-    width: 10vw;
+    width: 16vw;
     border-top-left-radius: 0px;
     border-top-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -53,13 +33,6 @@
   }
 }
 @media (min-width: 1200px) {
-  #logoImg {
-    width: 3vw;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-  }
   .Img {
     width: 8vw;
     border-top-left-radius: 45px;
@@ -69,11 +42,7 @@
   }
 }
 @media (min-width: 1440px) {
-  #logoImg {
-    width: 5vw;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+  .Img {
+    width: 12vw;
   }
 }

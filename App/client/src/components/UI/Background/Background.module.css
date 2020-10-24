@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .BackGroundImg {
   background-image: url("../../../assets/Images/background/mapBackground.jpg");

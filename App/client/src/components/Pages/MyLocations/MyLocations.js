@@ -8,6 +8,7 @@ import Box from "../../UI/Box/Box";
 import Background from "../../UI/Background/Background";
 import Spinner from "../../UI/Spinner/Spinner";
 import classes from "./MyLocations.module.css";
+import NotAuthorized from "../404";
 import SearchInput from "../../UI/SearchInput/SearchInput";
 import isAuthorized from "../utils/isAuthorized";
 
@@ -50,7 +51,7 @@ class MyLocations extends React.Component {
   render() {
     const { state, onSavedLocation } = this.props;
 
-    if (this.state.error) return <p>You are not Authorized</p>;
+    if (this.state.error) return <NotAuthorized />;
 
     const locations = !this.state.filter
       ? state

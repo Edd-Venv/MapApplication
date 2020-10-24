@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Background from "../../UI/Background/Background";
 import Spinner from "../../UI/Spinner/Spinner";
+import NotAuthorized from "../404";
 import SettingsForm from "../../UI/Form/SettingsForm/SettingsForm";
 
 class Settings extends React.Component {
@@ -30,7 +31,7 @@ class Settings extends React.Component {
   }
 
   render() {
-    if (!this.state.authenticated) return <p>You are not Authorized</p>;
+    if (!this.state.authenticated) return <NotAuthorized />;
 
     if (this.state.isLoading) return <Spinner />;
 
