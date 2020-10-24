@@ -53,7 +53,7 @@ class ForgotPassword extends React.Component {
   handleChange = (event) => {
     if (event.target.name === "email")
       this.setState({ email: event.target.value });
-    else this.setState({ username: event.target.value });
+    else this.setState({ username: event.target.value.toUpperCase() });
   };
 
   render() {
