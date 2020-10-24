@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import classes from "./Settings.module.css";
+import Background from "../../UI/Background/Background";
 import Spinner from "../../UI/Spinner/Spinner";
 import SettingsForm from "../../UI/Form/SettingsForm/SettingsForm";
 
@@ -35,10 +35,9 @@ class Settings extends React.Component {
     if (this.state.isLoading) return <Spinner />;
 
     return (
-      <div data-test="component-settings">
-        <div className={classes.BackGroundImg} />
+      <Background data_test="component-settings">
         <SettingsForm />
-      </div>
+      </Background>
     );
   }
 }
