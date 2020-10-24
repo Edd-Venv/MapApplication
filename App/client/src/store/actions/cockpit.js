@@ -5,8 +5,11 @@ import {
   handlePlaceSelected,
 } from "../Utils";
 
+export const RESET_COCKPIT_STATE = "RESET_COCKPIT_STATE";
 export const LOCATE_ME = "LOCATE_ME";
+export const DELETE_LOCATION = "DELETE_LOCATION";
 export const GET_USER_INFO = "GET_USER_INFO";
+export const FETCH_LOCATIONS = "FETCH_LOCATIONS";
 export const PLACE_SELECTED = "PLACE_SELECTED";
 export const MARKER_END_DRAG = "MARKER_END_DRAG";
 export const SAVE_LOCATION = "SAVE_LOCATION";
@@ -80,10 +83,82 @@ export const getMarkerEndDrag = (event) => {
   };
 };
 
-export const saveMylocations = (state) => {
+export const setMylocations = (locations) => {
+  return {
+    type: FETCH_LOCATIONS,
+    locations,
+  };
+};
+export const getMyLocations = () => {
+  const token = localStorage.getItem("token");
+  return (dispatch) => {
+    fetch("http://localhost:4030/saved/locations", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((locations) => {
+        dispatch(setMylocations(locations));
+      });
+  };
+};
+export const setMylocation = (savedLocation) => {
   return {
     type: SAVE_LOCATION,
-    state,
+    savedLocation,
+  };
+};
+export const setDeleteSelectedLocation = (locationId) => {
+  return {
+    type: DELETE_LOCATION,
+    locationId,
+  };
+};
+
+export const deleteSelectedLocation = (_id) => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    fetch("http://localhost:4030/saved/locations/delete", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        _id,
+      }),
+    })
+      .then((response) => response.json())
+      .then((id) => dispatch(setDeleteSelectedLocation(id)));
+  };
+};
+export const saveMyLocation = (state) => {
+  return (dispatch) => {
+    const newState = Object.assign({}, state);
+    const mapPosition = Object.assign({}, state.mapPosition);
+    const markerPosition = Object.assign({}, state.markerPosition);
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("_id");
+    fetch("http://localhost:4030/saved/locations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        address: newState.address,
+        area: newState.area,
+        city: newState.city,
+        mapPosition,
+        markerPosition,
+        userId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((savedLocation) => dispatch(setMylocation(savedLocation)));
   };
 };
 
@@ -116,5 +191,11 @@ export const selectedMarkerInfoWindow = (location) => {
 export const closeSelectedMarkerInfoWindow = () => {
   return {
     type: CLOSE_SELECTED_MARKER_INFO_WINDOW,
+  };
+};
+
+export const resetState = () => {
+  return {
+    type: RESET_COCKPIT_STATE,
   };
 };

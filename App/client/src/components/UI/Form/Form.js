@@ -11,7 +11,7 @@ const form = (props) => {
 
   if (formTitle === "Sign In") {
     forgotPassword = (
-      <Link to="/forgotPassword" style={{ textDecorationLine: "none" }}>
+      <Link to="/forgot/password" style={{ textDecorationLine: "none" }}>
         <p className={classes.ForgotPassword}>Forgot your password?</p>
       </Link>
     );
@@ -80,7 +80,7 @@ const form = (props) => {
       {pictureUpload}
       <div>
         {" "}
-        <Button type={props.buttonType}>{formTitle}</Button>
+        <Button type={props.buttonType}>Submit</Button>
       </div>
     </form>
   );

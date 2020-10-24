@@ -1,11 +1,15 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../../../store/actions/signin";
+import * as authActionCreators from "../../../store/actions/auth";
 import Form from "../../UI/Form/Form";
 import classes from "./SignIn.module.css";
 
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", password: "" };
+    this.state = { name: "", password: "", submitted: false, redirect: false };
     this.firstInputRef = React.createRef();
     this.secondInputRef = React.createRef();
   }
@@ -13,9 +17,22 @@ class SignIn extends React.Component {
     this.firstInputRef.current.focus();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { state, onAuthentication } = this.props;
+
+    if (prevState.submitted && !state.signInError) {
+      onAuthentication();
+      this.setState({ redirect: true });
+    }
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("handlesubmitCalled");
+    const { onSignIn } = this.props;
+
+    onSignIn(this.state, () =>
+      this.setState({ name: "", password: "", submitted: true })
+    );
   };
 
   handleChange = (event) => {
@@ -29,6 +46,9 @@ class SignIn extends React.Component {
   };
 
   render() {
+    const { state } = this.props;
+    if (this.state.redirect) return <Redirect to="/" />;
+
     return (
       <React.Fragment>
         <div className={classes.BackGroundImg} />
@@ -38,7 +58,9 @@ class SignIn extends React.Component {
             firstInputValue={this.state.name}
             firstInputType="text"
             firstInputLabel="name"
-            firstInputPlaceHolder="User Name"
+            firstInputPlaceHolder={
+              state.signInError ? "Account Not Found" : "User Name"
+            }
             firstInputRef={this.firstInputRef}
             secondInputPlaceHolder="Password"
             secondInputType="password"
@@ -56,4 +78,20 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  state: state.signin,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSignIn: (state, cb) => {
+    dispatch(actionCreators.getSignIn(state));
+    cb();
+  },
+  onAuthentication: (state) =>
+    dispatch(
+      authActionCreators.setAuth({
+        authenticated: true,
+      })
+    ),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -1,4 +1,6 @@
 const Account = require("../../../models/accounts/account");
+const bcrypt = require("bcryptjs");
+const deleteAccountPhoto = require("../../../utils/file");
 
 const UPDATE_USERNAME_ROUTE = "/update/username";
 const UPDATE_PASSWORD_ROUTE = "/update/password";
@@ -7,33 +9,69 @@ const UPDATE_USER_PICTURE = "/update/user-picture";
 exports.patchAccountSettings = (req, res, next) => {
   try {
     const PATH = req.route.path;
+    const id = req._id;
 
     switch (PATH) {
       case UPDATE_USERNAME_ROUTE:
         {
-          const { username, id } = req.body;
+          const { username } = req.body;
 
-          Account.findByIdAndUpdate(id, { username }, () => {
-            res.status(200).json({ status: "ok" });
+          Account.findByIdAndUpdate(
+            id,
+            { username },
+            { useFindAndModify: false, new: true },
+            (error, account) => {
+              if (error) res.status(200).json({ error });
+
+              return account.save();
+            }
+          ).then(() => {
+            res.status(200).json({ username, status: "ok" });
           });
         }
         break;
+
       case UPDATE_PASSWORD_ROUTE:
         {
-          const { password, id } = req.body;
+          const { password } = req.body;
 
-          Account.findByIdAndUpdate(id, { password }, () => {
-            res.status(200).json({ status: "ok" });
+          bcrypt.hash(password, 12).then((hashedPwd) => {
+            Account.findByIdAndUpdate(
+              id,
+              { password: hashedPwd },
+              { useFindAndModify: false, new: true },
+              (error, account) => {
+                if (error) res.status(200).json({ error });
+                return account.save();
+              }
+            ).then(() => res.status(200).json({ status: "ok" }));
           });
         }
         break;
       case UPDATE_USER_PICTURE:
         {
-          const { imageurl, id } = req.body;
+          const { prevImageurl } = req.body;
+          let imageurl;
+          let path = "";
 
-          Account.findByIdAndUpdate(id, { imageurl }, () => {
-            res.status(200).json({ status: "ok" });
-          });
+          if (req.file) {
+            imageurl = `${req.file.destination}/${req.file.filename}`;
+
+            Account.findByIdAndUpdate(
+              id,
+              { imageurl },
+              { useFindAndModify: false, new: true },
+              (error, account) => {
+                if (error) res.status(200).json({ error });
+
+                if (prevImageurl !== "public/images/default.jpeg")
+                  path = prevImageurl;
+
+                deleteAccountPhoto.deleteFile(path);
+                return account.save();
+              }
+            ).then(() => res.status(200).json({ imageurl, status: "ok" }));
+          }
         }
         break;
       default:

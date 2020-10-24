@@ -18,12 +18,17 @@ class Layout extends React.Component {
     });
   };
   render() {
+    const { logOut } = this.props;
     return (
       <div data-test="component-layout">
-        <ToolBar drawerToggleClicked={this.handleSideDrawerToggle} />
+        <ToolBar
+          logOut={logOut}
+          drawerToggleClicked={this.handleSideDrawerToggle}
+        />
         <SideDrawer
           open={this.state.showSideDrawer}
           closed={this.handleSideDrawerClose}
+          logOut={logOut}
         />
 
         <main>{this.props.children}</main>

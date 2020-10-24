@@ -1,9 +1,14 @@
 const Location = require("../../../models/locations/location");
+const Account = require("../../../models/accounts/account");
 
 exports.getAccountData = (req, res, next) => {
   try {
-    Location.find().then((locations) => {
-      res.status(200).json({ locations, status: "ok" });
+    const userId = req._id;
+
+    Location.find({ userId }).then((locations) => {
+      const locationsArray = [...locations];
+
+      res.status(200).json({ locationsArray, status: "ok" });
     });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
@@ -12,28 +17,27 @@ exports.getAccountData = (req, res, next) => {
 
 exports.postAccountData = (req, res, next) => {
   try {
-    const {
-      address,
-      area,
-      city,
-      id,
-      mapPosition,
-      markerPosition,
-      userID,
-    } = req.body;
+    const { address, area, city, id, mapPosition, markerPosition } = req.body;
+    const userId = req._id;
 
-    const locations = new Location({
+    const location = new Location({
       address,
       area,
       city,
       id,
       mapPosition,
       markerPosition,
-      userID,
+      userId,
     });
-
-    locations.save();
-    res.status(200).json({ locations, status: "ok" });
+    location
+      .save()
+      .then((savedLocation) =>
+        Account.findById(userId).then((account) => {
+          account.locations.push(savedLocation);
+          account.save();
+        })
+      )
+      .then(res.status(201).json({ location, status: "ok" }));
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
   }
@@ -41,10 +45,20 @@ exports.postAccountData = (req, res, next) => {
 
 exports.patchAccountData = (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { _id } = req.body;
+    const userId = req._id;
 
-    Location.findByIdAndRemove(id).then((deletedLocation) => {
-      res.status(200).json({ deletedLocation, status: "ok" });
+    Location.findByIdAndRemove(_id).then((deletedLocation) => {
+      const deletedLocationId = deletedLocation._id;
+
+      Account.findById(userId).then((account) => {
+        account.locations.filter(
+          (location) => location._id !== deletedLocationId
+        );
+        account.save();
+      });
+
+      res.status(201).json({ deletedLocationId, status: "ok" });
     });
   } catch (error) {
     res.status(400).json({ error, status: "bad request" });
