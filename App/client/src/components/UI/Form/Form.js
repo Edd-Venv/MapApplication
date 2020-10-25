@@ -39,11 +39,13 @@ const form = (props) => {
       className={classes.Form}
       autoComplete="off"
       onSubmit={props.handleSubmit}
+      id="formID"
     >
       <h3 style={{ fontFamily: "Oswald, sans-serif" }}>{formTitle}</h3>
       <div>
         <label htmlFor={props.firstInputLabel} />
         <input
+          id="inputID"
           className={classes.Inputs}
           name={props.firstInputLabel}
           type={props.firstInputType}

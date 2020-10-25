@@ -1,0 +1,5 @@
+.ToolTip {
+  border: 5px solid;
+  position: absolute;
+  z-index: 20;
+}

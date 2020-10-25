@@ -48,20 +48,31 @@ class ChangeUserPhoto extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <div className={classes.Container}>
-          <img
-            alt="Logo"
-            className={classes.Img}
-            src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
-          />
+          <div
+            style={{
+              border: "5px solid",
+              paddingBottom: "5px",
+              width: "fit-content",
+              borderBottomLeftRadius: "40px",
+            }}
+          >
+            <img
+              alt="Logo"
+              className={classes.Img}
+              src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
+            />
+          </div>
           <label htmlFor="photo"></label>
-          <input
-            style={{ outline: "none" }}
-            type="file"
-            name="photo"
-            id="photo"
-            accept="image/*"
-            onChange={onBlobInputChange}
-          />
+          <div style={{ border: "5px solid", paddingBottom: "5px" }}>
+            <input
+              style={{ outline: "none" }}
+              type="file"
+              name="photo"
+              id="photo"
+              accept="image/*"
+              onChange={onBlobInputChange}
+            />
+          </div>
           <Button buttonType="submit">Save Photo</Button>
         </div>
       </form>
