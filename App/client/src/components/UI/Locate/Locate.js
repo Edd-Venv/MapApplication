@@ -27,7 +27,7 @@ const locate = (props) => {
   };
   return (
     <button className={classes.Container} onClick={() => navi()}>
-      <i>locate</i>
+      <img src={require("../../../assets/icons/locate.png")} />
     </button>
   );
 };
