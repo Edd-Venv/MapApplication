@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import Background from "../../UI/Background/Background";
+import toolTip from "../../UI/ToolTip/ToolTip";
 import Form from "../../UI/Form/Form";
 
 class SignUp extends React.Component {
@@ -32,12 +33,13 @@ class SignUp extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           if (res.status === "ok") return <Redirect to="/" />;
+          else throw new Error(res.message);
         })
         .catch((error) => {
-          throw new Error("Sign-UpCli", error);
+          toolTip("signup", "inputID", "formID", error.message);
         });
     } catch (error) {
-      console.log(error);
+      console.log("SignUp", error);
     }
   };
 

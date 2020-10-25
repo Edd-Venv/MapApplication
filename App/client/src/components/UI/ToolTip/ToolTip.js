@@ -12,8 +12,8 @@ const handleToolTip = (tooltipId, inputId, formId, errorMassage) => {
       const hostElPosTop = hostElement.offsetTop;
       const hostElHeight = hostElement.clientHeight;
 
-      const x = hostElPosLeft + 33;
-      const y = hostElPosTop - 43;
+      const x = hostElPosLeft + 50;
+      const y = hostElPosTop - 68;
       toolTip.className = classes.ToolTip;
       toolTip.style.left = x + "px";
       toolTip.style.top = y + "px";

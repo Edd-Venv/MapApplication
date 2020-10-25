@@ -1,6 +1,6 @@
 import React from "react";
-import * as actionCreators from "../../../store/actions/cockpit";
 import { connect } from "react-redux";
+import * as actionCreators from "../../../store/actions/cockpit";
 import classes from "./Locate.module.css";
 
 const locate = (props) => {
