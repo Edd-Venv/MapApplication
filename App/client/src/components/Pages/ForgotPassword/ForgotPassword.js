@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import classes from "./ForgotPassword.module.css";
+import Background from "../../UI/Background/Background";
 import Form from "../../UI/Form/Form";
 
 class ForgotPassword extends React.Component {
@@ -60,33 +60,27 @@ class ForgotPassword extends React.Component {
     if (this.state.redirect) return <Redirect to="/" />;
 
     return (
-      <React.Fragment>
-        <div className={classes.BackGroundImg} />
-        <div
-          data-test="component-forgot-password"
-          className={classes.Container}
-        >
-          <Form
-            firstInputOnKeyDown={this.onfirstInputKeyDown}
-            firstInputValue={this.state.username}
-            firstInputType="text/number"
-            firstInputLabel="username"
-            firstInputPlaceHolder={
-              this.state.error ? "No Account Found." : "Username"
-            }
-            firstInputRef={this.firstInputRef}
-            secondInputPlaceHolder="johndoe@gmail.com"
-            secondInputType="text"
-            secondInputLabel="email"
-            secondInputRef={this.secondInputRef}
-            secondInputValue={this.state.email}
-            buttonType="submit"
-            formTitle="Forgot Password"
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </div>
-      </React.Fragment>
+      <Background data_test="component-forgot-password">
+        <Form
+          firstInputOnKeyDown={this.onfirstInputKeyDown}
+          firstInputValue={this.state.username}
+          firstInputType="text/number"
+          firstInputLabel="username"
+          firstInputPlaceHolder={
+            this.state.error ? "No Account Found." : "Username"
+          }
+          firstInputRef={this.firstInputRef}
+          secondInputPlaceHolder="johndoe@gmail.com"
+          secondInputType="text"
+          secondInputLabel="email"
+          secondInputRef={this.secondInputRef}
+          secondInputValue={this.state.email}
+          buttonType="submit"
+          formTitle="Forgot Password"
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Background>
     );
   }
 }

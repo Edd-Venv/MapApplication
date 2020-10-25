@@ -1,3 +1,14 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  position: fixed;
+  overflow-y: auto;
+}
 .BackGroundImg {
   background-image: url("../../../assets/Images/background/mapBackground.jpg");
   background-size: contain;

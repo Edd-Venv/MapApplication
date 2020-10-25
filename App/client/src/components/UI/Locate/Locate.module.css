@@ -1,7 +1,7 @@
 .Container {
   position: absolute;
   top: 75vh;
-  right: 1vh;
+  right: 0vh;
   background: none;
   border: none;
   z-index: 10;
@@ -9,13 +9,13 @@
 }
 @media (min-width: 500px) {
   .Container {
-    top: 55vh;
-    right: 2vh;
+    top: 50vh;
+    right: 0vh;
   }
 }
 @media (min-width: 600px) {
   .Container {
     top: 75vh;
-    right: 1vh;
+    right: 0vh;
   }
 }

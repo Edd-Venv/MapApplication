@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import classes from "./PasswordReset.module.css";
+import Background from "../../UI/Background/Background";
 import Form from "../../UI/Form/Form";
 
 class ResetPassword extends React.Component {
@@ -63,30 +63,27 @@ class ResetPassword extends React.Component {
     if (this.state.redirect) return <Redirect to="/" />;
 
     return (
-      <React.Fragment>
-        <div className={classes.BackGroundImg} />
-        <div data-test="component-password-reset" className={classes.Container}>
-          <Form
-            firstInputOnKeyDown={this.onfirstInputKeyDown}
-            firstInputValue={this.state.newpassword}
-            firstInputType="password"
-            firstInputLabel="newpassword"
-            firstInputPlaceHolder={
-              this.state.error ? "Match Passwords" : "New Password"
-            }
-            firstInputRef={this.firstInputRef}
-            secondInputPlaceHolder="Confirm Password"
-            secondInputType="password"
-            secondInputLabel="confirmpassword"
-            secondInputRef={this.secondInputRef}
-            secondInputValue={this.state.confirmpassword}
-            buttonType="submit"
-            formTitle="Reset"
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </div>
-      </React.Fragment>
+      <Background data_test="component-password-reset">
+        <Form
+          firstInputOnKeyDown={this.onfirstInputKeyDown}
+          firstInputValue={this.state.newpassword}
+          firstInputType="password"
+          firstInputLabel="newpassword"
+          firstInputPlaceHolder={
+            this.state.error ? "Match Passwords" : "New Password"
+          }
+          firstInputRef={this.firstInputRef}
+          secondInputPlaceHolder="Confirm Password"
+          secondInputType="password"
+          secondInputLabel="confirmpassword"
+          secondInputRef={this.secondInputRef}
+          secondInputValue={this.state.confirmpassword}
+          buttonType="submit"
+          formTitle="Reset"
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Background>
     );
   }
 }
