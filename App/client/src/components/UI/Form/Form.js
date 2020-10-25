@@ -9,8 +9,13 @@ const form = (props) => {
   let pictureUpload = null;
   let signInOptions = null;
   let signUpOptions = null;
+  let firstInputIcon = null;
+  let secondInputIcon = null;
 
   if (formTitle === "Sign In") {
+    firstInputIcon = <i className={`bx bx-user ${classes.Login_icon}`} />;
+    secondInputIcon = <i className={`bx bx-lock ${classes.Login_icon}`} />;
+
     forgotPassword = (
       <Link to="/forgot/password" className={classes.Login_forgot}>
         Forgot your password?
@@ -28,6 +33,9 @@ const form = (props) => {
   }
 
   if (formTitle === "Sign Up") {
+    firstInputIcon = <i className={`bx bx-user ${classes.Login_icon}`} />;
+    secondInputIcon = <i className={`bx bx-lock ${classes.Login_icon}`} />;
+
     pictureUpload = (
       <div>
         <p>Add A Photo (Optional)</p>
@@ -55,6 +63,16 @@ const form = (props) => {
     );
   }
 
+  if (formTitle === "Forgot Password") {
+    firstInputIcon = <i className={`bx bx-user ${classes.Login_icon}`} />;
+    secondInputIcon = <i className={`bx bx-mail-send ${classes.Login_icon}`} />;
+  }
+
+  if (formTitle === "Reset") {
+    firstInputIcon = <i className={`bx bx-lock ${classes.Login_icon}`} />;
+    secondInputIcon = <i className={`bx bx-lock ${classes.Login_icon}`} />;
+  }
+
   return (
     <div className={classes.Login_forms}>
       <form
@@ -65,7 +83,7 @@ const form = (props) => {
       >
         <h3 className={classes.Login_title}>{formTitle}</h3>
         <div className={classes.Login_box}>
-          <i className={`bx bx-user ${classes.Login_icon}`} />
+          {firstInputIcon}
           <input
             id="inputID"
             className={classes.Login_input}
@@ -83,7 +101,7 @@ const form = (props) => {
           />
         </div>
         <div className={classes.Login_box}>
-          <i className={`bx bx-lock ${classes.Login_icon}`} />
+          {secondInputIcon}
           <input
             className={classes.Login_input}
             name={props.secondInputLabel}
