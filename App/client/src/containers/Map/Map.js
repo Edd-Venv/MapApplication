@@ -18,11 +18,8 @@ const style = {
   top: 70,
   margin: "0 auto",
   borderColor: "black",
-  borderTopLeftRadius: "50px",
-  borderBottomLeftRadius: "50px",
-  borderTopRightRadius: "50px",
-  borderBottomRightRadius: "50px",
-  backgroundColor: "rgba(201, 201, 201, 0.66)",
+  borderRadius: "50px",
+  backgroundColor: "rgba(201, 201, 201, 0.9)",
   outline: 0,
   fontSize: "1.2rem",
   fontFamily: "Roboto Condensed, sans-serif",
@@ -99,9 +96,14 @@ const Map = (props) => {
         let show = false;
         if (location._id === props.state.selectedMarkerData._id) show = true;
 
+        // http://localhost:4030/public/icons/mappin.png",
         return (
           <Marker
             draggable={false}
+            icon={{
+              url: "http://localhost:4030/public/icons/map-pin.png",
+              scaledSize: new window.google.maps.Size(25, 25),
+            }}
             key={location._id}
             position={{
               lat: location.markerPosition.lat,
@@ -128,6 +130,10 @@ const Map = (props) => {
       >
         {savedLocations}
         <Marker
+          icon={{
+            url: "http://localhost:4030/public/icons/user-pin.png",
+            scaledSize: new window.google.maps.Size(40, 45),
+          }}
           draggable={true}
           onDragEnd={props.onMarkerDragEnd}
           position={{
@@ -167,6 +173,13 @@ Map.propTypes = {
 export default Map;
 
 /*
+
+  icon={{
+              url: "../../assets/icons/information.png",
+              scaledSize: new window.google.maps.Size(25, 25),
+            }}
+
+
 icon={{
               url: "../../assets/Images/icons/infomation.svg",
               scaledSize: new window.google.maps.Size(25, 25),
