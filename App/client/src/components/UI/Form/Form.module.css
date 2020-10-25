@@ -123,7 +123,6 @@ a {
 
 @media (min-width: 300px) {
   .Login_forms {
-    width: min-content;
     justify-content: center;
   }
   .FileUpload {

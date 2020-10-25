@@ -6,7 +6,7 @@
   height: 11em;
   border-radius: 50%;
   background: #ffffff;
-  background: -moz-linear-gradient(left, #201e1e 10%, rgba(32, 30, 30, 0) 42%);
+  background: -moz-linear-gradient(left, #201e1e 10%, rgba(32, 30, 30, 1) 42%);
   background: -webkit-linear-gradient(
     left,
     #201e1e 10%,
@@ -25,7 +25,7 @@
 .Loader:before {
   width: 50%;
   height: 50%;
-  background: #ffffff;
+  background: #000000;
   border-radius: 100% 0 0 0;
   position: absolute;
   top: 0;
@@ -33,7 +33,7 @@
   content: "";
 }
 .Loader:after {
-  background: #ffffff;
+  background: #16e572;
   width: 75%;
   height: 75%;
   border-radius: 50%;

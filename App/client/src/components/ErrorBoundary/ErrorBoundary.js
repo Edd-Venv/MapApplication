@@ -1,4 +1,5 @@
 import React from "react";
+import Background from "../UI/Background/Background";
 
 class ErrorBoundary extends React.Component {
   state = { hasError: false, errorMessage: "" };
@@ -9,9 +10,11 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError)
       return (
-        <h1 data-test="component-error-boundary">
-          Unable To Load Map Please Refresh Brower :) .
-        </h1>
+        <Background>
+          <h1 data-test="component-error-boundary">
+            Unable To Load Map, We Are Working on It.
+          </h1>
+        </Background>
       );
     else return this.props.children;
   }
