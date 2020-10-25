@@ -1,11 +1,11 @@
-.CustomFileUpload {
+/*.CustomFileUpload {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
 }
 .CustomFileInput[type="file"] {
   display: none;
-}
+}*/
 
 *,
 ::before,
@@ -15,6 +15,12 @@
 
 a {
   text-decoration: none;
+}
+.FileUpload {
+  display: flex;
+  border: 5px solid;
+  padding-bottom: 5px;
+  background-color: whitesmoke;
 }
 
 .Login {
@@ -63,13 +69,14 @@ a {
 .Login_input {
   border: none;
   outline: none;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.938rem;
   font-weight: 700;
-  color: #23004d;
+  color: #0a0016;
 }
 .Login_input::placeholder {
   font-size: 0.938rem;
-  font-family: "Open sans", sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #a49eac;
 }
 
@@ -119,6 +126,13 @@ a {
     width: min-content;
     justify-content: center;
   }
+  .FileUpload {
+    padding: 1.1rem 0.3rem;
+    background-color: #fff;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border-color: white;
+  }
 }
 
 @media (min-width: 500px) {
@@ -130,6 +144,9 @@ a {
 @media (min-width: 600px) {
   .Login_forms {
     margin-top: 0vh;
+  }
+  .FileUpload {
+    padding: 1.125rem 1rem;
   }
 }
 

@@ -48,14 +48,7 @@ class ChangeUserPhoto extends React.Component {
         onSubmit={this.handleSubmit}
       >
         <div className={classes.Container}>
-          <div
-            style={{
-              border: "5px solid",
-              paddingBottom: "5px",
-              width: "fit-content",
-              borderBottomLeftRadius: "40px",
-            }}
-          >
+          <div className={classes.ImgContainer}>
             <img
               alt="Logo"
               className={classes.Img}
@@ -63,7 +56,7 @@ class ChangeUserPhoto extends React.Component {
             />
           </div>
           <label htmlFor="photo"></label>
-          <div style={{ border: "5px solid", paddingBottom: "5px" }}>
+          <div className={classes.FileUpload}>
             <input
               style={{ outline: "none" }}
               type="file"

@@ -20,9 +20,9 @@ const form = (props) => {
     signInOptions = (
       <div>
         <span className={classes.Login_account}>Don't have an account?</span>
-        <span className={classes.Login_signin} id="sign-up">
+        <Link className={classes.Login_signin} to="/signup">
           Sign Up
-        </span>
+        </Link>
       </div>
     );
   }
@@ -30,8 +30,8 @@ const form = (props) => {
   if (formTitle === "Sign Up") {
     pictureUpload = (
       <div>
-        <label htmlFor="photo" className={classes.CustomFileUpload}>
-          Click To Add Photo ( Optional )
+        <p>Add A Photo (Optional)</p>
+        <label htmlFor="photo" className={classes.FileUpload}>
           <input
             className={classes.CustomFileInput}
             onChange={onBlobInputChange}
@@ -48,9 +48,9 @@ const form = (props) => {
       <div>
         {" "}
         <span className={classes.Login_account}>Already have an account?</span>
-        <span className={classes.Login_signup} id="sign-in">
+        <Link className={classes.Login_signup} to="/signin">
           Sign In
-        </span>
+        </Link>
       </div>
     );
   }
@@ -65,7 +65,7 @@ const form = (props) => {
       >
         <h3 className={classes.Login_title}>{formTitle}</h3>
         <div className={classes.Login_box}>
-          <i className={`bx bx-user ${classes.Login_icon}`}></i>
+          <i className={`bx bx-user ${classes.Login_icon}`} />
           <input
             id="inputID"
             className={classes.Login_input}
@@ -83,7 +83,7 @@ const form = (props) => {
           />
         </div>
         <div className={classes.Login_box}>
-          <i className={`bx bx-lock ${classes.Login_icon}`}></i>
+          <i className={`bx bx-lock ${classes.Login_icon}`} />
           <input
             className={classes.Login_input}
             name={props.secondInputLabel}

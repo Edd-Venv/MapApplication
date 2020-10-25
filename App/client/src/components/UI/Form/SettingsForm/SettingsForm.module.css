@@ -16,12 +16,13 @@
     width: fit-content;
     color: #313638;
     letter-spacing: 0.15rem;
-    background-color: rgba(132, 125, 133, 0.6);
+    background-color: rgba(242, 242, 242, 0.81);
     font-family: "Oswald", sans-serif;
     margin-top: 20vh;
     display: flex;
     flex-direction: column;
     z-index: 10;
+    border-radius: 5px;
   }
   .InputForms {
     display: flex;
@@ -47,8 +48,6 @@
 }
 @media (min-width: 768px) {
   .Form {
-    background-color: rgba(197, 191, 197, 0.8);
-
     font: 2rem;
     margin-top: 13vh;
     flex-direction: row;
@@ -62,6 +61,7 @@
   .Form {
     font: 2rem;
     margin-top: 0vh;
+    justify-content: space-evenly;
   }
   .Inputs {
     margin: 20px;

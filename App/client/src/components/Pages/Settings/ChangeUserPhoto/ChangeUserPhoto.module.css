@@ -1,44 +1,81 @@
 .Container {
   display: flex;
   flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  background-color: #f2f2f2;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35, 0, 77, 0.2);
+  margin-bottom: 1rem;
 }
 @media (min-width: 300px) {
   .Img {
     width: 27vw;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 50px;
+  }
+  .ImgContainer {
+    border-radius: 60px;
+    color: #ededed;
+    align-self: center;
+  }
+  .FileUpload {
+    padding: 1.1rem 0.3rem;
+    background-color: #fff;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border-color: white;
   }
 }
-@media (min-width: 426px) {
+@media (min-width: 400px) {
+  .Img {
+    width: 27vw;
+    border-radius: 70px;
+  }
+}
+@media (min-width: 500px) {
+  .ImgContainer {
+    border-radius: 90px;
+  }
+  .Img {
+    width: 27vw;
+    border-radius: 70px;
+  }
 }
 
 @media (min-width: 700px) {
+  .Container {
+    margin-right: 1rem;
+  }
+  .FileUpload {
+    padding: 1.125rem 1rem;
+  }
+  .ImgContainer {
+    border-radius: 90px;
+    border: 5px solid;
+    align-self: none;
+  }
   .Img {
     width: 21vw;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 80px;
   }
 }
 @media (min-width: 1020px) {
+  .ImgContainer {
+    border-radius: 120px;
+  }
   .Img {
-    width: 16vw;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    width: 21vw;
+    border-radius: 130px;
   }
 }
 @media (min-width: 1200px) {
+  .ImgContainer {
+    border-radius: 120px;
+  }
   .Img {
-    width: 8vw;
-    border-top-left-radius: 45px;
-    border-top-right-radius: 45px;
-    border-bottom-left-radius: 45px;
-    border-bottom-right-radius: 45px;
+    width: 21vw;
+    border-radius: 130px;
   }
 }
 @media (min-width: 1440px) {
