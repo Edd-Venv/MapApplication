@@ -6,17 +6,20 @@
 }
 
 .NavigationItem a {
-  color: #8f5c2c;
+  color: #4d4385;
   text-decoration: none;
   width: 100%;
   box-sizing: border-box;
   display: block;
 }
 
-.NavigationItem a:hover,
+.NavigationItem a:hover {
+  color: rgba(90, 0, 225, 0.82);
+}
+
 .NavigationItem a:active,
 .NavigationItem a.active {
-  color: #40a4;
+  color: rgba(90, 0, 225, 0.48);
 }
 
 @media (min-width: 500px) {
@@ -39,7 +42,7 @@
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
-    background-color: rgba(230, 228, 228, 0.7);
+    background-color: rgba(242, 242, 242, 0.62);
     border-bottom: 4px solid #65c776;
     color: green;
   }

@@ -150,31 +150,3 @@ Cockpit.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cockpit);
-
-/*
-
-   const isAuth = isAuthorized(
-        "http://localhost:4030/saved/locations",
-        "GET"
-      );
-      isAuth.then((res) => {
-        const { authorized, error } = res;
-        if (!authorized) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("_id");
-          localStorage.removeItem("username");
-
-          this.setState((prevState) => {
-            return {
-              error: true,
-              errorStatus: error.statusCode,
-              errorMessage: error.message,
-            };
-          });
-        } else {
-          const userId = localStorage.getItem("_id");
-          onComponentMountFetchLocations(userId);
-        }
-      });
-
-*/

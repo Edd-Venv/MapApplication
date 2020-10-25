@@ -1,0 +1,9 @@
+.Closebutton {
+  align-self: flex-end;
+  margin-right: 2vw;
+  margin-top: 1vw;
+  color: ghostwhite;
+  background-color: darkred;
+  border: none;
+  cursor: pointer;
+}

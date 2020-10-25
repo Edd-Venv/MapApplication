@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { changeUserName } from "../Utils/accountSettings";
-import handleToolTip from "../Utils/tooltip.js";
 
 class ChangeUserName extends React.Component {
   constructor(props) {

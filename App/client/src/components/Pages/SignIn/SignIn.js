@@ -3,8 +3,9 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../../../store/actions/signin";
 import * as authActionCreators from "../../../store/actions/auth";
+import Background from "../../UI/Background/Background";
 import Form from "../../UI/Form/Form";
-import classes from "./SignIn.module.css";
+import toolTip from "../../UI/ToolTip/ToolTip";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -19,6 +20,9 @@ class SignIn extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { state, onAuthentication } = this.props;
+
+    if (state.signInError)
+      toolTip("signin", "inputID", "formID", state.message);
 
     if (prevState.submitted && !state.signInError) {
       onAuthentication();
@@ -50,30 +54,27 @@ class SignIn extends React.Component {
     if (this.state.redirect) return <Redirect to="/" />;
 
     return (
-      <React.Fragment>
-        <div className={classes.BackGroundImg} />
-        <div data-test="component-sign-in" className={classes.Container}>
-          <Form
-            firstInputOnKeyDown={this.onfirstInputKeyDown}
-            firstInputValue={this.state.name}
-            firstInputType="text"
-            firstInputLabel="name"
-            firstInputPlaceHolder={
-              state.signInError ? "Account Not Found" : "User Name"
-            }
-            firstInputRef={this.firstInputRef}
-            secondInputPlaceHolder="Password"
-            secondInputType="password"
-            secondInputLabel="password"
-            secondInputRef={this.secondInputRef}
-            secondInputValue={this.state.password}
-            buttonType="submit"
-            formTitle="Sign In"
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </div>
-      </React.Fragment>
+      <Background data_test="component-sign-in">
+        <Form
+          firstInputOnKeyDown={this.onfirstInputKeyDown}
+          firstInputValue={this.state.name}
+          firstInputType="text"
+          firstInputLabel="name"
+          firstInputPlaceHolder={
+            state.signInError ? "Account Not Found" : "User Name"
+          }
+          firstInputRef={this.firstInputRef}
+          secondInputPlaceHolder="Password"
+          secondInputType="password"
+          secondInputLabel="password"
+          secondInputRef={this.secondInputRef}
+          secondInputValue={this.state.password}
+          buttonType="submit"
+          formTitle="Sign In"
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Background>
     );
   }
 }

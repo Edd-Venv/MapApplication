@@ -3,8 +3,9 @@ import * as actionCreators from "../../../store/actions/signup";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
+import Background from "../../UI/Background/Background";
+import toolTip from "../../UI/ToolTip/ToolTip";
 import Form from "../../UI/Form/Form";
-import classes from "../SignIn/SignIn.module.css";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -32,12 +33,13 @@ class SignUp extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           if (res.status === "ok") return <Redirect to="/" />;
+          else throw new Error(res.message);
         })
         .catch((error) => {
-          throw new Error("Sign-UpCli", error);
+          toolTip("signup", "inputID", "formID", error.message);
         });
     } catch (error) {
-      console.log(error);
+      console.log("SignUp", error);
     }
   };
 
@@ -53,30 +55,27 @@ class SignUp extends React.Component {
       onPasswordInputChange,
     } = this.props;
     return (
-      <React.Fragment>
-        <div className={classes.BackGroundImg} />
-        <div data-test="component-sign-up" className={classes.Container}>
-          <Form
-            firstInputOnKeyDown={this.onfirstInputKeyDown}
-            firstInputValue={state.name}
-            firstInputType="text"
-            firstInputLabel="name"
-            firstInputPlaceHolder="User Name"
-            firstInputRef={this.firstInputRef}
-            secondInputPlaceHolder="Password"
-            secondInputType="password"
-            secondInputLabel="password"
-            secondInputRef={this.secondInputRef}
-            secondInputValue={state.password}
-            buttonType="submit"
-            formTitle="Sign Up"
-            onBlobInputChange={onBlobInputChange}
-            onNameInputChange={onNameInputChange}
-            onPasswordInputChange={onPasswordInputChange}
-            handleSubmit={this.handleSubmit}
-          />
-        </div>
-      </React.Fragment>
+      <Background data_test="component-sign-up">
+        <Form
+          firstInputOnKeyDown={this.onfirstInputKeyDown}
+          firstInputValue={state.name}
+          firstInputType="text"
+          firstInputLabel="name"
+          firstInputPlaceHolder="User Name"
+          firstInputRef={this.firstInputRef}
+          secondInputPlaceHolder="Password"
+          secondInputType="password"
+          secondInputLabel="password"
+          secondInputRef={this.secondInputRef}
+          secondInputValue={state.password}
+          buttonType="submit"
+          formTitle="Sign Up"
+          onBlobInputChange={onBlobInputChange}
+          onNameInputChange={onNameInputChange}
+          onPasswordInputChange={onPasswordInputChange}
+          handleSubmit={this.handleSubmit}
+        />
+      </Background>
     );
   }
 }

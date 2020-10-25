@@ -1,6 +1,6 @@
 import React from "react";
-import * as actionCreators from "../../../store/actions/cockpit";
 import { connect } from "react-redux";
+import * as actionCreators from "../../../store/actions/cockpit";
 import classes from "./Locate.module.css";
 
 const locate = (props) => {
@@ -27,7 +27,7 @@ const locate = (props) => {
   };
   return (
     <button className={classes.Container} onClick={() => navi()}>
-      <i>locate</i>
+      <img src={require("../../../assets/icons/locate.png")} />
     </button>
   );
 };

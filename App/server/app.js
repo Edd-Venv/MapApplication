@@ -56,6 +56,10 @@ app.use(
   "/public/images",
   express.static(path.join(__dirname, "public", "images"))
 );
+app.use(
+  "/public/icons",
+  express.static(path.join(__dirname, "public", "icons"))
+);
 
 app.use(resetPaswordRoute);
 app.use(forgotPasswordRoute);

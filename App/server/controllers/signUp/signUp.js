@@ -36,7 +36,7 @@ exports.signUp = (req, res, next) => {
             });
           });
       } else {
-        const err = new Error("Entered User-Name Is Already Taken.");
+        const err = new Error("User-Name Is Taken.");
         err.statusCode = 500;
         next(err);
       }

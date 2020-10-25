@@ -1,114 +1,156 @@
-.CustomFileUpload {
+/*.CustomFileUpload {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
 }
 .CustomFileInput[type="file"] {
   display: none;
+}*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
-@media (min-width: 320px) {
-  .ForgotPassword {
-    color: #350000;
-    font-weight: lighter;
-    text-decoration: none;
-    width: 73%;
-    font-size: 13px;
-    letter-spacing: 0.01rem;
+a {
+  text-decoration: none;
+}
+.FileUpload {
+  display: flex;
+  border: 5px solid;
+  padding-bottom: 5px;
+  background-color: whitesmoke;
+}
+
+.Login {
+  display: grid;
+  grid-template-columns: 100%;
+  height: 100vh;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.Login_forms {
+  position: relative;
+  height: 358px;
+}
+.Login_Register {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  background-color: #f2f2f2;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(35, 0, 77, 0.2);
+}
+
+.Login_title {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.Login_box {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.5rem;
+  padding: 1.125rem 1rem;
+  background-color: #fff;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+}
+
+.Login_icon {
+  font-size: 1.5rem;
+  color: #4b51ff;
+}
+
+.Login_input {
+  border: none;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.938rem;
+  font-weight: 700;
+  color: #0a0016;
+}
+.Login_input::placeholder {
+  font-size: 0.938rem;
+  font-family: "Montserrat", sans-serif;
+  color: #a49eac;
+}
+
+.Login_forgot {
+  display: block;
+  width: max-content;
+  margin-left: auto;
+  margin-top: 0.5rem;
+  font-size: 600;
+  color: #350000;
+}
+
+.Login_account,
+.Login_signin,
+.Login_signup {
+  font-weight: 600;
+  font-size: 0.813rem;
+}
+.Login_account {
+  color: #23004d;
+}
+
+.Login_signin,
+.Login_signup {
+  color: #4b51ff;
+  cursor: pointer;
+  padding-left: 0.4rem;
+}
+
+.Login_button {
+  display: block;
+  padding: 1rem;
+  margin: 2rem 0;
+  background-color: #9d4bff;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.Login_button:hover {
+  background-color: #23004d;
+}
+
+@media (min-width: 300px) {
+  .Login_forms {
+    justify-content: center;
   }
-  .Form {
-    text-align: center;
-    margin: 0 auto;
-    font: 2rem;
-    width: 70vw;
-    color: #313638;
-    letter-spacing: 0.15rem;
-    background-color: rgba(132, 125, 133, 0.6);
-    font-family: "Oswald", sans-serif;
-  }
-  .Inputs {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background-color: transparent;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    outline: none;
-    box-shadow: none;
-    letter-spacing: 0.1rem;
-    margin: 16px;
-  }
-  .Inputs:focus {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-    background-color: transparent;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    outline: none;
-    box-shadow: none;
-    color: #313638;
-    border-color: #14ad13;
-    border-bottom-width: medium;
+  .FileUpload {
+    padding: 1.1rem 0.3rem;
+    background-color: #fff;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border-color: white;
   }
 }
-@media (min-width: 400px) {
-  .Form {
-    width: 58vw;
-    margin-top: 13vh;
-  }
-  .Inputs {
-    margin: 10px;
-  }
-  .ForgotPassword {
-    margin: 2px;
-  }
-}
+
 @media (min-width: 500px) {
-  .Form {
-    width: 40vw;
-    margin-top: 15vh;
-  }
-  .Inputs {
-    margin: 10px;
-  }
-  .ForgotPassword {
-    margin: 2px;
+  .Login_forms {
+    margin-top: 55vh;
   }
 }
-@media (min-width: 768px) {
-  .Form {
-    background-color: rgba(197, 191, 197, 0.8);
-    width: 31vw;
-    font: 2rem;
-    margin-top: 4vh;
+
+@media (min-width: 600px) {
+  .Login_forms {
+    margin-top: 0vh;
   }
-  .Inputs {
-    margin: 14px;
-  }
-  .ForgotPassword {
-    margin: 0px;
+  .FileUpload {
+    padding: 1.125rem 1rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .Form {
-    width: 25vw;
-    font: 2rem;
-    margin-top: 0vh;
-  }
-  .Inputs {
-    margin: 20px;
-  }
-  .ForgotPassword {
-    margin: 5px;
-    width: 80%;
-  }
-}
-
-@media (min-width: 1440px) {
-  .Form {
-    width: 35vw;
-    font: 2rem;
+  .Login_Register {
+    left: -11rem;
   }
 }
