@@ -171,17 +171,3 @@ Map.propTypes = {
 };
 
 export default Map;
-
-/*
-
-  icon={{
-              url: "../../assets/icons/information.png",
-              scaledSize: new window.google.maps.Size(25, 25),
-            }}
-
-
-icon={{
-              url: "../../assets/Images/icons/infomation.svg",
-              scaledSize: new window.google.maps.Size(25, 25),
-            }}
- */
