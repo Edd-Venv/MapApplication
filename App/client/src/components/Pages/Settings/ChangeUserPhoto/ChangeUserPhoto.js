@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../UI/Button/Button";
 import classes from "./ChangeUserPhoto.module.css";
 import { Redirect } from "react-router-dom";
-import { BaseUrl } from "../../../index";
+import { BaseUrl } from "../../../../index";
 import { connect } from "react-redux";
 import { changePhoto } from "../Utils/accountSettings";
 import * as actionCreators from "../../../../store/actions/changeuserphoto";
