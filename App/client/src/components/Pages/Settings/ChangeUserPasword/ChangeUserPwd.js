@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import * as actionCreators from "../../../../store/actions/changeuserpassword";
 import PropTypes from "prop-types";
 import { changePassword } from "../Utils/accountSettings";
-import { BaseUrl } from "../../../index";
+import { BaseUrl } from "../../../../index";
 
 class ChangeUserPwd extends React.Component {
   constructor(props) {
