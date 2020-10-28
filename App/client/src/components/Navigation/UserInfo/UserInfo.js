@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import classes from "./UserInfo.module.css";
 
-// import { BaseUrl } from "../../App.js";
+import { BaseUrl } from "../../../index";
 
 const UserInfo = () => {
   return (
@@ -18,7 +18,7 @@ const UserInfo = () => {
         <img
           alt="Logo"
           className={classes.LogoImg}
-          src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
+          src={`${BaseUrl}${localStorage.getItem("userImage")}`}
         />
         {localStorage.getItem("username")}
       </i>

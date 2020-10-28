@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../../UI/Button/Button";
 import classes from "./ChangeUserPhoto.module.css";
 import { Redirect } from "react-router-dom";
+import { BaseUrl } from "../../../index";
 import { connect } from "react-redux";
 import { changePhoto } from "../Utils/accountSettings";
 import * as actionCreators from "../../../../store/actions/changeuserphoto";
@@ -22,10 +23,7 @@ class ChangeUserPhoto extends React.Component {
     formData.append("photo", this.props.state.blob);
 
     if (this.props.state.blob) {
-      changePhoto(
-        "http://localhost:4030/account/settings/update/user-picture",
-        formData
-      )
+      changePhoto(`${BaseUrl}account/settings/update/user-picture`, formData)
         .then((result) => result.json())
         .then((response) => {
           if (response.status === "ok")
@@ -52,7 +50,7 @@ class ChangeUserPhoto extends React.Component {
             <img
               alt="Logo"
               className={classes.Img}
-              src={`http://localhost:4030/${localStorage.getItem("userImage")}`}
+              src={`${BaseUrl}${localStorage.getItem("userImage")}`}
             />
           </div>
           <label htmlFor="photo"></label>

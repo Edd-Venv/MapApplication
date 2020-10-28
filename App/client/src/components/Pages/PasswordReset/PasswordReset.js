@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import Background from "../../UI/Background/Background";
 import Form from "../../UI/Form/Form";
+import { BaseUrl } from "../../../index";
 
 class ResetPassword extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ResetPassword extends React.Component {
     event.preventDefault();
     const { newpassword, confirmpassword } = this.state;
     if (newpassword === confirmpassword) {
-      fetch("http://localhost:4030/reset/password", {
+      fetch(`${BaseUrl}reset/password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

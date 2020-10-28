@@ -1,4 +1,7 @@
 /* eslint-disable arrow-body-style */
+
+import { BaseUrl } from "../../index";
+
 export const SIGN_IN = "SIGN_IN";
 export const ERROR = "ERROR";
 export const LOGOUT = "LOGOUT";
@@ -16,7 +19,7 @@ export const getSignIn = (state) => {
   return (dispatch) => {
     const { name, password } = state;
 
-    fetch("http://localhost:4030/sign-in", {
+    fetch(`${BaseUrl}sign-in`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

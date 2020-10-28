@@ -5,6 +5,8 @@ import {
   handlePlaceSelected,
 } from "../Utils";
 
+import { BaseUrl } from "../../index";
+
 export const RESET_COCKPIT_STATE = "RESET_COCKPIT_STATE";
 export const LOCATE_ME = "LOCATE_ME";
 export const DELETE_LOCATION = "DELETE_LOCATION";
@@ -92,7 +94,7 @@ export const setMylocations = (locations) => {
 export const getMyLocations = () => {
   const token = localStorage.getItem("token");
   return (dispatch) => {
-    fetch("http://localhost:4030/saved/locations", {
+    fetch(`${BaseUrl}saved/locations`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -121,7 +123,7 @@ export const setDeleteSelectedLocation = (locationId) => {
 export const deleteSelectedLocation = (_id) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
-    fetch("http://localhost:4030/saved/locations/delete", {
+    fetch(`${BaseUrl}saved/locations/delete`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +144,7 @@ export const saveMyLocation = (state) => {
     const markerPosition = Object.assign({}, state.markerPosition);
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("_id");
-    fetch("http://localhost:4030/saved/locations", {
+    fetch(`${BaseUrl}saved/locations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

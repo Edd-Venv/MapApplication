@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import Background from "../../UI/Background/Background";
 import Form from "../../UI/Form/Form";
+import { BaseUrl } from "../../../index";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class ForgotPassword extends React.Component {
     event.preventDefault();
     const { email, username } = this.state;
     try {
-      fetch("http://localhost:4030/forgot/password", {
+      fetch(`${BaseUrl}forgot/password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
