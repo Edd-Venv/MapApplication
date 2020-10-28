@@ -15,7 +15,7 @@ import changeUserPasswordReducer from "./store/reducers/changeuserpassword";
 import changeUserPhotoReducer from "./store/reducers/changeuserphoto";
 import authReducer from "./store/reducers/auth";
 
-const BaseUrl = "http://18.222.115.53:4030/";
+export const BaseUrl = "http://18.222.115.53:4030/";
 //const BaseUrl = "http://localhost:3000"
 
 const rootReducer = combineReducers({

@@ -7,6 +7,8 @@ import Background from "../../UI/Background/Background";
 import toolTip from "../../UI/ToolTip/ToolTip";
 import Form from "../../UI/Form/Form";
 
+import { BaseUrl } from "../../../index";
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class SignUp extends React.Component {
 
     if (this.props.state.blob) formData.append("photo", this.props.state.blob);
     try {
-      fetch("http://localhost:4030/sign-up", {
+      fetch(`${BaseUrl}sign-up`, {
         method: "POST",
         body: formData,
       })

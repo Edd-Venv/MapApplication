@@ -1,4 +1,6 @@
 /* eslint-disable arrow-body-style */
+import { BaseUrl } from "../../index";
+
 import isAuthorized from "../../components/Pages/utils/isAuthorized";
 
 export const AUTH = "AUTH";
@@ -11,7 +13,7 @@ export const setAuth = (response) => {
 };
 export const getAuth = () => {
   return (dispatch) => {
-    isAuthorized("http://localhost:4030/saved/locations", "GET").then((res) => {
+    isAuthorized(`${BaseUrl}saved/locations`, "GET").then((res) => {
       const { authorized, error } = res;
       if (!authorized) {
         return dispatch(

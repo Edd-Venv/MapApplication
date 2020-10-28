@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { changeUserName } from "../Utils/accountSettings";
+import { BaseUrl } from "../../../index";
 
 class ChangeUserName extends React.Component {
   constructor(props) {
@@ -18,10 +19,7 @@ class ChangeUserName extends React.Component {
     event.preventDefault();
 
     const username = this.props.state.new_user_name;
-    changeUserName(
-      "http://localhost:4030/account/settings/update/username",
-      username
-    )
+    changeUserName(`${BaseUrl}account/settings/update/username`, username)
       .then((res) => res.json())
       .then((result) => {
         if (result.status === "ok")

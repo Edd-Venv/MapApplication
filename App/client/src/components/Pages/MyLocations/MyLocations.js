@@ -12,6 +12,7 @@ import NotAuthorized from "../404";
 import CloseButton from "../../UI/Button/CloseButton/CloseButton";
 import SearchInput from "../../UI/SearchInput/SearchInput";
 import isAuthorized from "../utils/isAuthorized";
+import { BaseUrl } from "../../../index";
 
 class MyLocations extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class MyLocations extends React.Component {
 
   componentDidMount() {
     const { onComponentMountFetchLocations } = this.props;
-    const isAuth = isAuthorized("http://localhost:4030/saved/locations", "GET");
+    const isAuth = isAuthorized(`${BaseUrl}saved/locations`, "GET");
     isAuth.then((res) => {
       const { authorized, error } = res;
 
