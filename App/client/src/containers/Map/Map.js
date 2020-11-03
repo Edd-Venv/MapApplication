@@ -11,8 +11,8 @@ import mapStyle from "./MapStyle";
 import Button from "../../components/UI/Button/Button";
 import LocateMe from "../../components/UI/Locate/Locate";
 
-//const ServerUrl = "http://18.222.115.53:4030";
-const ServerUrl = "http://localhost:4030/";
+const ServerUrl = "https://edd-venv-map.herokuapp.com/";
+//const ServerUrl = "http://localhost:4030/";
 
 const InputContainer = { display: "flex", justifyContent: "center" };
 const style = {
