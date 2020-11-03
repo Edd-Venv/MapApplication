@@ -11,6 +11,9 @@ import mapStyle from "./MapStyle";
 import Button from "../../components/UI/Button/Button";
 import LocateMe from "../../components/UI/Locate/Locate";
 
+const ServerUrl = "https://edd-venv-map.herokuapp.com/";
+//const ServerUrl = "http://localhost:4030/";
+
 const InputContainer = { display: "flex", justifyContent: "center" };
 const style = {
   position: "fixed",
@@ -96,12 +99,12 @@ const Map = (props) => {
         let show = false;
         if (location._id === props.state.selectedMarkerData._id) show = true;
 
-        // http://localhost:4030/public/icons/mappin.png",
+        //`${ServerUrl}public/icons/mappin.png",
         return (
           <Marker
             draggable={false}
             icon={{
-              url: "http://localhost:4030/public/icons/map-pin.png",
+              url: `${ServerUrl}public/icons/map-pin.png`,
               scaledSize: new window.google.maps.Size(25, 25),
             }}
             key={location._id}
@@ -131,7 +134,7 @@ const Map = (props) => {
         {savedLocations}
         <Marker
           icon={{
-            url: "http://localhost:4030/public/icons/user-pin.png",
+            url: `${ServerUrl}public/icons/user-pin.png`,
             scaledSize: new window.google.maps.Size(40, 45),
           }}
           draggable={true}

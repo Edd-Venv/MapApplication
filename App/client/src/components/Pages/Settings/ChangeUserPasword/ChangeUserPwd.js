@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import * as actionCreators from "../../../../store/actions/changeuserpassword";
 import PropTypes from "prop-types";
 import { changePassword } from "../Utils/accountSettings";
+import { BaseUrl } from "../../../../index";
 
 class ChangeUserPwd extends React.Component {
   constructor(props) {
@@ -19,10 +20,7 @@ class ChangeUserPwd extends React.Component {
 
     const password = this.props.state.new_password;
 
-    changePassword(
-      "http://localhost:4030/account/settings/update/password",
-      password
-    )
+    changePassword(`${BaseUrl}account/settings/update/password`, password)
       .then((res) => res.json())
       .then((result) => {
         if (result.status === "ok")

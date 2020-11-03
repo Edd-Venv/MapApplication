@@ -4,7 +4,6 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { applyMiddleware, createStore, combineReducers, compose } from "redux";
 import { Provider } from "react-redux";
-import { Redirect } from "react-router-dom";
 import App from "./App";
 import thunk from "redux-thunk";
 import * as serviceWorker from "./serviceWorker";
@@ -15,6 +14,14 @@ import changeUserNameReducer from "./store/reducers/changeusername";
 import changeUserPasswordReducer from "./store/reducers/changeuserpassword";
 import changeUserPhotoReducer from "./store/reducers/changeuserphoto";
 import authReducer from "./store/reducers/auth";
+
+export const BaseUrl = "https://edd-venv-map.herokuapp.com/";
+//export const BaseUrl = "http://localhost:4030/";
+
+if (!localStorage.getItem("userImage") || !localStorage.getItem("username")) {
+  localStorage.setItem("userImage", "public/images/default.jpeg");
+  localStorage.setItem("username", "Guest");
+}
 
 const rootReducer = combineReducers({
   auth: authReducer,
