@@ -54,15 +54,6 @@ class Cockpit extends React.Component {
     }
   }
 
-  /*shouldComponentUpdate(nextProps, nextState) {
-    console.log("map", this.props.state, nextProps.state);
-    //if (this.state === nextState) return false;
-    return true;
-  }
-  componentDidUpdate(prevProps, prevState) {
-    console.log("map", this.state, prevState, prevProps);
-  }*/
-
   render() {
     const {
       state,
@@ -77,7 +68,6 @@ class Cockpit extends React.Component {
     } = this.props;
 
     if (state.cockpit.isDataLoaded) {
-      console.log("REndered");
       return (
         <ErrorBoundary data-test="component-error-boundary">
           <Map

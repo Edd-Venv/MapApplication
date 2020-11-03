@@ -31,29 +31,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(UserInfo);
-
-/* useEffect(() => {
-    if (localStorage.getItem("userName") && !user.accesstoken) setName("GUEST");
-    else if (localStorage.getItem("userName"))
-      setName(localStorage.getItem("userName"));
-    else setName("GUEST");
-
-    if (user.accesstoken && !localStorage.getItem("userName"))
-      props.logOutCallback();
-  }, [user.accesstoken]); 
-  
-  
-    componentDidMount() {
-    if (localStorage.getItem("username") && !localStorage.getItem("token")) {
-      this.setState({ name: "Guest" });
-    } else if (localStorage.getItem("username"))
-      this.setState({ name: localStorage.getItem("username") });
-    //else this.setState({ name: "Guest" });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("should update", this.state);
-    console.log(nextState.name, localStorage.getItem("username"));
-    if (nextState.name !== this.state.name) return true;
-    return false;
-  }*/

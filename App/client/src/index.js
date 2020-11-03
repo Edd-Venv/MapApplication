@@ -16,7 +16,6 @@ import changeUserPhotoReducer from "./store/reducers/changeuserphoto";
 import authReducer from "./store/reducers/auth";
 
 export const BaseUrl = "https://edd-venv-map.herokuapp.com/";
-//export const BaseUrl = "http://localhost:4030/";
 
 if (!localStorage.getItem("userImage") || !localStorage.getItem("username")) {
   localStorage.setItem("userImage", "public/images/default.jpeg");

@@ -72,33 +72,3 @@ ChangeUserName.propTypes = {
   onNewNameInputChange: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ChangeUserName);
-
-/*
- shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.redirect === this.state.redirect)
-      return false;
-    return true;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    //if (this.state.redirect !== prevState.redirect) return true;
-    console.log(this.state.redirect, prevState.redirect);
-  }
-
-
-handleToolTip(
-    "change-user-name-tool-tip",
-    "change-user-name-input",
-    "change-user-name-form"
-  );
-
-  useEffect(() => {
-    if (document.getElementById("change-user-name-tool-tip")) {
-      const setToolTip = document.getElementById("change-user-name-tool-tip");
-      if (state.message !== "") setToolTip.textContent = state.message;
-
-      setTimeout(() => {
-        setToolTip.textContent = "";
-      }, 3000);
-    }
-  }, [state.message]);*/
