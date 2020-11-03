@@ -15,8 +15,13 @@ import changeUserPasswordReducer from "./store/reducers/changeuserpassword";
 import changeUserPhotoReducer from "./store/reducers/changeuserphoto";
 import authReducer from "./store/reducers/auth";
 
-//export const BaseUrl = "http://18.222.115.53:4030/";
-export const BaseUrl = "http://localhost:4030/";
+export const BaseUrl = "https://edd-venv-map.herokuapp.com/";
+//export const BaseUrl = "http://localhost:4030/";
+
+if (!localStorage.getItem("userImage") || !localStorage.getItem("username")) {
+  localStorage.setItem("userImage", "public/images/default.jpeg");
+  localStorage.setItem("username", "Guest");
+}
 
 const rootReducer = combineReducers({
   auth: authReducer,
