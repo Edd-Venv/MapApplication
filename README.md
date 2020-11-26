@@ -10,3 +10,6 @@ Uses React js
 
 ## Back-End
 Uses Node js / Express js And MongoDB as a DataBase.
+
+## State management
+Uses Redux
