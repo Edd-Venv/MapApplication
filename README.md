@@ -1,6 +1,6 @@
 # Map Application
 
-Provides Geoloation Information.
+Provides Geolocation Information.
 
 Perfoms CRUD Opertaions.
 Has Authentication using JWT.
